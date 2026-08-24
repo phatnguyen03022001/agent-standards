@@ -58,21 +58,42 @@ requirements:
       - runtime_observation
       - formal_verification
     independence: none
-- id: REL-2.4
+- id: REL-2.5
   level: 2
-  statement: Failure of a dependency must produce bounded target behavior and a repeatable recovery path to a defined state.
-  intent: Make dependency-failure handling and its recovery contract independently diagnosable.
+  statement: Failure or unavailability of a dependency must keep target behavior within explicit failure bounds.
+  intent: Make bounded dependency-failure behavior independently diagnosable from recovery.
   applicability:
     mode: conditional
     any_of:
     - The target depends on a component or external service whose failure or unavailability can affect in-scope operation.
   evidence:
     required:
-    - demonstrates: Dependency-failure and recovery bounds are explicit.
+    - demonstrates: Target behavior bounds during dependency failure or unavailability are explicit.
       classes:
       - artifact_inspection
       - analysis
-    - demonstrates: Representative dependency failures and restoration follow the stated bounds and recovery path.
+    - demonstrates: Representative dependency failures or unavailability remain within the stated target-behavior bounds.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: none
+- id: REL-2.6
+  level: 2
+  statement: Recovery from dependency failure or unavailability must follow a repeatable path to a defined target state.
+  intent: Make dependency-failure recovery independently diagnosable from failure containment.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target depends on a component or external service whose failure or unavailability can affect in-scope operation.
+  evidence:
+    required:
+    - demonstrates: The defined target recovery state and dependency-failure recovery path are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative recovery from dependency failure or unavailability repeatably reaches the defined target
+        state.
       classes:
       - reproducible_test
       - operational_exercise

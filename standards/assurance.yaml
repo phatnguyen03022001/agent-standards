@@ -120,17 +120,16 @@ requirements:
     independence: independent_review
 - id: ASR-4.3
   level: 4
-  statement: A documented material blind spot in the primary verification method for a highest-consequence claim must be addressed
-    by a complementary verification method with a distinct failure mode.
+  statement: A material blind spot in the primary verification method for a highest-consequence claim must be addressed by
+    a complementary verification method with a distinct failure mode.
   intent: Require complementary evidence only on an objective blind-spot predicate rather than vague discretion.
   applicability:
     mode: conditional
     any_of:
-    - A verification method used for a highest-consequence engineering claim has a documented material blind spot that a distinct
-      verification method can address.
+    - A material verification blind spot exists in a verification method used for a highest-consequence engineering claim.
   evidence:
     required:
-    - demonstrates: The primary method blind spot and the distinct complementary method are explicitly identified.
+    - demonstrates: The material primary-method blind spot and the distinct complementary method are explicitly identified.
       classes:
       - artifact_inspection
       - analysis

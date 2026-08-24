@@ -105,21 +105,43 @@ requirements:
       - provenance_attestation
       - reproducible_test
     independence: independent_review
-- id: SUP-4.3
+- id: SUP-4.4
   level: 4
-  statement: Compromise, revocation, or invalidation of a highest-consequence supply-chain input must have a bounded detection
-    and recovery path for affected delivered artifacts.
-  intent: Separate compromise response and recovery from provenance proof.
+  statement: Compromise, revocation, or invalidation of a highest-consequence supply-chain input must be detected within an
+    explicit bound for affected delivered artifacts.
+  intent: Make consequential supply-chain compromise or revocation detection independently diagnosable from artifact recovery.
   applicability:
     mode: always
   evidence:
     required:
-    - demonstrates: Compromise, revocation, or invalidation conditions and affected-artifact scope are explicit.
+    - demonstrates: The highest-consequence input compromise, revocation, or invalidation conditions, affected-artifact scope,
+        and detection bound are explicit.
       classes:
       - artifact_inspection
       - analysis
-    - demonstrates: Representative compromise or revocation is detected and the affected artifact path reaches the stated
-        bounded recovery state.
+    - demonstrates: Representative compromise, revocation, or invalidation is detected within the stated bound for affected
+        delivered artifacts.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: SUP-4.5
+  level: 4
+  statement: Delivered artifacts affected by compromise, revocation, or invalidation of a highest-consequence supply-chain
+    input must have a bounded path to a defined recovery state.
+  intent: Make consequential affected-artifact recovery independently diagnosable from compromise or revocation detection.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The affected-artifact scope, defined recovery state, and recovery bound are explicit for the selected
+        highest-consequence input conditions.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative affected delivered artifacts reach the defined recovery state within the stated bound after
+        compromise, revocation, or invalidation.
       classes:
       - operational_exercise
       - reproducible_test

@@ -45,7 +45,6 @@ class ValidatorTests(unittest.TestCase):
         finally:
             td.cleanup()
 
-
     def test_unhashable_yaml_mapping_key_is_controlled(self):
         td, dst = self._copy_tree()
         try:
@@ -356,7 +355,6 @@ class ValidatorTests(unittest.TestCase):
         finally:
             td.cleanup()
 
-
     def test_evidence_classes_container_type_rejected(self):
         td, dst = self._copy_tree()
         try:
@@ -439,6 +437,70 @@ class ValidatorTests(unittest.TestCase):
                     req["evidence"]["independence"] = "independent_review"
             self._write(p, data)
             self._assert_invalid(dst, "no Level 5 independent-reproduction requirement")
+        finally:
+            td.cleanup()
+
+    def _requirement(self, filename, rid):
+        data = yaml.safe_load((ROOT / "standards" / filename).read_text(encoding="utf-8"))
+        return next(req for req in data["requirements"] if req["id"] == rid)
+
+    def test_audit_b_applicability_predicates_use_underlying_facts(self):
+        for filename, rid in (("assurance.yaml", "ASR-4.3"), ("security.yaml", "SEC-2.3"),
+                              ("security.yaml", "SEC-2.5"), ("privacy.yaml", "PRI-2.5"),
+                              ("safety.yaml", "SAF-5.3")):
+            with self.subTest(rid=rid):
+                app = self._requirement(filename, rid)["applicability"]
+                self.assertEqual("conditional", app["mode"])
+                predicates = " ".join(app.get("all_of", []) + app.get("any_of", [])).casefold()
+                for forbidden in ("documented", "identified", "inventory", "identifies"):
+                    self.assertNotIn(forbidden, predicates)
+
+    def test_capability_specific_requirements_are_conditional(self):
+        for filename, rid in (("data-integrity.yaml", "DAT-2.2"), ("data-integrity.yaml", "DAT-2.5"),
+                              ("observability.yaml", "OBS-3.2"), ("observability.yaml", "OBS-3.3")):
+            with self.subTest(rid=rid):
+                self.assertEqual("conditional", self._requirement(filename, rid)["applicability"]["mode"])
+
+    def test_retired_compound_ids_are_replaced_with_atomic_controls(self):
+        rel = yaml.safe_load((ROOT / "standards" / "reliability.yaml").read_text(encoding="utf-8"))["requirements"]
+        rel_by_id = {req["id"]: req for req in rel}
+        self.assertNotIn("REL-2.4", rel_by_id)
+        self.assertIn("REL-2.5", rel_by_id)
+        self.assertIn("REL-2.6", rel_by_id)
+        self.assertNotIn("recovery", rel_by_id["REL-2.5"]["statement"].casefold())
+        self.assertIn("recovery", rel_by_id["REL-2.6"]["statement"].casefold())
+
+        sup = yaml.safe_load((ROOT / "standards" / "supply-chain.yaml").read_text(encoding="utf-8"))["requirements"]
+        sup_by_id = {req["id"]: req for req in sup}
+        self.assertNotIn("SUP-4.3", sup_by_id)
+        self.assertIn("SUP-4.4", sup_by_id)
+        self.assertIn("SUP-4.5", sup_by_id)
+        self.assertNotIn("recovery", sup_by_id["SUP-4.4"]["statement"].casefold())
+        self.assertIn("recovery", sup_by_id["SUP-4.5"]["statement"].casefold())
+
+    def test_eff_4_3_has_no_undefined_stronger_relation(self):
+        req = self._requirement("efficiency.yaml", "EFF-4.3")
+        text = " ".join([req["statement"], req["intent"]] +
+                        [ob["demonstrates"] for ob in req["evidence"]["required"]]).casefold()
+        self.assertNotIn("stronger", text)
+
+    def test_invalid_utf8_standards_file_is_controlled(self):
+        td, dst = self._copy_tree()
+        try:
+            p = dst / "standards" / "correctness.yaml"
+            p.write_bytes(b"\xff\xfedimension: COR\n")
+            self._assert_invalid(dst, "invalid UTF-8")
+        finally:
+            td.cleanup()
+
+    def test_mixed_type_unknown_mapping_keys_are_controlled_and_deterministic(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data[7] = "integer-key"
+            data["vendor"] = "string-key"
+            self._write(p, data)
+            self._assert_invalid(dst, "unknown=[7, 'vendor']")
         finally:
             td.cleanup()
 

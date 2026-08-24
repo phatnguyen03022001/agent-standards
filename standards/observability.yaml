@@ -45,14 +45,20 @@ requirements:
     independence: none
 - id: OBS-3.2
   level: 3
-  statement: Distributed, degraded, and cascading failures must preserve actionable detection conditions throughout the in-scope
-    failure path.
+  statement: Each in-scope distributed, degraded, or cascading failure path must preserve actionable detection conditions
+    throughout that failure path.
   intent: Make complex-failure detectability independently diagnosable from causality.
   applicability:
-    mode: always
+    mode: conditional
+    any_of:
+    - The in-scope system has distributed execution in which a material failure can span multiple components or execution
+      loci.
+    - The in-scope system has a material degraded or cascading failure path whose progression can cross an in-scope diagnostic
+      boundary.
   evidence:
     required:
-    - demonstrates: Representative complex failures preserve actionable detection conditions.
+    - demonstrates: Representative applicable distributed, degraded, or cascading failure paths preserve actionable detection
+        conditions throughout their progression.
       classes:
       - operational_exercise
       - runtime_observation
@@ -60,14 +66,19 @@ requirements:
     independence: none
 - id: OBS-3.3
   level: 3
-  statement: Distributed, degraded, and cascading failures must preserve enough causal trace to identify the in-scope propagation
-    boundary.
+  statement: Each in-scope distributed, degraded, or cascading failure path must preserve enough causal trace to identify
+    its propagation boundary.
   intent: Make complex-failure causality independently diagnosable from detection.
   applicability:
-    mode: always
+    mode: conditional
+    any_of:
+    - The in-scope system has distributed execution in which a material failure can span multiple components or execution loci.
+    - The in-scope system has a material degraded or cascading failure path whose progression can cross an in-scope diagnostic
+      boundary.
   evidence:
     required:
-    - demonstrates: Representative complex failures preserve causal trace to the stated propagation boundary.
+    - demonstrates: Representative applicable distributed, degraded, or cascading failure paths preserve causal trace to their
+        stated propagation boundaries.
       classes:
       - operational_exercise
       - runtime_observation

@@ -23,7 +23,9 @@ requirements:
   statement: A state transition that changes material data must satisfy its explicit atomicity invariant.
   intent: Make atomicity independently diagnosable from consistency.
   applicability:
-    mode: always
+    mode: conditional
+    any_of:
+    - The in-scope system performs a material state transition that can change material data.
   evidence:
     required:
     - demonstrates: Atomicity invariants are explicit at affected integrity boundaries.
@@ -78,7 +80,9 @@ requirements:
     committed state.
   intent: Make consistency independently diagnosable from atomicity.
   applicability:
-    mode: always
+    mode: conditional
+    any_of:
+    - The in-scope system performs a material state transition that can change material data.
   evidence:
     required:
     - demonstrates: Committed-state consistency invariants are explicit.

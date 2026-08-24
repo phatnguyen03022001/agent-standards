@@ -167,12 +167,12 @@ requirements:
   applicability:
     mode: conditional
     any_of:
-    - The competent target hazard model identifies isolation, redundancy, diversity, or equivalent architectural independence
-      as necessary to keep a highest-consequence severe-harm scenario bounded.
+    - An applicable externally-owned safety constraint requires isolation, redundancy, diversity, or equivalent architectural
+      independence to keep a highest-consequence severe-harm scenario bounded.
   evidence:
     required:
-    - demonstrates: The hazard-model architectural independence constraint and governed severe-harm path are traced from the
-        external constraint inventory.
+    - demonstrates: The applicable externally-owned architectural independence constraint, authoritative source or competent
+        owner, and governed severe-harm path are explicitly identified and traced.
       classes:
       - artifact_inspection
       - analysis

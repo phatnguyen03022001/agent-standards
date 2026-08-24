@@ -69,7 +69,7 @@ requirements:
   applicability:
     mode: conditional
     any_of:
-    - The target has an identified security-sensitive confidentiality interest.
+    - A material security-sensitive confidentiality interest exists in the assessed scope.
   evidence:
     required:
     - demonstrates: The confidentiality interests and protection boundaries are explicit.
@@ -103,7 +103,7 @@ requirements:
   applicability:
     mode: conditional
     any_of:
-    - The target has an identified security-sensitive integrity interest.
+    - A material security-sensitive integrity interest exists in the assessed scope.
   evidence:
     required:
     - demonstrates: The integrity interests and protection boundaries are explicit.

@@ -83,12 +83,19 @@ def _reject_obscuring_yaml(text: str, path: Path) -> None:
 
 
 def load_yaml(path: Path):
-    text = path.read_text(encoding="utf-8")
+    try:
+        text = path.read_text(encoding="utf-8")
+    except UnicodeDecodeError as exc:
+        raise ValidationError(f"{path}: invalid UTF-8: {exc}") from exc
     _reject_obscuring_yaml(text, path)
     try:
         return yaml.load(text, Loader=StrictLoader)
     except (yaml.YAMLError, ValidationError) as exc:
         raise ValidationError(f"{path}: {exc}") from exc
+
+
+def _stable_sorted(values):
+    return sorted(values, key=lambda value: (type(value).__module__, type(value).__qualname__, repr(value)))
 
 
 def exact_keys(obj, expected, where):
@@ -97,7 +104,7 @@ def exact_keys(obj, expected, where):
     keys = set(obj)
     missing, unknown = expected - keys, keys - expected
     if missing or unknown:
-        raise ValidationError(f"{where}: missing={sorted(missing)} unknown={sorted(unknown)}")
+        raise ValidationError(f"{where}: missing={_stable_sorted(missing)} unknown={_stable_sorted(unknown)}")
 
 
 def nonempty_string(value, where):
@@ -110,7 +117,7 @@ def validate_app(app, where):
         raise ValidationError(f"{where}: applicability must be mapping")
     unknown = set(app) - APP_FIELDS
     if unknown:
-        raise ValidationError(f"{where}: unknown applicability fields {sorted(unknown)}")
+        raise ValidationError(f"{where}: unknown applicability fields {_stable_sorted(unknown)}")
     mode = app.get("mode")
     if type(mode) is not str:
         raise ValidationError(f"{where}: applicability mode must be string")

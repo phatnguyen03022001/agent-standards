@@ -40,6 +40,8 @@ YAML is canonical. Each requirement has exactly `id`, `level`, `statement`, `int
 
 Applicability is either `mode: always` or `mode: conditional` with at least one factual predicate in `all_of` and/or `any_of`. For conditional applicability, all `all_of` predicates must be true and, when `any_of` exists, at least one `any_of` predicate must be true. Predicates describe observable target facts, not vague discretion. Applicability conditions belong only in this canonical structure; an `always` requirement must not create an N/A escape hatch with prose such as “where applicable”, “where relevant”, “when appropriate”, or equivalent discretionary wording.
 
+Applicability truth is determined by the underlying target facts, not by whether the target has already documented, identified, inventoried, attributed, or traced those facts. Documentation, identification, inventory completeness, attribution, and traceability are substantive or evidence obligations rather than conditions that create applicability. If the truth of a conditional predicate cannot be established from sufficient attributable evidence, the requirement is `UNKNOWN`, not `N/A`; `N/A` requires evidence that the factual predicate is false. Omission from an inventory, hazard model, or other target-owned record cannot make an otherwise applicable externally-owned constraint inapplicable.
+
 Evidence contains a nonempty `required` list. Each obligation has `demonstrates` and one or more allowed `classes`; every obligation is required, while any one listed class can satisfy an obligation. `independence` is exactly `none`, `independent_review`, or `independent_reproduction`.
 
 ## Non-vacuous Level 4 and Level 5 scope

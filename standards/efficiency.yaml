@@ -104,18 +104,19 @@ requirements:
     independence: independent_review
 - id: EFF-4.3
   level: 4
-  statement: Resource-containment behavior must preserve every stronger in-scope correctness, security, integrity, reliability,
-    or safety constraint that it can affect.
-  intent: Prevent efficiency controls from trading away substantive engineering properties.
+  statement: Resource-containment behavior must preserve every applicable in-scope COR, SEC, DAT, REL, and SAF constraint
+    that it can affect.
+  intent: Prevent efficiency controls from gaining maturity by violating another applicable substantive constraint.
   applicability:
     mode: always
   evidence:
     required:
-    - demonstrates: The stronger in-scope constraints affected by resource-containment behavior are explicitly traced.
+    - demonstrates: Every applicable in-scope COR, SEC, DAT, REL, and SAF constraint that resource-containment behavior can
+        affect is explicitly traced.
       classes:
       - artifact_inspection
       - analysis
-    - demonstrates: Representative resource-containment behavior preserves those traced constraints.
+    - demonstrates: Representative resource-containment behavior preserves every traced applicable constraint.
       classes:
       - reproducible_test
       - operational_exercise

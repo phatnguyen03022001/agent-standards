@@ -97,20 +97,21 @@ requirements:
     independence: none
 - id: PRI-2.5
   level: 2
-  statement: The identified externally-owned privacy constraint must be enforced by the privacy-sensitive processing it governs.
-  intent: Keep domain truth external while making identified privacy constraints operational.
+  statement: The behavior required by an applicable externally-owned privacy constraint must be enforced by the privacy-sensitive
+    processing it governs.
+  intent: Keep domain truth external while making applicable privacy constraints operational.
   applicability:
     mode: conditional
     any_of:
-    - The ASR external-constraint inventory identifies an applicable externally-owned privacy constraint that requires target
-      behavior.
+    - An applicable externally-owned privacy constraint requires behavior by in-scope privacy-sensitive processing.
   evidence:
     required:
-    - demonstrates: The externally-owned privacy constraint and governed processing are traced from the ASR constraint inventory.
+    - demonstrates: The applicable externally-owned privacy constraint, its authoritative source or competent owner, and the
+        governed processing are explicitly identified and traced.
       classes:
       - artifact_inspection
       - analysis
-    - demonstrates: The governed processing enforces the identified constraint behavior.
+    - demonstrates: The governed processing enforces the behavior required by the applicable externally-owned privacy constraint.
       classes:
       - reproducible_test
       - formal_verification
