@@ -1,0 +1,58 @@
+generation: 1
+dimensions:
+  - code: COR
+    key: correctness
+    name: Correctness
+    file: correctness.yaml
+  - code: SEC
+    key: security
+    name: Security
+    file: security.yaml
+  - code: PRI
+    key: privacy
+    name: Privacy
+    file: privacy.yaml
+  - code: DAT
+    key: data_integrity
+    name: Data Integrity
+    file: data-integrity.yaml
+  - code: REL
+    key: reliability
+    name: Reliability & Resilience
+    file: reliability.yaml
+  - code: PER
+    key: performance
+    name: Performance & Scalability
+    file: performance.yaml
+  - code: OBS
+    key: observability
+    name: Observability
+    file: observability.yaml
+  - code: MNT
+    key: maintainability
+    name: Maintainability & Changeability
+    file: maintainability.yaml
+  - code: OPS
+    key: operability
+    name: Operability & Delivery
+    file: operability.yaml
+  - code: CMP
+    key: compatibility
+    name: Compatibility & Portability
+    file: compatibility.yaml
+  - code: SUP
+    key: supply_chain
+    name: Dependency & Supply-Chain Integrity
+    file: supply-chain.yaml
+  - code: EFF
+    key: efficiency
+    name: Resource & Cost Efficiency
+    file: efficiency.yaml
+  - code: ASR
+    key: assurance
+    name: Assurance & Verification
+    file: assurance.yaml
+  - code: SAF
+    key: safety
+    name: Safety & Harm Containment
+    file: safety.yaml
