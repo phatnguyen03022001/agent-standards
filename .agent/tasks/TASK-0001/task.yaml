@@ -1,0 +1,175 @@
+protocol_version: 3
+
+task_id: TASK-0001
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: user_request
+  task_id: ""
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "85bf97ad5aad4a89157e83e37655b805fc8ae280"
+
+architect_analysis_skills:
+  - architect
+  - gap-analysis
+  - adversarial-audit
+  - simplicity
+
+execution_skills:
+  required:
+    - executor
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: "Architect user request for V1 convergence, 2026-08-25"
+    role: "Goal, design principles, and explicit prohibitions for this task"
+    precedence: 1
+  - source: "STANDARD_MODEL.md@7d9014d85288fa6fcec47cf328c4a681a3735ebe"
+    role: "Normative interpretation, evidence semantics, applicability, maturity, and domain boundaries"
+    precedence: 2
+  - source: "standards/manifest.yaml@7d9014d85288fa6fcec47cf328c4a681a3735ebe"
+    role: "Generation and 14-dimension registry authority"
+    precedence: 3
+  - source: "standards/*.yaml@7d9014d85288fa6fcec47cf328c4a681a3735ebe"
+    role: "Canonical requirement statements, applicability, intents, and evidence obligations"
+    precedence: 4
+
+structure_authority:
+  status: NOT_APPLICABLE
+  source: ""
+  rationale: "The task authorizes only localized edits to listed existing files plus the canonical Executor report artifact under this existing task directory; no source layout, top-level repository structure, or standards dimension structure may change."
+
+objective: "Remove the remaining proven V1 abstraction-boundary leaks without expanding coverage: express existing controls as technology-neutral engineering properties, retire one redundant cross-dimension control, and preserve the stable 14-dimension model."
+
+scope:
+  required_changes:
+    - "Add one concise STANDARD_MODEL clarification that normative requirements constrain technology-neutral engineering properties rather than target architecture/framework/database/cloud/protocol/infrastructure/design-pattern choices, except where an applicable externally-owned constraint itself requires a mechanism."
+    - "Rewrite SEC-4.1 so the normative property is containment of the full protected consequence after a single credible control failure, without requiring defense-in-depth or another architecture mechanism. Preserve its level, applicability, intent-level failure class, evidence strength, and independent-review obligation."
+    - "Rewrite SAF-4.3 so the normative property is severe-harm containment after a single credible control failure, without requiring defense-in-depth or another architecture mechanism. Preserve its level, applicability, evidence strength, and independent-review obligation."
+    - "Rewrite MNT-3.2 as a directly verifiable change-isolation property for material high-change or high-risk areas, without requiring architectural boundaries as the mechanism. Preserve its level, applicability, and evidence strength."
+    - "Rewrite SUP-5.3 so its statement requires undeclared construction inputs not to silently alter the highest-consequence delivered result within an explicit construction-input boundary; keep independent reproduction or equivalent rigorous proof in evidence obligations rather than in the property statement."
+    - "Retire EFF-4.3 without replacement because it duplicates conformance obligations owned by COR, SEC, DAT, REL, and SAF and creates cross-dimension maturity coupling. Do not reuse its ID."
+    - "Update only the validator tests needed to lock the four wording-boundary corrections and EFF-4.3 retirement against regression. Do not broaden the validator into semantic natural-language linting."
+  allowed_existing_files_or_components:
+    - STANDARD_MODEL.md
+    - standards/security.yaml
+    - standards/safety.yaml
+    - standards/maintainability.yaml
+    - standards/supply-chain.yaml
+    - standards/efficiency.yaml
+    - tests/test_validate.py
+  expected_files_are_restrictive: true
+
+invariants:
+  - no unrelated cleanup or adjacent fixes
+  - no undocumented scope expansion
+  - no architecture, roadmap, canonical spec, or public-contract change without revised Architect authority
+  - no unauthorized dependency change
+  - no unauthorized structural reorganization
+  - no orphan source files
+  - no speculative scale structure
+  - "Keep exactly the current 14 dimensions; do not add, remove, rename, reorder, or repurpose a dimension."
+  - "Add no requirement IDs. Do not renumber or reuse any retired ID; EFF-4.3 remains retired."
+  - "Do not invent user, business, product, regulatory, or domain truth."
+  - "Do not make architecture, framework, database, cloud, protocol, infrastructure, or design-pattern choices normative unless an applicable externally-owned constraint itself requires that mechanism."
+  - "Evidence methods belong in evidence obligations; requirement statements describe the engineering property to be established."
+  - "Preserve cumulative maturity, N/A/UNKNOWN/EXCEPTION semantics, non-vacuous Level 4/5 scope, exact-revision attribution, and independence semantics."
+
+forbidden_changes:
+  - "Any mutation of main, release/tag creation, promotion, or V1 freeze."
+  - "Any new standards dimension, requirement, repository file outside the canonical Executor report, top-level directory, or documentation catalog."
+  - "Any change to README.md, standards/manifest.yaml, tools/validate.py, requirements-validator.txt, or any standards dimension file not explicitly listed in scope."
+  - "Any change to requirement level or applicability, or weakening of evidence classes or independence, unless this task explicitly says so; this task authorizes none."
+  - "Any mechanism catalog, architecture cookbook, best-practices catalog, business framework, UX standard, or domain knowledge base."
+  - "Any replacement control for EFF-4.3 that restates another dimension's substantive conformance obligation."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0001/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "STANDARD_MODEL states the property-versus-mechanism boundary concisely and keeps externally-owned mechanism constraints authoritative when they genuinely apply."
+    evidence_required: "Diff plus direct inspection shows one localized normative clarification and no catalog/cookbook expansion."
+  - id: AC-2
+    requirement: "SEC-4.1 and SAF-4.3 preserve their single-credible-control-failure containment guarantees and existing Level 4 assurance, but no longer mandate defense-in-depth or another target architecture mechanism."
+    evidence_required: "Direct inspection of both requirements and their evidence obligations, plus a focused regression assertion."
+  - id: AC-3
+    requirement: "MNT-3.2 preserves independently fail-able change isolation for material high-change or high-risk areas without prescribing architectural boundaries as the implementation mechanism."
+    evidence_required: "Direct inspection of MNT-3.2 and focused regression assertion."
+  - id: AC-4
+    requirement: "SUP-5.3 states the undeclared-construction-input integrity property without embedding hermetic construction or independent reproduction as a normative mechanism; Level 5 independent reproduction remains an evidence obligation."
+    evidence_required: "Direct inspection of SUP-5.3 statement/evidence and focused regression assertion."
+  - id: AC-5
+    requirement: "EFF-4.3 is absent and not replaced or reused; EFF retains its existing independent Level 4 requirement through EFF-4.2, and no new cross-dimension duplicate is introduced."
+    evidence_required: "Direct ID inspection plus focused regression assertion and successful validator run."
+  - id: AC-6
+    requirement: "Outside the four authorized wording corrections, EFF-4.3 retirement, localized STANDARD_MODEL clarification, and corresponding tests, canonical requirement identities, levels, applicability, evidence strength, and all 14 dimensions remain unchanged."
+    evidence_required: "Restrictive git diff review against the authorized base and successful validator/tests."
+  - id: AC-7
+    requirement: "Repository candidate validation remains green after the minimal changes."
+    evidence_required: "Successful CHECK-1, CHECK-2, and CHECK-3 results recorded in the Executor report at the exact execution revision."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: python tools/validate.py
+      required: true
+    - id: CHECK-2
+      command_or_check: python -m unittest discover -s tests -v
+      required: true
+    - id: CHECK-3
+      command_or_check: git diff --check
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: "none designated by current target repository authority"
+    expected_signal: "not applicable; Executor checks and Architect review remain non-authoritative project verification"
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+blocking_decisions: []
+execution_ready: true
