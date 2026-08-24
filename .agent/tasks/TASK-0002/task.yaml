@@ -1,0 +1,198 @@
+protocol_version: 3
+
+task_id: TASK-0002
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: user_request
+  task_id: ""
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "85bf97ad5aad4a89157e83e37655b805fc8ae280"
+
+architect_analysis_skills:
+  - architect
+  - simplicity
+
+execution_skills:
+  required:
+    - executor
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: "User-authorized bounded V1 release workflow, 2026-08-25"
+    role: "Release objective, exact start state, allowed release delta, verification gates, promotion gate, and release identity"
+    precedence: 1
+  - source: ".agent/tasks/TASK-0001/report.yaml@354a8c190923dd539ed264c47a0201244ff780f0"
+    role: "Accepted V1 implementation evidence and semantic candidate baseline"
+    precedence: 2
+  - source: "STANDARD_MODEL.md@354a8c190923dd539ed264c47a0201244ff780f0"
+    role: "Normative interpretation and V1 semantic model"
+    precedence: 3
+  - source: "standards/manifest.yaml@354a8c190923dd539ed264c47a0201244ff780f0"
+    role: "Generation 1 and 14-dimension registry authority"
+    precedence: 4
+  - source: "standards/*.yaml@354a8c190923dd539ed264c47a0201244ff780f0"
+    role: "Canonical requirement IDs, levels, applicability, statements, intents, and evidence obligations"
+    precedence: 5
+
+structure_authority:
+  status: RESOLVED
+  source: "User-authorized bounded V1 release workflow, 2026-08-25"
+  rationale: "Release structure is explicitly restricted to one new top-level LICENSE file, the canonical TASK-0002 artifacts, and localized edits to README.md and STANDARD_MODEL.md. No source layout, standards dimension layout, validator layout, dependency layout, or additional governance artifact is authorized."
+
+objective: "Finalize agent-standards V1 public release hygiene and release identity without changing the engineering standard."
+
+scope:
+  required_changes:
+    - "Add exactly one top-level LICENSE containing the standard Apache License 2.0 text; do not add custom clauses, dual licensing, COPYING, NOTICE, or per-file headers."
+    - "Rewrite README.md as a concise professional public landing page covering project purpose, frozen-V1 status wording that remains truthful before and after tagging, the standards/architect/project/evidence boundary, all 14 dimensions, Levels 0-5, canonical authority, exact-SHA pinning, validation commands, and Apache-2.0 licensing."
+    - "Update STANDARD_MODEL.md only to replace candidate-only status wording with minimal frozen-V1 wording; preserve all normative semantics and the rule that incompatible evolution requires a later standards generation."
+    - "Preserve standards/manifest.yaml generation 1 and the exact 14-dimension registry."
+    - "Preserve every canonical standards requirement ID, level, statement, intent, applicability rule, evidence obligation, evidence class, and independence setting from the accepted V1 candidate."
+    - "Preserve tools/validate.py, tests, and requirements-validator.txt unless a release-metadata consistency defect makes a validator change absolutely necessary; no such change is expected or authorized by default."
+    - "Inspect SECURITY.md, CONTRIBUTING.md, CHANGELOG.md, CODE_OF_CONDUCT.md, CITATION.cff, and NOTICE for concrete necessity; default to adding none."
+    - "When repository metadata write capability is available, set a concise technology-neutral evidence-driven engineering maturity description and only relevant release topics; do not change visibility, archive state, or unrelated GitHub features."
+    - "Use v1.0.0 as the public release/tag identity only after independent Architect acceptance and exact promotion lineage verification."
+  allowed_existing_files_or_components:
+    - README.md
+    - STANDARD_MODEL.md
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tests/test_validate.py
+    - requirements-validator.txt
+    - .agent/tasks/TASK-0002/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - no unrelated cleanup or adjacent fixes
+  - no undocumented scope expansion
+  - no architecture, roadmap, canonical spec, or public-contract change beyond the explicitly authorized release-status wording
+  - no unauthorized dependency change
+  - no unauthorized structural reorganization
+  - no orphan source files
+  - no speculative scale structure
+  - "V1 engineering semantics are closed."
+  - "Keep generation exactly 1."
+  - "Keep exactly the current 14 dimensions with identical codes, keys, names, files, order, and meanings."
+  - "Do not add, remove, renumber, reuse, reinterpret, or otherwise change any requirement ID."
+  - "Do not change any requirement level, statement, intent, applicability predicate, evidence obligation, evidence class, or independence setting."
+  - "Preserve cumulative maturity, N/A/UNKNOWN/EXCEPTION semantics, Level 4/5 non-vacuous scope, anti-gaming rules, external-constraint handling, identity/permanence, and exact-revision attribution."
+  - "README remains orientation only and must not create normative target guidance."
+  - "The promoted frozen content must remain truthful before and after v1.0.0 tagging without a post-review cosmetic content commit."
+
+forbidden_changes:
+  - "Any standards semantic change, requirement wording change, requirement ID change, requirement level change, applicability change, evidence change, dimension change, or manifest generation change."
+  - "Any validator behavior change unless an unavoidable release-metadata consistency invariant cannot be checked otherwise; do not add release cosmetics to validation."
+  - "Any dependency change."
+  - "Any architecture or source layout change."
+  - "Any unrelated documentation expansion, roadmap, FAQ, screenshot, badge decoration, target-specific guidance, invented CLI, or marketing copy."
+  - "Any speculative governance artifact including SECURITY.md, CONTRIBUTING.md, CHANGELOG.md, CODE_OF_CONDUCT.md, CITATION.cff, or NOTICE without a concrete requirement proven for this repository."
+  - "Any CI expansion, workflow addition, package publishing, website, docs portal, database, framework, automation platform, or external service."
+  - "Any branch creation, release branch, PR branch, temporary branch, force push, history rewrite, rebase, squash, or merge commit when fast-forward/ref update is sufficient."
+  - "Any promotion to main before an independent Architect ACCEPTED review covers the exact TASK-0002 report commit and valid promotion lineage."
+  - "Any tag or GitHub release before exact approved main promotion."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - LICENSE
+    - .agent/tasks/TASK-0002/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "LICENSE is the standard Apache License 2.0 text and is the only license artifact added."
+    evidence_required: "Direct content comparison to the canonical Apache-2.0 text plus exact changed-file inspection."
+  - id: AC-2
+    requirement: "README.md is concise, professional, technically accurate, and contains all user-required V1 orientation, authority, dimension, level, pinning, validation, and license information without adding normative guidance or release claims that are premature."
+    evidence_required: "Direct README inspection against the release checklist."
+  - id: AC-3
+    requirement: "STANDARD_MODEL.md contains only the minimal frozen-V1 status edit needed for release and preserves all existing normative interpretation semantics."
+    evidence_required: "Exact diff inspection against the accepted candidate."
+  - id: AC-4
+    requirement: "The canonical standards corpus is semantically identical to the accepted V1 candidate: standards/manifest.yaml and every standards/*.yaml file are byte-identical, with generation 1 and exactly 14 dimensions."
+    evidence_required: "Blob/tree comparison against 354a8c190923dd539ed264c47a0201244ff780f0 plus manifest inspection."
+  - id: AC-5
+    requirement: "Validator, tests, and dependencies remain unchanged unless an explicitly documented release-metadata invariant required otherwise."
+    evidence_required: "Blob comparison for tools/validate.py, tests/test_validate.py, and requirements-validator.txt."
+  - id: AC-6
+    requirement: "No speculative release-hygiene files are added and no unrelated file changes occur."
+    evidence_required: "Complete recursive tree and changed-file comparison."
+  - id: AC-7
+    requirement: "Repository metadata is updated when the execution environment exposes authorized repository-metadata writes; otherwise the missing capability is recorded as a release-completion gap without fabricating success."
+    evidence_required: "Fresh repository metadata read plus exact record of attempted/available capability."
+  - id: AC-8
+    requirement: "The exact release implementation candidate passes validator, unit tests, diff check, release-consistency checks, semantic-drift checks, branch checks, and main-remains-untouched checks."
+    evidence_required: "Fresh checks recorded in the Executor report against final_execution_head."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: python tools/validate.py
+      required: true
+    - id: CHECK-2
+      command_or_check: python -m unittest discover -s tests -v
+      required: true
+    - id: CHECK-3
+      command_or_check: git diff --check
+      required: true
+    - id: CHECK-4
+      command_or_check: "Compare standards/manifest.yaml and standards/*.yaml byte-for-byte against accepted candidate 354a8c190923dd539ed264c47a0201244ff780f0; require no change."
+      required: true
+    - id: CHECK-5
+      command_or_check: "Verify LICENSE exact Apache-2.0 text; README/STANDARD_MODEL release wording; generation 1; 14 dimensions; unchanged dependency/validator/tests; exact branch set {dev, main}; main still 49b21c91fc107235ad9ada29e62d5841d2fa17a4 before promotion."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: "Independent Architect acceptance of exact committed Executor report plus fresh exact-candidate checks before promotion"
+    expected_signal: "Architect ACCEPTED review for the exact TASK-0002 report commit; promotion remains separately gated"
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: true
+
+blocking_decisions:
+  - "Promotion is forbidden until independent Architect acceptance covers the exact TASK-0002 report commit and current dev lineage is valid under Task Protocol v3."
+  - "v1.0.0 tag and GitHub release are forbidden until exact approved dev candidate is promoted to main."
+
+execution_ready: true
