@@ -1,0 +1,53 @@
+dimension: EFF
+applicability: {mode: always}
+requirements:
+  - id: EFF-1.1
+    level: 1
+    statement: Expected operations must not exhibit gratuitous unbounded consumption or leakage of material compute, memory, storage, network, energy, or monetary resources.
+    intent: Establish a baseline against uncontrolled resource waste.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Expected operation remains within explicit material resource bounds.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: EFF-2.1
+    level: 2
+    statement: Material resource consumption must be measurable and bounded for representative expected workloads.
+    intent: Make routine resource and cost behavior observable and controlled.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative workload measurements support stated resource bounds.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: EFF-3.1
+    level: 3
+    statement: Resource use must scale predictably with workload, and retries, caching, batching, idle state, or pathological requests must not create uncontrolled waste where applicable.
+    intent: Bound abnormal amplification of resource use.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative amplification scenarios remain within explicit scaling and resource bounds.
+          classes: [reproducible_test, analysis]
+      independence: none
+  - id: EFF-4.1
+    level: 4
+    statement: Extreme demand and failure conditions must have quotas, admission bounds, or equivalent containment against catastrophic resource or cost escalation without violating stronger correctness, security, integrity, reliability, or safety constraints.
+    intent: Contain consequential resource escalation without trading away substantive properties.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review confirms extreme conditions remain within stated resource and cross-property bounds.
+          classes: [reproducible_test, analysis]
+      independence: independent_review
+  - id: EFF-5.1
+    level: 5
+    statement: Critical efficiency envelopes and worst-case resource or cost assumptions must be supported by independently reproduced measurement or rigorous analysis.
+    intent: Establish exceptional confidence in critical efficiency bounds.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical resource envelopes under explicit assumptions.
+          classes: [reproducible_test, analysis, formal_verification]
+      independence: independent_reproduction
