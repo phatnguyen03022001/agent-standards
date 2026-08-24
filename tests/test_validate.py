@@ -1,4 +1,3 @@
-import copy
 import importlib.util
 import tempfile
 import unittest
@@ -13,9 +12,6 @@ SPEC.loader.exec_module(validate)
 
 
 class ValidatorTests(unittest.TestCase):
-    def test_candidate_definition_passes(self):
-        self.assertTrue(validate.validate(ROOT))
-
     def _copy_tree(self):
         td = tempfile.TemporaryDirectory()
         dst = Path(td.name)
@@ -24,59 +20,435 @@ class ValidatorTests(unittest.TestCase):
             (dst / "standards" / src.name).write_text(src.read_text(encoding="utf-8"), encoding="utf-8")
         return td, dst
 
+    def _load(self, dst, filename):
+        p = dst / "standards" / filename
+        return p, yaml.safe_load(p.read_text(encoding="utf-8"))
+
+    def _write(self, path, data):
+        path.write_text(yaml.safe_dump(data, sort_keys=False, allow_unicode=True), encoding="utf-8")
+
+    def _assert_invalid(self, dst, contains=None):
+        with self.assertRaises(validate.ValidationError) as cm:
+            validate.validate(dst)
+        if contains is not None:
+            self.assertIn(contains, str(cm.exception))
+
+    def test_valid_candidate_definition(self):
+        self.assertTrue(validate.validate(ROOT))
+
     def test_duplicate_yaml_key_rejected(self):
         td, dst = self._copy_tree()
         try:
             p = dst / "standards" / "correctness.yaml"
             p.write_text("dimension: COR\ndimension: COR\napplicability: {mode: always}\nrequirements: []\n", encoding="utf-8")
-            with self.assertRaises(validate.ValidationError):
-                validate.validate(dst)
+            self._assert_invalid(dst, "duplicate YAML mapping key")
         finally:
             td.cleanup()
 
-    def test_alias_rejected(self):
+
+    def test_unhashable_yaml_mapping_key_is_controlled(self):
+        td, dst = self._copy_tree()
+        try:
+            p = dst / "standards" / "correctness.yaml"
+            p.write_text("? [not, scalar]\n: value\n", encoding="utf-8")
+            self._assert_invalid(dst, "YAML mapping key must be hashable scalar")
+        finally:
+            td.cleanup()
+
+    def test_yaml_anchor_alias_rejected(self):
         td, dst = self._copy_tree()
         try:
             p = dst / "standards" / "correctness.yaml"
             p.write_text("dimension: COR\napplicability: &a {mode: always}\nrequirements: *a\n", encoding="utf-8")
-            with self.assertRaises(validate.ValidationError):
-                validate.validate(dst)
+            self._assert_invalid(dst, "anchors/aliases are forbidden")
+        finally:
+            td.cleanup()
+
+    def test_custom_yaml_tag_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p = dst / "standards" / "correctness.yaml"
+            p.write_text("dimension: !custom COR\napplicability: {mode: always}\nrequirements: []\n", encoding="utf-8")
+            self._assert_invalid(dst, "custom YAML tag forbidden")
+        finally:
+            td.cleanup()
+
+    def test_malformed_yaml_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p = dst / "standards" / "correctness.yaml"
+            p.write_text("dimension: COR\napplicability: [\n", encoding="utf-8")
+            self._assert_invalid(dst, "malformed YAML")
+        finally:
+            td.cleanup()
+
+    def test_generation_exact_type_and_value(self):
+        for value in (1.0, True, "1", 2):
+            with self.subTest(value=value):
+                td, dst = self._copy_tree()
+                try:
+                    p, data = self._load(dst, "manifest.yaml")
+                    data["generation"] = value
+                    self._write(p, data)
+                    self._assert_invalid(dst, "manifest.generation must be exactly integer 1")
+                finally:
+                    td.cleanup()
+
+    def test_manifest_dimension_object_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][0] = ["COR"]
+            self._write(p, data)
+            self._assert_invalid(dst, "expected mapping")
+        finally:
+            td.cleanup()
+
+    def test_manifest_dimension_field_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][0]["file"] = ["correctness.yaml"]
+            self._write(p, data)
+            self._assert_invalid(dst, "expected nonempty string")
+        finally:
+            td.cleanup()
+
+    def test_duplicate_dimension_code_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][1]["code"] = data["dimensions"][0]["code"]
+            self._write(p, data)
+            self._assert_invalid(dst, "duplicate dimension code")
+        finally:
+            td.cleanup()
+
+    def test_duplicate_dimension_key_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][1]["key"] = data["dimensions"][0]["key"]
+            self._write(p, data)
+            self._assert_invalid(dst, "duplicate dimension key")
+        finally:
+            td.cleanup()
+
+    def test_duplicate_filename_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][1]["file"] = data["dimensions"][0]["file"]
+            self._write(p, data)
+            self._assert_invalid(dst, "duplicate dimension filename")
+        finally:
+            td.cleanup()
+
+    def test_registry_code_order_mismatch_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "manifest.yaml")
+            data["dimensions"][0], data["dimensions"][1] = data["dimensions"][1], data["dimensions"][0]
+            self._write(p, data)
+            self._assert_invalid(dst, "dimension registry code/order mismatch")
+        finally:
+            td.cleanup()
+
+    def test_declared_file_missing_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            (dst / "standards" / "correctness.yaml").unlink()
+            self._assert_invalid(dst, "standard file registry mismatch")
+        finally:
+            td.cleanup()
+
+    def test_undeclared_standards_file_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            (dst / "standards" / "extra.yaml").write_text("dimension: XXX\n", encoding="utf-8")
+            self._assert_invalid(dst, "standard file registry mismatch")
+        finally:
+            td.cleanup()
+
+    def test_requirement_id_syntax_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["id"] = "COR-1-2"
+            self._write(p, data)
+            self._assert_invalid(dst, "invalid ID syntax")
+        finally:
+            td.cleanup()
+
+    def test_requirement_id_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["id"] = ["COR-1.2"]
+            self._write(p, data)
+            self._assert_invalid(dst, "invalid id/level type")
+        finally:
+            td.cleanup()
+
+    def test_id_dimension_prefix_mismatch_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["id"] = "SEC-1.2"
+            self._write(p, data)
+            self._assert_invalid(dst, "ID dimension prefix mismatch")
         finally:
             td.cleanup()
 
     def test_id_level_mismatch_rejected(self):
         td, dst = self._copy_tree()
         try:
-            p = dst / "standards" / "correctness.yaml"
-            data = yaml.safe_load(p.read_text(encoding="utf-8"))
+            p, data = self._load(dst, "correctness.yaml")
             data["requirements"][0]["level"] = 2
-            p.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
-            with self.assertRaises(validate.ValidationError):
-                validate.validate(dst)
+            self._write(p, data)
+            self._assert_invalid(dst, "ID level mismatch")
+        finally:
+            td.cleanup()
+
+    def test_requirement_level_exact_type_rejected(self):
+        for value in (1.0, True, "1"):
+            with self.subTest(value=value):
+                td, dst = self._copy_tree()
+                try:
+                    p, data = self._load(dst, "correctness.yaml")
+                    data["requirements"][0]["level"] = value
+                    self._write(p, data)
+                    self._assert_invalid(dst, "invalid id/level type")
+                finally:
+                    td.cleanup()
+
+    def test_invalid_sequence_rejected(self):
+        for rid in ("COR-1.0", "COR-1.02"):
+            with self.subTest(rid=rid):
+                td, dst = self._copy_tree()
+                try:
+                    p, data = self._load(dst, "correctness.yaml")
+                    data["requirements"][0]["id"] = rid
+                    self._write(p, data)
+                    self._assert_invalid(dst, "invalid ID syntax")
+                finally:
+                    td.cleanup()
+
+    def test_requirement_ordering_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0], data["requirements"][1] = data["requirements"][1], data["requirements"][0]
+            self._write(p, data)
+            self._assert_invalid(dst, "requirements not sorted")
+        finally:
+            td.cleanup()
+
+    def test_empty_level_bucket_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"] = [r for r in data["requirements"] if r["level"] != 3]
+            self._write(p, data)
+            self._assert_invalid(dst, "every level 1..5 must be nonempty")
+        finally:
+            td.cleanup()
+
+    def test_missing_unconditional_level1_baseline_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            for req in data["requirements"]:
+                if req["level"] == 1:
+                    req["applicability"] = {"mode": "conditional", "any_of": ["A factual condition exists."]}
+            self._write(p, data)
+            self._assert_invalid(dst, "no unavoidable Level 1 baseline")
         finally:
             td.cleanup()
 
     def test_unknown_requirement_field_rejected(self):
         td, dst = self._copy_tree()
         try:
-            p = dst / "standards" / "correctness.yaml"
-            data = yaml.safe_load(p.read_text(encoding="utf-8"))
+            p, data = self._load(dst, "correctness.yaml")
             data["requirements"][0]["vendor"] = "example"
-            p.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
-            with self.assertRaises(validate.ValidationError):
-                validate.validate(dst)
+            self._write(p, data)
+            self._assert_invalid(dst, "unknown=['vendor']")
         finally:
             td.cleanup()
 
-    def test_duplicate_statement_rejected(self):
+    def test_invalid_applicability_mode_rejected(self):
         td, dst = self._copy_tree()
         try:
-            p = dst / "standards" / "correctness.yaml"
-            data = yaml.safe_load(p.read_text(encoding="utf-8"))
-            data["requirements"][1]["statement"] = data["requirements"][0]["statement"]
-            p.write_text(yaml.safe_dump(data, sort_keys=False), encoding="utf-8")
-            with self.assertRaises(validate.ValidationError):
-                validate.validate(dst)
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["applicability"] = {"mode": "sometimes"}
+            self._write(p, data)
+            self._assert_invalid(dst, "invalid applicability mode")
+        finally:
+            td.cleanup()
+
+    def test_malformed_applicability_mode_type_is_controlled(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["applicability"] = {"mode": ["always"]}
+            self._write(p, data)
+            self._assert_invalid(dst, "applicability mode must be string")
+        finally:
+            td.cleanup()
+
+    def test_conditional_applicability_without_predicates_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["applicability"] = {"mode": "conditional"}
+            self._write(p, data)
+            self._assert_invalid(dst, "conditional applicability requires predicates")
+        finally:
+            td.cleanup()
+
+    def test_empty_predicate_list_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["applicability"] = {"mode": "conditional", "all_of": []}
+            self._write(p, data)
+            self._assert_invalid(dst, "all_of must be nonempty list")
+        finally:
+            td.cleanup()
+
+    def test_malformed_predicate_value_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["applicability"] = {"mode": "conditional", "any_of": [7]}
+            self._write(p, data)
+            self._assert_invalid(dst, "expected nonempty string")
+        finally:
+            td.cleanup()
+
+    def test_evidence_object_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"] = []
+            self._write(p, data)
+            self._assert_invalid(dst, "expected mapping")
+        finally:
+            td.cleanup()
+
+    def test_evidence_required_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["required"] = {}
+            self._write(p, data)
+            self._assert_invalid(dst, "must be nonempty list")
+        finally:
+            td.cleanup()
+
+    def test_evidence_obligation_object_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["required"][0] = "not-a-mapping"
+            self._write(p, data)
+            self._assert_invalid(dst, "expected mapping")
+        finally:
+            td.cleanup()
+
+
+    def test_evidence_classes_container_type_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["required"][0]["classes"] = {"class": "reproducible_test"}
+            self._write(p, data)
+            self._assert_invalid(dst, "classes: must be nonempty list")
+        finally:
+            td.cleanup()
+
+    def test_unknown_evidence_class_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["required"][0]["classes"] = ["magic_proof"]
+            self._write(p, data)
+            self._assert_invalid(dst, "invalid evidence class")
+        finally:
+            td.cleanup()
+
+    def test_duplicate_evidence_class_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            classes = data["requirements"][0]["evidence"]["required"][0]["classes"]
+            data["requirements"][0]["evidence"]["required"][0]["classes"] = [classes[0], classes[0]]
+            self._write(p, data)
+            self._assert_invalid(dst, "duplicate evidence class")
+        finally:
+            td.cleanup()
+
+    def test_malformed_evidence_class_type_is_controlled(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["required"][0]["classes"] = [["reproducible_test"]]
+            self._write(p, data)
+            self._assert_invalid(dst, "evidence class must be string")
+        finally:
+            td.cleanup()
+
+    def test_malformed_independence_type_is_controlled(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["independence"] = ["none"]
+            self._write(p, data)
+            self._assert_invalid(dst, "independence must be string")
+        finally:
+            td.cleanup()
+
+    def test_invalid_independence_value_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][0]["evidence"]["independence"] = "self_review"
+            self._write(p, data)
+            self._assert_invalid(dst, "independence: invalid value")
+        finally:
+            td.cleanup()
+
+    def test_missing_level4_independent_review_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            for req in data["requirements"]:
+                if req["level"] == 4:
+                    req["evidence"]["independence"] = "none"
+            self._write(p, data)
+            self._assert_invalid(dst, "no Level 4 independent-review requirement")
+        finally:
+            td.cleanup()
+
+    def test_missing_level5_independent_reproduction_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            for req in data["requirements"]:
+                if req["level"] == 5:
+                    req["evidence"]["independence"] = "independent_review"
+            self._write(p, data)
+            self._assert_invalid(dst, "no Level 5 independent-reproduction requirement")
+        finally:
+            td.cleanup()
+
+    def test_duplicate_normalized_statement_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "correctness.yaml")
+            data["requirements"][1]["statement"] = "  " + data["requirements"][0]["statement"].upper() + "  "
+            self._write(p, data)
+            self._assert_invalid(dst, "exact duplicate normalized requirement statements")
         finally:
             td.cleanup()
 

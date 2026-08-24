@@ -1,53 +1,164 @@
 dimension: SUP
-applicability: {mode: always}
+applicability:
+  mode: always
 requirements:
-  - id: SUP-1.1
-    level: 1
-    statement: Material external components and build or toolchain inputs must be identifiable for the assessed revision.
-    intent: Establish visibility into material supply-chain inputs.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Material external and construction inputs can be attributed to the assessed revision.
-          classes: [artifact_inspection, provenance_attestation]
-      independence: none
-  - id: SUP-2.1
-    level: 2
-    statement: Material dependency versions and integrity must be detectable and bounded so fetched or build inputs cannot change invisibly without detection.
-    intent: Prevent silent routine supply-chain drift.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Material input identity and integrity changes are detectable against the claimed revision.
-          classes: [artifact_inspection, provenance_attestation, reproducible_test]
-      independence: none
-  - id: SUP-3.1
-    level: 3
-    statement: Provenance, update risk, transitive exposure, dependency compromise, and build-environment trust must be explicitly bounded where they can affect delivered artifacts.
-    intent: Contain compromise propagation through construction inputs.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative compromise and provenance failures remain within stated construction and dependency trust bounds.
-          classes: [analysis, provenance_attestation, reproducible_test]
-      independence: none
-  - id: SUP-4.1
-    level: 4
-    statement: Consequential delivered artifacts must have strong provenance and integrity evidence plus bounded compromise, revocation, and recovery paths; reproducibility is required where it materially strengthens the claim.
-    intent: Provide strong assurance for high-impact supply chains.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review confirms artifact provenance, integrity, and compromise-recovery bounds.
-          classes: [provenance_attestation, reproducible_test, operational_exercise]
-      independence: independent_review
-  - id: SUP-5.1
-    level: 5
-    statement: Critical supply chains must use independently verified provenance and independently reproducible, hermetic, or equivalently controlled construction where applicable to the claimed trust model.
-    intent: Establish exceptional confidence in critical construction provenance.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms critical artifact construction and provenance under explicit trust assumptions.
-          classes: [provenance_attestation, reproducible_test]
-      independence: independent_reproduction
+- id: SUP-1.1
+  level: 1
+  statement: Material external components and build or toolchain inputs must be identifiable for the assessed revision.
+  intent: Establish visibility into material supply-chain inputs.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material external and construction inputs can be attributed to the assessed revision.
+      classes:
+      - artifact_inspection
+      - provenance_attestation
+    independence: none
+- id: SUP-2.2
+  level: 2
+  statement: The resolved identity and version or equivalent immutable identity of each material external or construction
+    input must be detectable for the assessed revision.
+  intent: Separate input identity from integrity verification.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material input identities are attributable to the assessed revision.
+      classes:
+      - artifact_inspection
+      - provenance_attestation
+    independence: none
+- id: SUP-2.3
+  level: 2
+  statement: Integrity-changing substitution of a material external or construction input must be detectable against the assessed
+    revision.
+  intent: Make supply-input integrity independently diagnosable from version identity.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material input integrity changes are detectable against the assessed revision.
+      classes:
+      - provenance_attestation
+      - artifact_inspection
+      - reproducible_test
+    independence: none
+- id: SUP-3.2
+  level: 3
+  statement: Material dependency provenance, update risk, transitive exposure, and dependency-compromise paths must be explicitly
+    bounded.
+  intent: Contain compromise propagation through external dependencies.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material dependency provenance, transitive exposure, update path, and compromise bounds are explicit.
+      classes:
+      - analysis
+      - artifact_inspection
+      - provenance_attestation
+    - demonstrates: Representative dependency substitution or compromise does not silently exceed the stated delivered-artifact
+        bound.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SUP-3.3
+  level: 3
+  statement: Trust in a build, generation, packaging, or toolchain environment must be explicitly bounded so that an environment
+    compromise cannot silently produce an untraceable delivered artifact.
+  intent: Separate construction-environment trust from dependency exposure.
+  applicability:
+    mode: conditional
+    any_of:
+    - The assessed revision is transformed by a build, generation, packaging, or toolchain environment before delivery.
+  evidence:
+    required:
+    - demonstrates: Construction-environment trust assumptions and artifact attribution boundaries are explicit.
+      classes:
+      - analysis
+      - artifact_inspection
+      - provenance_attestation
+    - demonstrates: Representative construction-environment tampering or substitution is detected or produces a traceable
+        bounded result.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SUP-4.2
+  level: 4
+  statement: Highest-consequence delivered artifacts must have independently reviewed provenance and integrity evidence attributable
+    to their construction inputs and assessed revision.
+  intent: Provide strong assurance for consequential artifact origin and integrity.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence artifacts and construction-input lineage are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Artifact provenance and integrity are directly attributable to the assessed revision and construction
+        inputs.
+      classes:
+      - provenance_attestation
+      - reproducible_test
+    independence: independent_review
+- id: SUP-4.3
+  level: 4
+  statement: Compromise, revocation, or invalidation of a highest-consequence supply-chain input must have a bounded detection
+    and recovery path for affected delivered artifacts.
+  intent: Separate compromise response and recovery from provenance proof.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Compromise, revocation, or invalidation conditions and affected-artifact scope are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative compromise or revocation is detected and the affected artifact path reaches the stated
+        bounded recovery state.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: SUP-5.2
+  level: 5
+  statement: Provenance for highest-consequence delivered artifacts must be independently verified across the complete selected
+    construction lineage.
+  intent: Make high-assurance provenance independently diagnosable from construction reproducibility.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The selected complete construction lineage and trust assumptions are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent verification confirms provenance across that lineage.
+      classes:
+      - provenance_attestation
+      - reproducible_test
+    independence: independent_reproduction
+- id: SUP-5.3
+  level: 5
+  statement: Highest-consequence artifact construction must be independently reproducible, hermetic, or equivalently controlled
+    so undeclared construction inputs cannot silently change the delivered result.
+  intent: Establish exceptional confidence in construction control without relying on technology names.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The construction input boundary and equivalent-control assumptions are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent reproduction or equivalent rigorous verification demonstrates undeclared construction inputs
+        cannot silently alter the delivered result.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

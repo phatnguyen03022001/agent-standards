@@ -2,55 +2,203 @@ dimension: SAF
 applicability:
   mode: conditional
   any_of:
-    - System output or action can directly cause or materially increase credible risk of severe real-world harm beyond ordinary loss of service, confidentiality, or data correctness.
+  - System output or action can directly cause or materially increase credible risk of severe real-world harm beyond ordinary
+    loss of service, confidentiality, or data correctness.
 requirements:
-  - id: SAF-1.1
-    level: 1
-    statement: Once this dimension applies, credible severe-harm channels must be identified and uncontrolled harmful action must not be the default response to ordinary failure.
-    intent: Establish baseline containment of severe consequences.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Identified severe-harm channels have a bounded default failure behavior.
-          classes: [analysis, reproducible_test]
-      independence: none
-  - id: SAF-2.1
-    level: 2
-    statement: Consequential actions must remain within externally identified safety bounds through interlocks, authorization, safe-state behavior, or equivalent containment where those controls apply.
-    intent: Enforce target-owned safety constraints during expected operation.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative consequential actions cannot exceed the identified safety envelope under expected conditions.
-          classes: [reproducible_test, operational_exercise]
-      independence: none
-  - id: SAF-3.1
-    level: 3
-    statement: Misuse, automation error, cascading action, stale or incorrect input, and degraded conditions must not bypass applicable severe-harm containment without detection.
-    intent: Preserve harm containment during abnormal conditions.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative abnormal scenarios remain within or visibly stop at the identified safety envelope.
-          classes: [reproducible_test, operational_exercise, analysis]
-      independence: none
-  - id: SAF-4.1
-    level: 4
-    statement: Catastrophic or high-severity scenarios must have defense-in-depth, independent hazard analysis, emergency containment, and evidence that credible single failures remain bounded where the hazard model requires it.
-    intent: Prevent a single credible failure from directly realizing severe consequences.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent hazard review and direct exercises support the stated severe-harm containment.
-          classes: [analysis, operational_exercise, reproducible_test]
-      independence: independent_review
-  - id: SAF-5.1
-    level: 5
-    statement: High-consequence systems must maintain an explicit safety argument and safe operating envelope with independently reproduced verification and the isolation, redundancy, or diversity required by the target hazard model.
-    intent: Establish exceptional confidence in severe-harm containment without inventing domain limits.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms the safety argument and operating envelope under explicit hazard assumptions.
-          classes: [operational_exercise, reproducible_test, formal_verification]
-      independence: independent_reproduction
+- id: SAF-1.2
+  level: 1
+  statement: Once this dimension applies, credible severe-harm channels from system output or action must be explicitly identified.
+  intent: Make severe-harm channel identification independently diagnosable from failure-default behavior.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Credible severe-harm channels and their consequence boundaries are explicitly identified.
+      classes:
+      - analysis
+      - artifact_inspection
+    independence: none
+- id: SAF-1.3
+  level: 1
+  statement: Ordinary failure must default to behavior that remains within the identified severe-harm containment boundary
+    rather than to uncontrolled harmful action.
+  intent: Establish a baseline bounded failure default for severe consequences.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative ordinary failures remain within the identified severe-harm containment boundary.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: none
+- id: SAF-2.1
+  level: 2
+  statement: Consequential actions must remain within externally identified safety bounds during expected operation.
+  intent: Enforce target-owned safety constraints during expected operation.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The applicable external safety bounds are traced from the ASR external-constraint inventory to the governed
+        action.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative consequential actions remain within the identified safety bounds under expected conditions.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: none
+- id: SAF-3.2
+  level: 3
+  statement: Misuse, automation error, cascading action, stale or incorrect input, and degraded conditions must remain within
+    the identified severe-harm containment boundary or transition to a defined contained state.
+  intent: Preserve harm containment during abnormal conditions.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative abnormal severe-harm scenarios and containment states are explicit.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: Representative abnormal scenarios remain within the containment boundary or reach the defined contained
+        state.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: none
+- id: SAF-3.3
+  level: 3
+  statement: Activation, loss, or attempted bypass of a severe-harm containment boundary must produce attributable evidence
+    sufficient to distinguish the safety-relevant condition from normal operation.
+  intent: Make safety-specific containment knowledge independently diagnosable from containment itself.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative containment activation, loss, or bypass attempts produce attributable safety-relevant evidence.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - operational_exercise
+    independence: none
+- id: SAF-4.2
+  level: 4
+  statement: Highest-consequence severe-harm scenarios must be covered by an independent hazard analysis that states the hazardous
+    path, assumptions, and required containment boundary.
+  intent: Separate hazard analysis from defense-in-depth implementation.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent hazard review covers the selected highest-consequence severe-harm scenarios, assumptions,
+        and containment boundaries.
+      classes:
+      - analysis
+      - artifact_inspection
+    independence: independent_review
+- id: SAF-4.3
+  level: 4
+  statement: Highest-consequence severe-harm paths must have defense-in-depth such that a single credible control failure
+    remains within the identified containment boundary.
+  intent: Make single-failure severe-harm containment independently verifiable.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review identifies defense layers and credible single failures on the selected paths.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: Representative credible single failures remain within the identified severe-harm containment boundary.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: independent_review
+- id: SAF-4.4
+  level: 4
+  statement: A highest-consequence severe-harm scenario with a physically or logically available intervention window must
+    have a bounded emergency containment action that is verified before harm becomes irreversible.
+  intent: Require emergency containment on an objective intervention-window predicate.
+  applicability:
+    mode: conditional
+    any_of:
+    - A highest-consequence severe-harm scenario has a physically or logically available intervention window before the relevant
+      harm becomes irreversible.
+  evidence:
+    required:
+    - demonstrates: The intervention window, emergency containment action, and irreversible boundary are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: An operational exercise or equivalent runtime-capable verification demonstrates containment within the
+        intervention window.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: SAF-5.2
+  level: 5
+  statement: The highest-consequence severe-harm scope must have an explicit safety argument linking hazard assumptions, containment
+    claims, and direct verification evidence.
+  intent: Make the high-assurance safety argument independently diagnosable from operating-envelope enforcement.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The safety argument, selected highest-consequence scope, hazard assumptions, containment claims, and direct
+        evidence trace are explicit and complete.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: SAF-5.3
+  level: 5
+  statement: The identified isolation, redundancy, diversity, or equivalent architectural independence constraint must be
+    implemented and independently verified for the severe-harm path it governs.
+  intent: Enforce externally owned high-assurance hazard-model architecture without inventing its values.
+  applicability:
+    mode: conditional
+    any_of:
+    - The competent target hazard model identifies isolation, redundancy, diversity, or equivalent architectural independence
+      as necessary to keep a highest-consequence severe-harm scenario bounded.
+  evidence:
+    required:
+    - demonstrates: The hazard-model architectural independence constraint and governed severe-harm path are traced from the
+        external constraint inventory.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: The required architectural independence is implemented and effective on the governed path.
+      classes:
+      - reproducible_test
+      - formal_verification
+      - operational_exercise
+    independence: independent_reproduction
+- id: SAF-5.4
+  level: 5
+  statement: The safe operating envelope for the highest-consequence severe-harm scope must remain enforced throughout its
+    stated hazard assumptions and failure conditions.
+  intent: Establish exceptional confidence in high-consequence safe-envelope enforcement.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The safe operating envelope, hazard assumptions, and failure conditions are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent reproduction confirms the safe operating envelope remains enforced throughout those assumptions
+        and conditions.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

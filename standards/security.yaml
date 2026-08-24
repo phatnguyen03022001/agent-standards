@@ -2,55 +2,182 @@ dimension: SEC
 applicability:
   mode: conditional
   any_of:
-    - A material trust or authority boundary, security-sensitive asset, privileged operation, or attacker-controlled interaction exists.
+  - A material trust or authority boundary, security-sensitive asset, privileged operation, or attacker-controlled interaction
+    exists.
 requirements:
-  - id: SEC-1.1
-    level: 1
-    statement: Once this dimension applies, material authority boundaries must prevent untrusted interaction from trivially obtaining unauthorized access, privilege, or protected secrets.
-    intent: Establish a baseline boundary against direct authority violations.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Direct untrusted interactions cannot cross identified authority boundaries without authorization.
-          classes: [reproducible_test, analysis]
-      independence: none
-  - id: SEC-2.1
-    level: 2
-    statement: Security-sensitive operations must run with no more authority than required, protect exposed confidentiality and integrity interests, and fail to a bounded state when security decisions cannot be established.
-    intent: Bound routine privilege and protection failures.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Authority, protection, and failure-default behavior match the stated security boundaries.
-          classes: [artifact_inspection, reproducible_test, analysis]
-      independence: none
-  - id: SEC-3.1
-    level: 3
-    statement: Realistic adversarial input, abuse, privilege-escalation, isolation-bypass, and compromise-propagation paths must be explicitly bounded.
-    intent: Contain credible hostile behavior beyond normal misuse.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative adversarial paths cannot exceed stated authority or isolation bounds.
-          classes: [reproducible_test, analysis]
-      independence: none
-  - id: SEC-4.1
-    level: 4
-    statement: High-impact compromise paths and privileged operations must have defense-in-depth such that a single credible control failure does not automatically yield the full protected consequence.
-    intent: Contain consequential compromise through layered boundaries.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent adversarial evaluation confirms high-impact paths remain bounded after a credible control failure.
-          classes: [reproducible_test, analysis]
-      independence: independent_review
-  - id: SEC-5.1
-    level: 5
-    statement: The strongest claimed security boundaries must minimize and explicitly state trust assumptions and remain effective under independently reproduced adversarial challenge across the claimed scope.
-    intent: Establish exceptional confidence in critical security boundaries.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent adversarial reproduction confirms critical boundaries under explicit trust assumptions.
-          classes: [reproducible_test, formal_verification]
-      independence: independent_reproduction
+- id: SEC-1.2
+  level: 1
+  statement: Once this dimension applies, material authority boundaries must prevent untrusted interaction from trivially
+    obtaining unauthorized access or privilege.
+  intent: Establish a direct authority-boundary baseline.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The material authority boundaries and protected effects are explicitly identified.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Direct untrusted interactions cannot obtain unauthorized access or privilege across those boundaries.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-1.3
+  level: 1
+  statement: Protected secrets exposed to an untrusted interaction must remain within an explicit confidentiality boundary.
+  intent: Make direct secret exposure independently diagnosable from authority enforcement.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target has a protected secret or equivalent confidential security-sensitive asset that can be reached by an untrusted
+      interaction.
+  evidence:
+    required:
+    - demonstrates: The protected secrets and confidentiality boundary are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Direct untrusted interactions do not expose those secrets outside the boundary.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-2.2
+  level: 2
+  statement: Security-sensitive operations must execute with no more authority than is required for their defined effect.
+  intent: Bound routine privilege excess independently of confidentiality or failure-default behavior.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Required authority for security-sensitive operations is explicitly bounded.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Executed operations cannot exercise authority beyond the stated bound.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - formal_verification
+    independence: none
+- id: SEC-2.3
+  level: 2
+  statement: Identified security-sensitive confidentiality interests must remain within their stated protection boundaries
+    during expected handling.
+  intent: Make expected confidentiality enforcement independently verifiable.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target has an identified security-sensitive confidentiality interest.
+  evidence:
+    required:
+    - demonstrates: The confidentiality interests and protection boundaries are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected handling enforces the identified confidentiality boundaries.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-2.4
+  level: 2
+  statement: A security-sensitive operation whose required security decision cannot be established must fail without granting
+    the protected effect.
+  intent: Prevent uncertainty in a security decision from becoming authorization by default.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Failure or indeterminacy of required security decisions does not grant the protected effect.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-2.5
+  level: 2
+  statement: Identified security-sensitive integrity interests must remain within their stated protection boundaries during
+    expected handling.
+  intent: Make expected security integrity enforcement independently verifiable from confidentiality.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target has an identified security-sensitive integrity interest.
+  evidence:
+    required:
+    - demonstrates: The integrity interests and protection boundaries are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected handling enforces the identified integrity boundaries.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-3.1
+  level: 3
+  statement: Realistic adversarial input, abuse, privilege-escalation, isolation-bypass, and compromise-propagation paths
+    must be explicitly bounded.
+  intent: Contain credible hostile behavior beyond normal misuse.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative adversarial paths and the authority or isolation bounds they challenge are explicitly identified.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: Adversarial challenge cannot exceed the stated authority or isolation bounds.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: SEC-4.1
+  level: 4
+  statement: High-impact compromise paths and privileged operations must have defense-in-depth such that a single credible
+    control failure does not automatically yield the full protected consequence.
+  intent: Contain consequential compromise through layered boundaries.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review identifies the highest-consequence compromise paths, independent control boundaries,
+        and credible single failures.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: A credible single control failure does not yield the full protected consequence on those paths.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: SEC-5.2
+  level: 5
+  statement: Trust assumptions for the strongest security boundaries must be explicit, bounded, and justified across the assessed
+    scope.
+  intent: Make high-assurance trust assumptions independently diagnosable from adversarial effectiveness.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The strongest security boundaries and their trust assumptions are explicit, bounded, and evidence-based.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: SEC-5.3
+  level: 5
+  statement: The strongest security boundaries must remain effective under adversarial challenge throughout their stated trust-assumption
+    envelope.
+  intent: Establish exceptional confidence in the strongest security boundaries.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The strongest security boundaries remain effective under adversarial challenge throughout the stated trust-assumption
+        envelope.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

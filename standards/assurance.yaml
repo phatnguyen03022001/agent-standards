@@ -1,53 +1,216 @@
 dimension: ASR
-applicability: {mode: always}
+applicability:
+  mode: always
 requirements:
-  - id: ASR-1.1
-    level: 1
-    statement: Material engineering claims must have direct evidence attributable to an identifiable assessed revision and dependent configuration or environment.
-    intent: Prevent unsupported or revision-ambiguous engineering claims.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Material claims are linked to direct attributable evidence for the assessed revision.
-          classes: [artifact_inspection, analysis]
-      independence: none
-  - id: ASR-2.1
-    level: 2
-    statement: Verification for important positive and negative cases must be repeatable, and missing evidence must be represented as unresolved rather than silently treated as success.
-    intent: Make verification repeatable and resistant to absence-of-evidence gaming.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Important verification can be repeated and unresolved evidence cannot produce a passing result.
-          classes: [reproducible_test, artifact_inspection]
-      independence: none
-  - id: ASR-3.1
-    level: 3
-    statement: Important failure, threat, edge, and assumption classes must be systematically traceable to direct verification evidence or an explicit unresolved status.
-    intent: Expose blind spots in the claim-to-evidence system.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative claim classes have complete traceability to evidence or explicit blockers.
-          classes: [artifact_inspection, analysis]
-      independence: none
-  - id: ASR-4.1
-    level: 4
-    statement: High-impact claims must receive independent review of underlying evidence and use complementary evidence methods where a single method has material blind spots.
-    intent: Reduce correlated verification error for consequential claims.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review challenges evidence sufficiency and identified method blind spots.
-          classes: [artifact_inspection, analysis, reproducible_test]
-      independence: independent_review
-  - id: ASR-5.1
-    level: 5
-    statement: Critical claims must have explicit assumptions, rigorous claim-to-evidence traceability, and independently reproduced evidence, using formal or comparably strong verification where appropriate to the claim.
-    intent: Establish exceptional confidence in the verification system itself.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms critical claim evidence and traceability under explicit assumptions.
-          classes: [reproducible_test, formal_verification, analysis]
-      independence: independent_reproduction
+- id: ASR-1.1
+  level: 1
+  statement: Material engineering claims must have direct evidence attributable to an identifiable assessed revision and dependent
+    configuration or environment.
+  intent: Prevent unsupported or revision-ambiguous engineering claims.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material claims are linked to direct attributable evidence for the assessed revision.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-1.2
+  level: 1
+  statement: Applicable externally-owned engineering or domain constraints must be identified with their authoritative source
+    or competent owner and an evidence-based applicability rationale.
+  intent: Prevent a target from silently omitting external constraints before verification begins.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The external-constraint inventory records applicable constraints, source or competent owner, and applicability
+        rationale, including an evidence-based determination when no such constraint applies.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-2.2
+  level: 2
+  statement: Verification of important positive and negative engineering cases must be repeatable against the identified assessed
+    revision and dependent environment.
+  intent: Make verification repeatability independently diagnosable from missing-evidence handling.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative positive and negative verification can be repeated with the stated setup, oracle, revision,
+        and environment.
+      classes:
+      - reproducible_test
+    independence: none
+- id: ASR-2.3
+  level: 2
+  statement: A missing, stale, contradictory, inaccessible, or otherwise unresolved evidence obligation must remain explicitly
+    unresolved and must not produce a passing claim.
+  intent: Prevent absence-of-evidence gaming independently from test repeatability.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The assessment or claim record preserves unresolved evidence as a blocker rather than a passing result.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-2.4
+  level: 2
+  statement: Each identified applicable external constraint must trace to the engineering claim that implements it or to an
+    explicit unresolved implementation status.
+  intent: Make external constraint-to-claim coverage visible without defining domain truth.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Every identified applicable external constraint has a direct constraint-to-claim trace or explicit unresolved
+        implementation status.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-2.5
+  level: 2
+  statement: Each engineering claim that implements an identified external constraint must trace to direct verification evidence
+    or to an explicit unresolved verification status.
+  intent: Make external constraint implementation evidence independently diagnosable from constraint identification.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Every external-constraint implementation claim has direct evidence traceability or explicit unresolved
+        verification status.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-3.1
+  level: 3
+  statement: Important failure, threat, edge, and assumption classes must be systematically traceable to direct verification
+    evidence or an explicit unresolved status.
+  intent: Expose blind spots in the claim-to-evidence system.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative claim classes have complete traceability to evidence or explicit blockers.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: ASR-4.2
+  level: 4
+  statement: Highest-consequence engineering claims must receive independent review of their direct underlying evidence.
+  intent: Make independent evidence-sufficiency review atomic.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review challenges the sufficiency and contradiction state of direct underlying evidence for
+        the selected claims.
+      classes:
+      - artifact_inspection
+      - analysis
+      - reproducible_test
+    independence: independent_review
+- id: ASR-4.3
+  level: 4
+  statement: A documented material blind spot in the primary verification method for a highest-consequence claim must be addressed
+    by a complementary verification method with a distinct failure mode.
+  intent: Require complementary evidence only on an objective blind-spot predicate rather than vague discretion.
+  applicability:
+    mode: conditional
+    any_of:
+    - A verification method used for a highest-consequence engineering claim has a documented material blind spot that a distinct
+      verification method can address.
+  evidence:
+    required:
+    - demonstrates: The primary method blind spot and the distinct complementary method are explicitly identified.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: The complementary method directly addresses the identified blind spot.
+      classes:
+      - analysis
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: ASR-4.4
+  level: 4
+  statement: The evidence-based selection of highest-consequence engineering claims and exclusions from that scope must receive
+    independent challenge.
+  intent: Prevent a target from self-certifying an artificially narrow high-assurance scope.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review challenges consequence classification, selected scope, and material exclusions.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: ASR-4.5
+  level: 4
+  statement: The completeness, source attribution, and applicability rationale of the external-constraint inventory must receive
+    independent challenge for the assessed scope.
+  intent: Prevent high maturity from relying on a target-defined omission of applicable external constraints.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review challenges the external-constraint inventory for omitted applicable constraints, source
+        ambiguity, and unsupported applicability conclusions.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: ASR-5.2
+  level: 5
+  statement: The assumptions supporting each highest-consequence engineering claim must be explicit, attributable, and bounded
+    across the assessed scope.
+  intent: Make high-assurance assumptions independently diagnosable from evidence reproduction.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The selected highest-consequence claims and their complete supporting assumptions are explicit and attributable.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: ASR-5.3
+  level: 5
+  statement: Each highest-consequence engineering claim must have rigorous end-to-end traceability from the claim through
+    its supporting evidence and unresolved blockers.
+  intent: Make the high-assurance claim-to-evidence chain independently diagnosable.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: End-to-end claim-to-evidence traceability is complete for the selected highest-consequence claims and
+        explicitly preserves unresolved blockers.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: ASR-5.4
+  level: 5
+  statement: Direct evidence for each highest-consequence engineering claim must be independently reproduced or independently
+    derived by an equivalently rigorous method whose validity assumptions match the claim.
+  intent: Establish exceptional confidence in the verification system itself.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent reproduction or formal derivation confirms the direct evidence for the selected highest-consequence
+        claims.
+      classes:
+      - reproducible_test
+      - formal_verification
+      - operational_exercise
+    independence: independent_reproduction

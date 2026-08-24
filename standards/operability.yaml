@@ -1,53 +1,137 @@
 dimension: OPS
-applicability: {mode: always}
+applicability:
+  mode: always
 requirements:
-  - id: OPS-1.1
-    level: 1
-    statement: The deliverable must have defined, verifiable procedures for configuration and use, including start, stop, and recovery where those operations exist.
-    intent: Establish basic controlled operation of the deliverable.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: A representative operator can execute applicable lifecycle procedures to the stated outcome.
-          classes: [reproducible_test, operational_exercise]
-      independence: none
-  - id: OPS-2.1
-    level: 2
-    statement: Release, distribution, and change procedures must be repeatable, and rollback or an equivalent reversal path must exist where reversal is technically meaningful.
-    intent: Bound routine delivery and change risk.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative change and reversal procedures are repeatable and reach defined states.
-          classes: [operational_exercise, reproducible_test]
-      independence: none
-  - id: OPS-3.1
-    level: 3
-    statement: Rollout, migration, maintenance, degraded operation, emergency handling, and other material operational state transitions must remain within explicit transition and recovery bounds where applicable.
-    intent: Contain abnormal operational change.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative material state transitions remain controlled and recoverable.
-          classes: [operational_exercise, runtime_observation]
-      independence: none
-  - id: OPS-4.1
-    level: 4
-    statement: Privileged or consequential operational actions must be strongly bounded, and relevant recovery or disaster procedures must be exercised against explicit objectives.
-    intent: Contain operator-induced and emergency operational failures.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review confirms consequential operations and recovery procedures meet stated control objectives.
-          classes: [operational_exercise, analysis]
-      independence: independent_review
-  - id: OPS-5.1
-    level: 5
-    statement: High-consequence operational procedures and emergency transitions must be independently rehearsed or verified across the explicit operating assumptions and recovery envelope.
-    intent: Establish exceptional confidence in critical operations.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms critical operational transitions meet their stated bounds.
-          classes: [operational_exercise, reproducible_test]
-      independence: independent_reproduction
+- id: OPS-1.2
+  level: 1
+  statement: The deliverable must have defined, verifiable procedures for supported configuration and ordinary use.
+  intent: Establish a baseline for controlled configuration and use.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: A representative operator can execute supported configuration and ordinary-use procedures to the stated
+        outcome.
+      classes:
+      - reproducible_test
+      - operational_exercise
+    independence: none
+- id: OPS-1.3
+  level: 1
+  statement: Each supported operator-controlled lifecycle operation must have a defined, verifiable procedure that reaches
+    a stated operational state.
+  intent: Separate lifecycle operation procedures from basic configuration and use.
+  applicability:
+    mode: conditional
+    any_of:
+    - The deliverable exposes operator-controlled lifecycle operations such as start, stop, restart, or recovery.
+  evidence:
+    required:
+    - demonstrates: A representative operator can execute each supported lifecycle procedure to its stated state.
+      classes:
+      - reproducible_test
+      - operational_exercise
+    independence: none
+- id: OPS-2.2
+  level: 2
+  statement: Release, distribution, and routine change procedures must be repeatable and reach defined target states.
+  intent: Make routine delivery repeatability independently diagnosable from reversal.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative release, distribution, and routine-change procedures repeatably reach their defined states.
+      classes:
+      - operational_exercise
+      - reproducible_test
+    independence: none
+- id: OPS-2.3
+  level: 2
+  statement: A technically meaningful reversal of a material release or change must have a defined path back to a stated known
+    state.
+  intent: Separate rollback or reversal capability from forward delivery repeatability.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target release or change model admits a technically meaningful reversal to a prior known state.
+  evidence:
+    required:
+    - demonstrates: Representative reversal returns the target to the stated known state without an uncontrolled transition.
+      classes:
+      - operational_exercise
+      - reproducible_test
+    independence: none
+- id: OPS-3.1
+  level: 3
+  statement: Each material rollout, migration, maintenance, degraded-operation, emergency, or equivalent operational state
+    transition must remain within explicit transition and recovery bounds.
+  intent: Contain abnormal operational change.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target has a material rollout, migration, maintenance, degraded-operation, emergency, or equivalent operational
+      state transition.
+  evidence:
+    required:
+    - demonstrates: Representative material state transitions remain controlled and recoverable.
+      classes:
+      - operational_exercise
+      - runtime_observation
+    independence: none
+- id: OPS-4.2
+  level: 4
+  statement: Highest-consequence operational actions must remain within explicit scope and transition bounds.
+  intent: Contain operator-induced consequential failures independently from recovery procedure assurance.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence operational actions and their authority/scope/transition bounds are explicitly
+        selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative actions remain within the stated bounds.
+      classes:
+      - operational_exercise
+      - reproducible_test
+    independence: independent_review
+- id: OPS-4.3
+  level: 4
+  statement: A highest-consequence failure that is recoverable through operator-controlled procedures must have a recovery
+    procedure exercised against explicit objectives.
+  intent: Make consequential operational recovery procedure assurance separately diagnosable.
+  applicability:
+    mode: conditional
+    any_of:
+    - A highest-consequence operational failure can be recovered through an operator-controlled procedure before the target
+      reaches an irreversible terminal state.
+  evidence:
+    required:
+    - demonstrates: Recovery objectives and operator-controlled procedure are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: An operational exercise meets the stated recovery objectives.
+      classes:
+      - operational_exercise
+    independence: independent_review
+- id: OPS-5.1
+  level: 5
+  statement: Highest-consequence operational procedures and emergency transitions must remain within explicit operating assumptions
+    and recovery bounds.
+  intent: Establish exceptional confidence in critical operations.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence procedures, transitions, operating assumptions, and recovery envelope are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent rehearsal or equivalent runtime-capable verification stays within the stated envelope.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

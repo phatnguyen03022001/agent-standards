@@ -1,53 +1,116 @@
 dimension: CMP
-applicability: {mode: always}
+applicability:
+  mode: always
 requirements:
-  - id: CMP-1.1
-    level: 1
-    statement: Explicitly supported consumers, environments, and interfaces must behave according to their stated contracts.
-    intent: Make support claims truthful and verifiable.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative supported contracts hold in the claimed consumers or environments.
-          classes: [reproducible_test, artifact_inspection]
-      independence: none
-  - id: CMP-2.1
-    level: 2
-    statement: Claimed compatibility ranges and version-transition semantics must be explicit and verified across representative supported combinations.
-    intent: Bound routine version and environment drift.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Supported version transitions and compatibility ranges conform to their stated semantics.
-          classes: [reproducible_test, analysis]
-      independence: none
-  - id: CMP-3.1
-    level: 3
-    statement: Deprecation, migration, multi-version interaction, platform variation, and backward or forward compatibility risks must be bounded wherever such support is claimed.
-    intent: Contain complex compatibility transitions.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative transition and variation scenarios remain within claimed compatibility bounds.
-          classes: [reproducible_test, analysis]
-      independence: none
-  - id: CMP-4.1
-    level: 4
-    statement: Long-lived or consequential compatibility guarantees must have controlled transition mechanisms and independently reviewed conformance evidence across their claimed scope.
-    intent: Protect high-impact external guarantees during change.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review confirms consequential compatibility guarantees and transition controls.
-          classes: [reproducible_test, artifact_inspection]
-      independence: independent_review
-  - id: CMP-5.1
-    level: 5
-    statement: Critical compatibility claims must be independently reproduced across the claimed support matrix or an equivalent explicit conformance model.
-    intent: Establish exceptional confidence in critical compatibility guarantees.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms critical compatibility across the complete claimed model.
-          classes: [reproducible_test, formal_verification]
-      independence: independent_reproduction
+- id: CMP-1.1
+  level: 1
+  statement: Explicitly supported consumers, environments, and interfaces must behave according to their stated contracts.
+  intent: Make support claims truthful and verifiable.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Supported consumers, environments, interfaces, and their contracts are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative supported combinations conform to their stated contracts.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: CMP-2.2
+  level: 2
+  statement: Supported compatibility ranges must be explicit and must define the supported combinations that are required
+    to conform.
+  intent: Make compatibility-range truth independently diagnosable from transition semantics.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Claimed compatibility ranges and representative combinations are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative combinations conform to the claimed ranges.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: CMP-2.3
+  level: 2
+  statement: Supported version transitions must have explicit transition semantics that are verified across representative
+    supported transitions.
+  intent: Separate transition semantics from steady-state compatibility ranges.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target supports a transition between two or more versions, formats, protocols, interfaces, or environments.
+  evidence:
+    required:
+    - demonstrates: Supported version-transition semantics are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative supported transitions conform to those semantics.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: CMP-3.1
+  level: 3
+  statement: Deprecation, migration, multi-version interaction, platform variation, and backward or forward compatibility
+    risks must remain within explicit support bounds.
+  intent: Contain complex compatibility transitions.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target claims deprecation, migration, multi-version interaction, platform variation, backward compatibility, forward
+      compatibility, or equivalent advanced compatibility support.
+  evidence:
+    required:
+    - demonstrates: The claimed advanced compatibility support and its bounds are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative supported transition and variation scenarios remain within those bounds.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: CMP-4.1
+  level: 4
+  statement: Long-lived or consequential compatibility guarantees must remain conformant through controlled transitions across
+    their supported scope.
+  intent: Protect high-impact external guarantees during change.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence compatibility guarantees and controlled transition mechanisms are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative transitions conform to the selected compatibility guarantees.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: CMP-5.1
+  level: 5
+  statement: Highest-consequence compatibility guarantees must hold across the supported matrix or an equivalent explicit
+    conformance model.
+  intent: Establish exceptional confidence in critical compatibility guarantees.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence compatibility claims and support model are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent reproduction confirms compatibility across the complete selected model.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

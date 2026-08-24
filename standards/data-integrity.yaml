@@ -2,55 +2,187 @@ dimension: DAT
 applicability:
   mode: conditional
   any_of:
-    - Material data crosses a storage, transmission, persistence, replication, transformation, or integrity boundary.
+  - Material data crosses a storage, transmission, persistence, replication, transformation, or integrity boundary.
 requirements:
-  - id: DAT-1.1
-    level: 1
-    statement: Once this dimension applies, accepted material data must not silently become malformed, lost, duplicated, or corrupted through expected operations.
-    intent: Establish baseline preservation of material data.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Expected data operations preserve declared integrity invariants or fail explicitly.
-          classes: [reproducible_test, formal_verification]
-      independence: none
-  - id: DAT-2.1
-    level: 2
-    statement: Atomicity, consistency, validation, version-transition, and ordinary concurrent-modification expectations must be explicit and enforced at relevant integrity boundaries.
-    intent: Bound routine integrity failures across state transitions.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Relevant transitions and concurrent modifications preserve stated integrity expectations.
-          classes: [reproducible_test, analysis]
-      independence: none
-  - id: DAT-3.1
-    level: 3
-    statement: Corruption, replay, ordering conflict, partial write, replication divergence, migration failure, and recovery interaction must be detected or bounded where those conditions can affect material data.
-    intent: Contain abnormal integrity failures.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Applicable abnormal integrity conditions are detected, rejected, repaired, or contained.
-          classes: [reproducible_test, operational_exercise]
-      independence: none
-  - id: DAT-4.1
-    level: 4
-    statement: High-impact data corruption must be detectably bounded and recoverable to a stated integrity point without silently accepting known-invalid material data.
-    intent: Ensure consequential corruption has verified containment and recovery.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review of corruption and recovery evidence confirms the stated integrity bound.
-          classes: [operational_exercise, reproducible_test]
-      independence: independent_review
-  - id: DAT-5.1
-    level: 5
-    statement: Critical material data must have explicit end-to-end integrity assumptions and guarantees, including provenance or tamper evidence where the target requires them, supported by independently reproduced corruption and recovery assurance.
-    intent: Establish exceptional confidence in critical data integrity.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Critical end-to-end integrity and recovery guarantees hold under the explicit assumptions.
-          classes: [reproducible_test, formal_verification, provenance_attestation]
-      independence: independent_reproduction
+- id: DAT-1.1
+  level: 1
+  statement: Once this dimension applies, accepted material data must not silently become malformed, lost, duplicated, or
+    corrupted through expected operations.
+  intent: Establish baseline preservation of material data.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Expected data operations preserve declared integrity invariants or fail explicitly.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: DAT-2.2
+  level: 2
+  statement: A state transition that changes material data must satisfy its explicit atomicity invariant.
+  intent: Make atomicity independently diagnosable from consistency.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Atomicity invariants are explicit at affected integrity boundaries.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative state transitions satisfy the stated atomicity invariant.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: DAT-2.3
+  level: 2
+  statement: Accepted material data must be validated against the explicit representation and transition rules of each integrity
+    boundary it crosses.
+  intent: Separate validation and representation-transition correctness from atomicity.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representation and transition validation rules are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Data that violates those rules is rejected or contained rather than silently accepted.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: DAT-2.4
+  level: 2
+  statement: Concurrent modification of material data must follow explicit conflict and ordering semantics that preserve integrity.
+  intent: Make concurrent integrity behavior independently verifiable.
+  applicability:
+    mode: conditional
+    any_of:
+    - Material data can be modified concurrently by more than one operation, actor, replica, or execution path.
+  evidence:
+    required:
+    - demonstrates: Concurrent conflict and ordering semantics are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative concurrent modifications preserve those semantics.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: DAT-2.5
+  level: 2
+  statement: A state transition that changes material data must preserve the explicit consistency invariants of the resulting
+    committed state.
+  intent: Make consistency independently diagnosable from atomicity.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Committed-state consistency invariants are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative state transitions preserve those invariants.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: DAT-3.1
+  level: 3
+  statement: Corruption, replay, ordering conflict, partial write, replication divergence, migration failure, and recovery
+    interaction must be detected, rejected, repaired, or contained at the affected material-data boundary.
+  intent: Contain abnormal integrity failures.
+  applicability:
+    mode: conditional
+    any_of:
+    - A corruption, replay, ordering-conflict, partial-write, replication-divergence, migration-failure, recovery-interaction,
+      or equivalent abnormal condition can affect an in-scope material-data boundary.
+  evidence:
+    required:
+    - demonstrates: Credible abnormal integrity conditions for the in-scope boundaries are explicitly identified.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: Representative identified abnormal conditions are detected, rejected, repaired, or contained.
+      classes:
+      - reproducible_test
+      - operational_exercise
+      - formal_verification
+    independence: none
+- id: DAT-4.2
+  level: 4
+  statement: Highest-consequence data corruption must be detected or contained before known-invalid material data is accepted
+    as valid.
+  intent: Prevent consequential corruption from becoming silent accepted state.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence corruption modes and acceptance boundary are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative corruption is detected or contained before invalid data is accepted.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: DAT-4.3
+  level: 4
+  statement: Recovery from highest-consequence data corruption must reach a stated integrity point without silently accepting
+    known-invalid material data.
+  intent: Make consequential integrity recovery independently verifiable from corruption detection.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The recovery integrity point and invalid-data exclusion rule are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Recovery exercises or tests reach the stated integrity point without accepting known-invalid data.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_review
+- id: DAT-5.2
+  level: 5
+  statement: Highest-consequence material data must satisfy explicit end-to-end integrity guarantees throughout a stated assumption
+    and failure envelope.
+  intent: Establish exceptional confidence in end-to-end data integrity independently from recovery.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The selected data, end-to-end integrity guarantees, assumptions, and failure envelope are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: The end-to-end integrity guarantees hold throughout the stated envelope.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction
+- id: DAT-5.3
+  level: 5
+  statement: Recovery of highest-consequence material data must satisfy explicit recovery-integrity guarantees throughout
+    the stated failure envelope.
+  intent: Establish exceptional confidence in high-consequence data recovery independently from steady-state integrity.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The selected recovery-integrity guarantees and failure envelope are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Recovery preserves the stated integrity guarantees throughout the failure envelope.
+      classes:
+      - operational_exercise
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

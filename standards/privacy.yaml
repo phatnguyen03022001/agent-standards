@@ -2,55 +2,248 @@ dimension: PRI
 applicability:
   mode: conditional
   any_of:
-    - The system observes, derives, stores, transmits, exposes, or acts on personal or privacy-sensitive information.
+  - The system observes, derives, stores, transmits, exposes, or acts on personal or privacy-sensitive information.
 requirements:
-  - id: PRI-1.1
-    level: 1
-    statement: Once this dimension applies, privacy-sensitive information must have explicit permitted purposes and exposure boundaries that are enforced by system behavior.
-    intent: Prevent undefined use or exposure of privacy-sensitive information.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Processing and exposure remain inside identified purposes and boundaries.
-          classes: [artifact_inspection, reproducible_test]
-      independence: none
-  - id: PRI-2.1
-    level: 2
-    statement: Collection, minimization, retention, deletion, disclosure, access, and applicable user or domain privacy controls must be enforced for expected operation.
-    intent: Make routine privacy lifecycle constraints operational rather than aspirational.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative information lifecycles obey the identified privacy constraints.
-          classes: [reproducible_test, runtime_observation]
-      independence: none
-  - id: PRI-3.1
-    level: 3
-    statement: Cross-context linkage, derived-data inference, boundary mistakes, secondary use, and diagnostic leakage must be bounded where they can expose or expand privacy-sensitive information.
-    intent: Contain privacy failures that occur despite authorized system access.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative linkage, inference, and leakage paths remain within stated privacy bounds.
-          classes: [analysis, reproducible_test]
-      independence: none
-  - id: PRI-4.1
-    level: 4
-    statement: High-impact retention, deletion, and exposure failures must have independently reviewed containment and verification capable of detecting material non-conformance.
-    intent: Provide strong evidence for consequential privacy controls.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: High-impact privacy failures are detected and contained and lifecycle controls are effective.
-          classes: [reproducible_test, runtime_observation, analysis]
-      independence: independent_review
-  - id: PRI-5.1
-    level: 5
-    statement: Material re-identification, inference, aggregation, and equivalent advanced privacy risks must be evaluated against explicit assumptions with independently reproduced evidence appropriate to the claimed scope.
-    intent: Establish exceptional confidence against advanced privacy failure modes.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Advanced privacy risks remain within explicit bounds under independent reproduction.
-          classes: [analysis, reproducible_test, formal_verification]
-      independence: independent_reproduction
+- id: PRI-1.2
+  level: 1
+  statement: Once this dimension applies, every use of privacy-sensitive information must remain within an explicit permitted
+    purpose.
+  intent: Prevent undefined or secondary use from being hidden inside broader privacy controls.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Permitted purposes are explicit for in-scope privacy-sensitive processing.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected processing does not perform an effect outside the permitted purposes.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: PRI-1.3
+  level: 1
+  statement: Once this dimension applies, privacy-sensitive information must remain within explicit exposure boundaries during
+    expected operation.
+  intent: Separate disclosure boundary enforcement from purpose limitation.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Exposure boundaries are explicit for privacy-sensitive information.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected operation does not expose privacy-sensitive information outside those boundaries.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: PRI-2.2
+  level: 2
+  statement: Collection of privacy-sensitive information must be limited to the information required by the identified permitted
+    purposes.
+  intent: Make collection minimization independently diagnosable.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The information needed for each permitted purpose is explicitly bounded.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected collection does not exceed the stated purpose-bound information set.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - formal_verification
+    independence: none
+- id: PRI-2.3
+  level: 2
+  statement: Retention of privacy-sensitive information must remain within explicit lifecycle duration or state boundaries
+    during expected operation.
+  intent: Make retention independently diagnosable from deletion.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Retention boundaries are explicit for in-scope privacy-sensitive information.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative lifecycles do not retain information beyond those boundaries.
+      classes:
+      - reproducible_test
+      - runtime_observation
+    independence: none
+- id: PRI-2.4
+  level: 2
+  statement: Access to privacy-sensitive information must remain within explicit authorized-access boundaries.
+  intent: Make access control independently diagnosable from disclosure.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Authorized-access boundaries are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected access remains inside those boundaries.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - formal_verification
+    independence: none
+- id: PRI-2.5
+  level: 2
+  statement: The identified externally-owned privacy constraint must be enforced by the privacy-sensitive processing it governs.
+  intent: Keep domain truth external while making identified privacy constraints operational.
+  applicability:
+    mode: conditional
+    any_of:
+    - The ASR external-constraint inventory identifies an applicable externally-owned privacy constraint that requires target
+      behavior.
+  evidence:
+    required:
+    - demonstrates: The externally-owned privacy constraint and governed processing are traced from the ASR constraint inventory.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: The governed processing enforces the identified constraint behavior.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: PRI-2.6
+  level: 2
+  statement: Deletion of privacy-sensitive information must follow explicit deletion semantics and reach the stated deleted
+    state.
+  intent: Make deletion independently diagnosable from retention.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Deletion semantics and the resulting deleted state are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative deletion operations reach the stated deleted state.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - formal_verification
+    independence: none
+- id: PRI-2.7
+  level: 2
+  statement: Disclosure of privacy-sensitive information must remain within explicit authorized-recipient boundaries.
+  intent: Make disclosure independently diagnosable from access.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Authorized-recipient boundaries are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Expected disclosure remains inside those boundaries.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - formal_verification
+    independence: none
+- id: PRI-3.1
+  level: 3
+  statement: Cross-context linkage, derived-data inference, boundary mistakes, secondary use, and diagnostic leakage must
+    remain within the stated privacy bounds.
+  intent: Contain privacy failures that occur despite authorized system access.
+  applicability:
+    mode: conditional
+    any_of:
+    - A cross-context linkage, derived-data inference, boundary-mistake, secondary-use, diagnostic, or equivalent path can
+      expose or expand privacy-sensitive information beyond expected processing.
+  evidence:
+    required:
+    - demonstrates: The privacy-expanding paths covered by this requirement are explicitly identified.
+      classes:
+      - analysis
+      - artifact_inspection
+    - demonstrates: Representative identified paths remain within the stated privacy bounds.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: none
+- id: PRI-4.2
+  level: 4
+  statement: Highest-consequence retention non-conformance must not persist beyond an explicit containment bound.
+  intent: Provide strong independent assurance for consequential retention failures.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence retention failure modes and containment bound are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative retention non-conformance remains within the stated containment bound.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - operational_exercise
+    independence: independent_review
+- id: PRI-4.3
+  level: 4
+  statement: Highest-consequence exposure non-conformance must remain within an explicit exposure containment bound.
+  intent: Provide strong independent assurance for consequential disclosure failures.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence exposure failure modes are selected with explicit rationale.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative exposure failures are detected and contained within the stated bound.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - operational_exercise
+    independence: independent_review
+- id: PRI-4.4
+  level: 4
+  statement: Highest-consequence deletion non-conformance must not leave privacy-sensitive information outside the explicitly
+    allowed post-deletion state.
+  intent: Provide strong independent assurance for consequential deletion failures.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence deletion failure modes and allowed post-deletion state are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative deletion non-conformance does not leave information outside the allowed post-deletion state.
+      classes:
+      - reproducible_test
+      - runtime_observation
+      - operational_exercise
+      - formal_verification
+    independence: independent_review
+- id: PRI-5.2
+  level: 5
+  statement: The highest-consequence privacy risks, including any credible re-identification, inference, aggregation, or equivalent
+    advanced risk, must remain within explicit privacy assumptions and bounds across the assessed scope.
+  intent: Establish exceptional confidence against the most consequential privacy failure modes.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence privacy risks, assumptions, and bounds are explicit and evidence-based.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Those risks remain within the stated bounds across the claimed scope.
+      classes:
+      - reproducible_test
+      - formal_verification
+    independence: independent_reproduction

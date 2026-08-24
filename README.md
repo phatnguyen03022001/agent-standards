@@ -1,6 +1,6 @@
 # agent-standards
 
-`agent-standards` defines a candidate, technology-neutral engineering maturity model. **V1-CANDIDATE-1 is not frozen or released.** Candidate work lives on `dev`; `main` remains the bootstrap root until a separately approved release.
+`agent-standards` defines a candidate, technology-neutral engineering maturity model. **V1-CANDIDATE-2 is not frozen or released.** Candidate work lives on `dev`; `main` remains the bootstrap root until a separately approved release.
 
 Normative authority is split deliberately:
 

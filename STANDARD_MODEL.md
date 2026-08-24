@@ -38,9 +38,19 @@ Target-owned exception records should identify requirement ID, affected scope, k
 
 YAML is canonical. Each requirement has exactly `id`, `level`, `statement`, `intent`, `applicability`, and `evidence`. Statements are technology-neutral, determinate, directly verifiable engineering invariants rather than implementation prescriptions. Intent explains the failure class.
 
-Applicability is either `mode: always` or `mode: conditional` with at least one factual predicate in `all_of` and/or `any_of`. For conditional applicability, all `all_of` predicates must be true and, when `any_of` exists, at least one `any_of` predicate must be true. Predicates describe observable target facts, not vague discretion.
+Applicability is either `mode: always` or `mode: conditional` with at least one factual predicate in `all_of` and/or `any_of`. For conditional applicability, all `all_of` predicates must be true and, when `any_of` exists, at least one `any_of` predicate must be true. Predicates describe observable target facts, not vague discretion. Applicability conditions belong only in this canonical structure; an `always` requirement must not create an N/A escape hatch with prose such as “where applicable”, “where relevant”, “when appropriate”, or equivalent discretionary wording.
 
 Evidence contains a nonempty `required` list. Each obligation has `demonstrates` and one or more allowed `classes`; every obligation is required, while any one listed class can satisfy an obligation. `independence` is exactly `none`, `independent_review`, or `independent_reproduction`.
+
+## Non-vacuous Level 4 and Level 5 scope
+
+Level 4 and Level 5 scope-selection terms such as `material`, `high-impact`, `critical`, `consequential`, `major`, `significant`, `representative`, and `strongest claimed` identify the portion of an applicable dimension that receives stronger assurance. They are not optional escape clauses and do not permit an applicable dimension to declare an empty high-consequence scope merely because the target has not created a class carrying one of those labels.
+
+For every applicable dimension, the assessor and target must identify the in-scope properties, assets, operations, failure modes, or claims having the highest consequence within that dimension. When no separately designated “critical”, “major”, or equivalent class exists, Level 4 and Level 5 requirements apply to the highest-consequence material applicable subset rather than to an empty set. The classification rationale and the facts supporting inclusion and exclusion must be explicit and evidence-based; this model does not require or define a numerical severity or risk score.
+
+At Levels 4 and 5, the required independent verifier is permitted to challenge the consequence classification, the selected subset, and exclusions that would improperly narrow the claimed scope. A project cannot use N/A merely because it has not labeled anything “critical”, “high-impact”, or similar. If the consequence classification or the highest-consequence applicable subset cannot itself be established with sufficient evidence, the affected high-level requirement is `UNKNOWN`, not PASS or N/A.
+
+These scope rules select evidence and verification depth within an already applicable dimension. They do not replace the canonical requirement applicability predicates and do not make target-defined risk acceptance a basis for N/A.
 
 ## Evidence semantics
 
@@ -56,7 +66,9 @@ Allowed classes are:
 
 There is no numerical evidence-quality score. Evidence is sufficient or insufficient for a requirement. It must be relevant, attributable to the exact revision, scoped to dependent configuration/environment, direct enough for the requested class, reproducible when required, independent to the requested degree, and free of unresolved contradiction. A technology name is not evidence. A policy document is not runtime proof. A screenshot of an unidentified passing test cannot substitute for a reproducible test.
 
-`independent_review` requires a verifier to evaluate direct underlying evidence rather than repeat the implementer's assertion. `independent_reproduction` requires an independent verifier to reproduce or independently derive the evidence. Independence concerns verification authority/method, not whether the verifier is human or automated.
+A static structure claim may be established by `artifact_inspection`, `analysis`, or another class that directly proves the static invariant. A runtime enforcement claim must include a mandatory obligation satisfiable only by a runtime-capable or logically equivalent class such as `reproducible_test`, `runtime_observation`, `operational_exercise`, or `formal_verification`. When a requirement needs both a static fact and a runtime fact, they are separate mandatory evidence obligations; satisfying one does not substitute for the other.
+
+`independent_review` requires a verifier to evaluate direct underlying evidence rather than repeat the implementer's assertion. `independent_reproduction` requires an independent verifier to reproduce or independently derive the evidence. Independence concerns verification authority/method, not whether the verifier is human or automated. A target cannot self-certify an independence obligation merely by relabeling its own assertion or evidence producer.
 
 ## Dimension applicability
 
@@ -83,9 +95,11 @@ An assessment is interpretable only when it pins the standards to an exact froze
 
 `standards/manifest.yaml` owns generation number, dimension codes, keys, names, and filenames. Dimension YAML owns dimension applicability and all requirement IDs, levels, statements, intents, applicability, and evidence obligations. This document owns interpretation semantics. README is orientation only. Validator/tests are derived enforcement aids. Any mismatch between enforcement and normative sources is a release-blocking defect.
 
-## Domain boundary
+## Domain boundary and external constraints
 
 External and domain truth remains owned by the target or competent domain authority. Generic standards may require those constraints to be identified, traced, enforced, and verified, but `agent-standards` does not invent the constraint itself.
+
+The target must determine which externally-owned engineering or domain constraints apply and preserve their authoritative source or competent owner. ASR owns generic identification and constraint-to-claim-to-evidence traceability. The substantive engineering dimension owns the behavior that implements an identified constraint; for example COR owns behavioral conformance, SAF owns severe-harm containment, and PRI owns privacy behavior. Unresolved applicability, implementation, or verification remains explicitly unresolved rather than disappearing from the claim set.
 
 For example, a product owns its scoring definition and acceptable score behavior; medical authorities own clinical limits; financial authorities or product owners own transaction/risk constraints; aviation authorities and system safety authorities own flight-envelope or operational limits. This model can require exact identified constraints to be enforced and evidenced without declaring the values or domain truth.
 
@@ -95,4 +109,4 @@ This repository stores no target profiles. A target may conceptually pin `reposi
 
 ## Anti-gaming invariants
 
-No averaging; UNKNOWN is never PASS; N/A requires a false canonical predicate; EXCEPTION is never PASS; higher levels cannot bypass lower blockers; documentation cannot prove runtime behavior; technology names cannot prove properties; Level 5 cannot be self-certified where independent reproduction is required; duplicate controls do not inflate maturity; vague non-testable maturity statements are invalid.
+No averaging; UNKNOWN is never PASS; N/A requires a false canonical predicate; EXCEPTION is never PASS; higher levels cannot bypass lower blockers; documentation cannot prove runtime behavior; technology names cannot prove properties; Level 4/5 scope cannot be emptied by target labels; Level 5 cannot be self-certified where independent reproduction is required; duplicate controls do not inflate maturity; compound controls must not hide independently fail-able properties; vague discretionary applicability is invalid; and externally-owned constraints cannot be omitted merely because the target failed to inventory them.

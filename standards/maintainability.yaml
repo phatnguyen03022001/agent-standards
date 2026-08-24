@@ -1,53 +1,117 @@
 dimension: MNT
-applicability: {mode: always}
+applicability:
+  mode: always
 requirements:
-  - id: MNT-1.1
-    level: 1
-    statement: Components, responsibilities, and interfaces must be understandable enough that a bounded local change can be identified without uncontrolled system-wide inference.
-    intent: Establish a baseline for safe comprehension and local change.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative local changes have identifiable components, interfaces, and effects.
-          classes: [artifact_inspection, analysis]
-      independence: none
-  - id: MNT-2.1
-    level: 2
-    statement: Dependencies, configuration, ownership boundaries, and change surfaces must be structured so routine change does not require uncontrolled edits across unrelated system areas.
-    intent: Bound collateral effects of routine change.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative routine changes remain within explicit dependency and change boundaries.
-          classes: [artifact_inspection, analysis]
-      independence: none
-  - id: MNT-3.1
-    level: 3
-    statement: Architectural boundaries must isolate material high-change or high-risk areas, and replacement or migration paths must be explicit where such evolution is claimed.
-    intent: Prevent concentrated change from causing uncontrolled coupling.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Representative risky changes or migrations respect stated boundaries and dependency direction.
-          classes: [analysis, reproducible_test]
-      independence: none
-  - id: MNT-4.1
-    level: 4
-    statement: Critical components must be evolvable or replaceable without uncontrolled whole-system reconstruction, with change impact independently reviewable from direct artifacts and evidence.
-    intent: Bound consequential change and replacement risk.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent review can determine the bounded impact of representative critical changes.
-          classes: [artifact_inspection, analysis]
-      independence: independent_review
-  - id: MNT-5.1
-    level: 5
-    statement: Representative consequential changes must be independently performed or derived with evidence that hidden coupling and semantic drift remain within explicit bounds.
-    intent: Establish exceptional confidence in changeability.
-    applicability: {mode: always}
-    evidence:
-      required:
-        - demonstrates: Independent reproduction confirms consequential change can occur without uncontrolled hidden coupling or drift.
-          classes: [analysis, reproducible_test]
-      independence: independent_reproduction
+- id: MNT-1.1
+  level: 1
+  statement: Components, responsibilities, and interfaces must be understandable enough that a bounded local change can be
+    identified without uncontrolled system-wide inference.
+  intent: Establish a baseline for safe comprehension and local change.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative local changes have identifiable components, interfaces, and effects.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: MNT-2.1
+  level: 2
+  statement: Dependencies, configuration, ownership boundaries, and change surfaces must be structured so routine change does
+    not require uncontrolled edits across unrelated system areas.
+  intent: Bound collateral effects of routine change.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Representative routine changes remain within explicit dependency and change boundaries.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: MNT-3.2
+  level: 3
+  statement: Architectural boundaries must isolate material high-change or high-risk areas from unrelated system areas.
+  intent: Make change-isolation independently diagnosable from migration support.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Material high-change or high-risk areas and their architectural boundaries are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Representative changes remain within the stated dependency and change boundaries.
+      classes:
+      - artifact_inspection
+      - analysis
+      - reproducible_test
+    independence: none
+- id: MNT-3.3
+  level: 3
+  statement: The replacement or migration path for a material component must identify the bounded interfaces and dependency
+    direction that permit that evolution.
+  intent: Separate evolvability claims from general architectural isolation.
+  applicability:
+    mode: conditional
+    any_of:
+    - The target claims a supported replacement or migration path for a material component within the assessed lifecycle.
+  evidence:
+    required:
+    - demonstrates: The claimed replacement or migration path, interfaces, and dependency direction are explicit and internally
+        consistent.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: none
+- id: MNT-4.2
+  level: 4
+  statement: Highest-consequence components must be evolvable or replaceable without uncontrolled whole-system reconstruction.
+  intent: Bound consequential changeability independently from impact review.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The highest-consequence components and bounded replacement/change surfaces are explicitly selected.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent review confirms those surfaces do not require uncontrolled whole-system reconstruction.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: MNT-4.3
+  level: 4
+  statement: The impact of a highest-consequence change must be independently determinable from direct dependency, interface,
+    configuration, and ownership evidence.
+  intent: Make change-impact analyzability an explicit high-level property.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: Independent review can determine the affected scope of a representative highest-consequence change from
+        direct artifacts.
+      classes:
+      - artifact_inspection
+      - analysis
+    independence: independent_review
+- id: MNT-5.2
+  level: 5
+  statement: Representative highest-consequence changes must be independently performed or derived with evidence that hidden
+    coupling remains within explicit bounds.
+  intent: Establish exceptional confidence in changeability without duplicating correctness or compatibility semantics.
+  applicability:
+    mode: always
+  evidence:
+    required:
+    - demonstrates: The selected consequential changes and coupling bounds are explicit.
+      classes:
+      - artifact_inspection
+      - analysis
+    - demonstrates: Independent execution or derivation demonstrates hidden coupling remains within those bounds.
+      classes:
+      - analysis
+      - reproducible_test
+    independence: independent_reproduction

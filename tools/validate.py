@@ -38,6 +38,10 @@ def _construct_mapping(loader, node, deep=False):
     seen = set()
     for key_node, _ in node.value:
         key = loader.construct_object(key_node, deep=False)
+        try:
+            hash(key)
+        except TypeError as exc:
+            raise ValidationError(f"YAML mapping key must be hashable scalar: {key!r}") from exc
         if key in seen:
             raise ValidationError(f"duplicate YAML mapping key: {key!r}")
         seen.add(key)
@@ -88,7 +92,7 @@ def load_yaml(path: Path):
 
 
 def exact_keys(obj, expected, where):
-    if not isinstance(obj, dict):
+    if type(obj) is not dict:
         raise ValidationError(f"{where}: expected mapping")
     keys = set(obj)
     missing, unknown = expected - keys, keys - expected
@@ -97,17 +101,19 @@ def exact_keys(obj, expected, where):
 
 
 def nonempty_string(value, where):
-    if not isinstance(value, str) or not value.strip():
+    if type(value) is not str or not value.strip():
         raise ValidationError(f"{where}: expected nonempty string")
 
 
 def validate_app(app, where):
-    if not isinstance(app, dict):
+    if type(app) is not dict:
         raise ValidationError(f"{where}: applicability must be mapping")
     unknown = set(app) - APP_FIELDS
     if unknown:
         raise ValidationError(f"{where}: unknown applicability fields {sorted(unknown)}")
     mode = app.get("mode")
+    if type(mode) is not str:
+        raise ValidationError(f"{where}: applicability mode must be string")
     if mode not in {"always", "conditional"}:
         raise ValidationError(f"{where}: invalid applicability mode")
     predicates = []
@@ -116,7 +122,7 @@ def validate_app(app, where):
             if mode == "always":
                 raise ValidationError(f"{where}: {key} forbidden for always applicability")
             vals = app[key]
-            if not isinstance(vals, list) or not vals:
+            if type(vals) is not list or not vals:
                 raise ValidationError(f"{where}: {key} must be nonempty list")
             for i, val in enumerate(vals):
                 nonempty_string(val, f"{where}.{key}[{i}]")
@@ -128,20 +134,26 @@ def validate_app(app, where):
 def validate_evidence(ev, where):
     exact_keys(ev, EVIDENCE_FIELDS, where)
     required = ev["required"]
-    if not isinstance(required, list) or not required:
+    if type(required) is not list or not required:
         raise ValidationError(f"{where}.required: must be nonempty list")
     for i, ob in enumerate(required):
         ow = f"{where}.required[{i}]"
         exact_keys(ob, OBLIGATION_FIELDS, ow)
         nonempty_string(ob["demonstrates"], f"{ow}.demonstrates")
         classes = ob["classes"]
-        if not isinstance(classes, list) or not classes:
+        if type(classes) is not list or not classes:
             raise ValidationError(f"{ow}.classes: must be nonempty list")
-        if any(c not in ALLOWED_EVIDENCE for c in classes):
-            raise ValidationError(f"{ow}.classes: invalid evidence class")
+        for j, evidence_class in enumerate(classes):
+            if type(evidence_class) is not str:
+                raise ValidationError(f"{ow}.classes[{j}]: evidence class must be string")
+            if evidence_class not in ALLOWED_EVIDENCE:
+                raise ValidationError(f"{ow}.classes: invalid evidence class")
         if len(classes) != len(set(classes)):
             raise ValidationError(f"{ow}.classes: duplicate evidence class")
-    if ev["independence"] not in ALLOWED_INDEPENDENCE:
+    independence = ev["independence"]
+    if type(independence) is not str:
+        raise ValidationError(f"{where}.independence: independence must be string")
+    if independence not in ALLOWED_INDEPENDENCE:
         raise ValidationError(f"{where}.independence: invalid value")
 
 
@@ -153,10 +165,11 @@ def validate(root=ROOT):
     standards = root / "standards"
     manifest = load_yaml(standards / "manifest.yaml")
     exact_keys(manifest, {"generation", "dimensions"}, "manifest")
-    if manifest["generation"] != 1:
-        raise ValidationError("manifest.generation must be 1")
+    generation = manifest["generation"]
+    if type(generation) is not int or generation != 1:
+        raise ValidationError("manifest.generation must be exactly integer 1")
     dims = manifest["dimensions"]
-    if not isinstance(dims, list) or len(dims) != 14:
+    if type(dims) is not list or len(dims) != 14:
         raise ValidationError("manifest must declare exactly 14 dimensions")
     expected_codes = ["COR","SEC","PRI","DAT","REL","PER","OBS","MNT","OPS","CMP","SUP","EFF","ASR","SAF"]
     codes, keys, files = [], [], []
@@ -165,11 +178,11 @@ def validate(root=ROOT):
         for field in ("code", "key", "name", "file"):
             nonempty_string(d[field], f"manifest.dimensions[{i}].{field}")
         codes.append(d["code"]); keys.append(d["key"]); files.append(d["file"])
-    if codes != expected_codes:
-        raise ValidationError("dimension registry code/order mismatch")
     for label, vals in (("code", codes), ("key", keys), ("filename", files)):
         if len(vals) != len(set(vals)):
             raise ValidationError(f"duplicate dimension {label}")
+    if codes != expected_codes:
+        raise ValidationError("dimension registry code/order mismatch")
     declared = set(files)
     actual = {p.name for p in standards.glob("*.yaml") if p.name != "manifest.yaml"}
     if actual != declared:
@@ -182,11 +195,12 @@ def validate(root=ROOT):
             raise ValidationError(f"manifest entry without file: {d['file']}")
         doc = load_yaml(path)
         exact_keys(doc, {"dimension", "applicability", "requirements"}, path.name)
+        nonempty_string(doc["dimension"], f"{path.name}.dimension")
         if doc["dimension"] != d["code"]:
             raise ValidationError(f"{path.name}: dimension code outside/mismatches registry")
         validate_app(doc["applicability"], f"{path.name}.applicability")
         reqs = doc["requirements"]
-        if not isinstance(reqs, list) or not reqs:
+        if type(reqs) is not list or not reqs:
             raise ValidationError(f"{path.name}: requirements must be nonempty list")
         level_counts = Counter()
         has_l1_always = False
@@ -197,7 +211,7 @@ def validate(root=ROOT):
             where = f"{path.name}.requirements[{i}]"
             exact_keys(req, REQ_FIELDS, where)
             rid, level = req["id"], req["level"]
-            if not isinstance(rid, str) or not isinstance(level, int) or isinstance(level, bool):
+            if type(rid) is not str or type(level) is not int:
                 raise ValidationError(f"{where}: invalid id/level type")
             m = ID_RE.fullmatch(rid)
             if not m:
