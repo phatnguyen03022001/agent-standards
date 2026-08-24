@@ -135,15 +135,15 @@ requirements:
     independence: none
 - id: SEC-4.1
   level: 4
-  statement: High-impact compromise paths and privileged operations must have defense-in-depth such that a single credible
-    control failure does not automatically yield the full protected consequence.
-  intent: Contain consequential compromise through layered boundaries.
+  statement: A single credible control failure on a high-impact compromise path or privileged operation must not automatically
+    yield the full protected consequence.
+  intent: Contain consequential compromise after a credible single control failure.
   applicability:
     mode: always
   evidence:
     required:
-    - demonstrates: Independent review identifies the highest-consequence compromise paths, independent control boundaries,
-        and credible single failures.
+    - demonstrates: Independent review identifies the highest-consequence compromise paths, protected consequences, and credible
+        single failures.
       classes:
       - analysis
       - artifact_inspection

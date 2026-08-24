@@ -104,14 +104,15 @@ requirements:
     independence: independent_review
 - id: SAF-4.3
   level: 4
-  statement: Highest-consequence severe-harm paths must have defense-in-depth such that a single credible control failure
-    remains within the identified containment boundary.
+  statement: Highest-consequence severe-harm paths must remain within the identified severe-harm containment boundary after
+    a single credible control failure.
   intent: Make single-failure severe-harm containment independently verifiable.
   applicability:
     mode: always
   evidence:
     required:
-    - demonstrates: Independent review identifies defense layers and credible single failures on the selected paths.
+    - demonstrates: Independent review identifies the selected highest-consequence severe-harm paths, containment boundaries,
+        and credible single failures.
       classes:
       - analysis
       - artifact_inspection

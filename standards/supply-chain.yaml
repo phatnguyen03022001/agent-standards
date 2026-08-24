@@ -167,8 +167,8 @@ requirements:
     independence: independent_reproduction
 - id: SUP-5.3
   level: 5
-  statement: Highest-consequence artifact construction must be independently reproducible, hermetic, or equivalently controlled
-    so undeclared construction inputs cannot silently change the delivered result.
+  statement: Within an explicit construction-input boundary, undeclared construction inputs must not silently alter the highest-consequence
+    delivered result.
   intent: Establish exceptional confidence in construction control without relying on technology names.
   applicability:
     mode: always

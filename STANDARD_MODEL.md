@@ -36,7 +36,7 @@ Target-owned exception records should identify requirement ID, affected scope, k
 
 ## Requirement model
 
-YAML is canonical. Each requirement has exactly `id`, `level`, `statement`, `intent`, `applicability`, and `evidence`. Statements are technology-neutral, determinate, directly verifiable engineering invariants rather than implementation prescriptions. Intent explains the failure class.
+YAML is canonical. Each requirement has exactly `id`, `level`, `statement`, `intent`, `applicability`, and `evidence`. Statements are technology-neutral, determinate, directly verifiable engineering invariants rather than implementation prescriptions. Normative requirements constrain engineering properties rather than target architecture, framework, database, cloud, protocol, infrastructure, or design-pattern choices unless an applicable externally-owned constraint itself requires a specific mechanism. Intent explains the failure class.
 
 Applicability is either `mode: always` or `mode: conditional` with at least one factual predicate in `all_of` and/or `any_of`. For conditional applicability, all `all_of` predicates must be true and, when `any_of` exists, at least one `any_of` predicate must be true. Predicates describe observable target facts, not vague discretion. Applicability conditions belong only in this canonical structure; an `always` requirement must not create an N/A escape hatch with prose such as “where applicable”, “where relevant”, “when appropriate”, or equivalent discretionary wording.
 

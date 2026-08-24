@@ -102,26 +102,6 @@ requirements:
       - operational_exercise
       - formal_verification
     independence: independent_review
-- id: EFF-4.3
-  level: 4
-  statement: Resource-containment behavior must preserve every applicable in-scope COR, SEC, DAT, REL, and SAF constraint
-    that it can affect.
-  intent: Prevent efficiency controls from gaining maturity by violating another applicable substantive constraint.
-  applicability:
-    mode: always
-  evidence:
-    required:
-    - demonstrates: Every applicable in-scope COR, SEC, DAT, REL, and SAF constraint that resource-containment behavior can
-        affect is explicitly traced.
-      classes:
-      - artifact_inspection
-      - analysis
-    - demonstrates: Representative resource-containment behavior preserves every traced applicable constraint.
-      classes:
-      - reproducible_test
-      - operational_exercise
-      - formal_verification
-    independence: independent_review
 - id: EFF-5.2
   level: 5
   statement: Worst-case resource and cost assumptions for the highest-consequence efficiency envelope must be explicit and

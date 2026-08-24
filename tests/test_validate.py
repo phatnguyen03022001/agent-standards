@@ -478,11 +478,63 @@ class ValidatorTests(unittest.TestCase):
         self.assertNotIn("recovery", sup_by_id["SUP-4.4"]["statement"].casefold())
         self.assertIn("recovery", sup_by_id["SUP-4.5"]["statement"].casefold())
 
-    def test_eff_4_3_has_no_undefined_stronger_relation(self):
-        req = self._requirement("efficiency.yaml", "EFF-4.3")
-        text = " ".join([req["statement"], req["intent"]] +
-                        [ob["demonstrates"] for ob in req["evidence"]["required"]]).casefold()
-        self.assertNotIn("stronger", text)
+    def test_abstraction_boundary_requirements_preserve_properties_without_prescribing_mechanisms(self):
+        sec = self._requirement("security.yaml", "SEC-4.1")
+        sec_text = " ".join([sec["statement"]] +
+                            [ob["demonstrates"] for ob in sec["evidence"]["required"]]).casefold()
+        self.assertEqual(4, sec["level"])
+        self.assertEqual("always", sec["applicability"]["mode"])
+        self.assertEqual("independent_review", sec["evidence"]["independence"])
+        self.assertIn("single credible control failure", sec["statement"].casefold())
+        self.assertIn("full protected consequence", sec["statement"].casefold())
+        self.assertNotIn("defense-in-depth", sec_text)
+        self.assertNotIn("independent control boundaries", sec_text)
+
+        saf = self._requirement("safety.yaml", "SAF-4.3")
+        saf_text = " ".join([saf["statement"]] +
+                            [ob["demonstrates"] for ob in saf["evidence"]["required"]]).casefold()
+        self.assertEqual(4, saf["level"])
+        self.assertEqual("always", saf["applicability"]["mode"])
+        self.assertEqual("independent_review", saf["evidence"]["independence"])
+        self.assertIn("single credible control failure", saf["statement"].casefold())
+        self.assertIn("severe-harm containment boundary", saf["statement"].casefold())
+        self.assertNotIn("defense-in-depth", saf_text)
+        self.assertNotIn("defense layers", saf_text)
+
+        mnt = self._requirement("maintainability.yaml", "MNT-3.2")
+        mnt_text = " ".join([mnt["statement"]] +
+                            [ob["demonstrates"] for ob in mnt["evidence"]["required"]]).casefold()
+        self.assertEqual(3, mnt["level"])
+        self.assertEqual("always", mnt["applicability"]["mode"])
+        self.assertEqual("none", mnt["evidence"]["independence"])
+        self.assertIn("material high-change or high-risk areas", mnt["statement"].casefold())
+        self.assertIn("representative changes", mnt["statement"].casefold())
+        self.assertIn("unrelated system areas", mnt["statement"].casefold())
+        self.assertNotIn("architectural boundaries", mnt_text)
+
+        sup = self._requirement("supply-chain.yaml", "SUP-5.3")
+        sup_evidence = " ".join(ob["demonstrates"] for ob in sup["evidence"]["required"]).casefold()
+        statement = sup["statement"].casefold()
+        self.assertEqual(5, sup["level"])
+        self.assertEqual("always", sup["applicability"]["mode"])
+        self.assertEqual("independent_reproduction", sup["evidence"]["independence"])
+        self.assertIn("explicit construction-input boundary", statement)
+        self.assertIn("undeclared construction inputs", statement)
+        self.assertIn("highest-consequence delivered result", statement)
+        self.assertNotIn("independently reproducible", statement)
+        self.assertNotIn("hermetic", statement)
+        self.assertIn("independent reproduction", sup_evidence)
+
+    def test_eff_4_3_is_retired_without_replacement(self):
+        requirements = yaml.safe_load((ROOT / "standards" / "efficiency.yaml").read_text(encoding="utf-8"))["requirements"]
+        ids = [req["id"] for req in requirements]
+        self.assertEqual([
+            "EFF-1.1", "EFF-2.2", "EFF-2.3", "EFF-3.2", "EFF-3.3",
+            "EFF-4.2", "EFF-5.2", "EFF-5.3",
+        ], ids)
+        eff_4_2 = next(req for req in requirements if req["id"] == "EFF-4.2")
+        self.assertEqual(4, eff_4_2["level"])
+        self.assertEqual("independent_review", eff_4_2["evidence"]["independence"])
 
     def test_invalid_utf8_standards_file_is_controlled(self):
         td, dst = self._copy_tree()

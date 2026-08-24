@@ -32,13 +32,14 @@ requirements:
     independence: none
 - id: MNT-3.2
   level: 3
-  statement: Architectural boundaries must isolate material high-change or high-risk areas from unrelated system areas.
+  statement: Representative changes to material high-change or high-risk areas must remain within explicit dependency and change
+    bounds without requiring changes to unrelated system areas.
   intent: Make change-isolation independently diagnosable from migration support.
   applicability:
     mode: always
   evidence:
     required:
-    - demonstrates: Material high-change or high-risk areas and their architectural boundaries are explicit.
+    - demonstrates: Material high-change or high-risk areas and their dependency and change bounds are explicit.
       classes:
       - artifact_inspection
       - analysis
