@@ -1,0 +1,53 @@
+dimension: PER
+applicability: {mode: always}
+requirements:
+  - id: PER-1.1
+    level: 1
+    statement: Expected workload must remain within explicit latency, throughput, and computational-behavior bounds for the claimed use envelope.
+    intent: Establish bounded baseline delivered performance.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Expected workload remains within explicit delivered-performance bounds.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: PER-2.1
+    level: 2
+    statement: Material latency, throughput, and capacity objectives must be measured under representative workload across the claimed normal operating envelope.
+    intent: Replace performance assertion with repeatable measurement.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative measurements support the claimed normal performance envelope.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: PER-3.1
+    level: 3
+    statement: Peak load, tail behavior, contention, overload, hot spots, and backpressure must remain predictably bounded where they affect claimed performance.
+    intent: Bound abnormal and saturation-adjacent performance behavior.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Stress conditions preserve stated tail, saturation, and overload behavior.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: PER-4.1
+    level: 4
+    statement: Material saturation and capacity-limit behavior must degrade within explicit boundaries supported by sustained stress, soak, or equivalent evidence.
+    intent: Prove predictable behavior at consequential capacity limits.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Sustained capacity-limit conditions remain within the claimed degradation boundary.
+          classes: [reproducible_test, runtime_observation]
+      independence: independent_review
+  - id: PER-5.1
+    level: 5
+    statement: The critical claimed operating envelope must be independently reproduced or rigorously derived with explicit workload, capacity, and environmental assumptions.
+    intent: Establish exceptional confidence in critical performance claims.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent evidence supports the full critical performance and capacity envelope under explicit assumptions.
+          classes: [reproducible_test, analysis, formal_verification]
+      independence: independent_reproduction
