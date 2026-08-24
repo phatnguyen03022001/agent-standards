@@ -1,0 +1,53 @@
+dimension: ASR
+applicability: {mode: always}
+requirements:
+  - id: ASR-1.1
+    level: 1
+    statement: Material engineering claims must have direct evidence attributable to an identifiable assessed revision and dependent configuration or environment.
+    intent: Prevent unsupported or revision-ambiguous engineering claims.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Material claims are linked to direct attributable evidence for the assessed revision.
+          classes: [artifact_inspection, analysis]
+      independence: none
+  - id: ASR-2.1
+    level: 2
+    statement: Verification for important positive and negative cases must be repeatable, and missing evidence must be represented as unresolved rather than silently treated as success.
+    intent: Make verification repeatable and resistant to absence-of-evidence gaming.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Important verification can be repeated and unresolved evidence cannot produce a passing result.
+          classes: [reproducible_test, artifact_inspection]
+      independence: none
+  - id: ASR-3.1
+    level: 3
+    statement: Important failure, threat, edge, and assumption classes must be systematically traceable to direct verification evidence or an explicit unresolved status.
+    intent: Expose blind spots in the claim-to-evidence system.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative claim classes have complete traceability to evidence or explicit blockers.
+          classes: [artifact_inspection, analysis]
+      independence: none
+  - id: ASR-4.1
+    level: 4
+    statement: High-impact claims must receive independent review of underlying evidence and use complementary evidence methods where a single method has material blind spots.
+    intent: Reduce correlated verification error for consequential claims.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review challenges evidence sufficiency and identified method blind spots.
+          classes: [artifact_inspection, analysis, reproducible_test]
+      independence: independent_review
+  - id: ASR-5.1
+    level: 5
+    statement: Critical claims must have explicit assumptions, rigorous claim-to-evidence traceability, and independently reproduced evidence, using formal or comparably strong verification where appropriate to the claim.
+    intent: Establish exceptional confidence in the verification system itself.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical claim evidence and traceability under explicit assumptions.
+          classes: [reproducible_test, formal_verification, analysis]
+      independence: independent_reproduction
