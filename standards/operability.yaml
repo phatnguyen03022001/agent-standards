@@ -1,0 +1,53 @@
+dimension: OPS
+applicability: {mode: always}
+requirements:
+  - id: OPS-1.1
+    level: 1
+    statement: The deliverable must have defined, verifiable procedures for configuration and use, including start, stop, and recovery where those operations exist.
+    intent: Establish basic controlled operation of the deliverable.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: A representative operator can execute applicable lifecycle procedures to the stated outcome.
+          classes: [reproducible_test, operational_exercise]
+      independence: none
+  - id: OPS-2.1
+    level: 2
+    statement: Release, distribution, and change procedures must be repeatable, and rollback or an equivalent reversal path must exist where reversal is technically meaningful.
+    intent: Bound routine delivery and change risk.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative change and reversal procedures are repeatable and reach defined states.
+          classes: [operational_exercise, reproducible_test]
+      independence: none
+  - id: OPS-3.1
+    level: 3
+    statement: Rollout, migration, maintenance, degraded operation, emergency handling, and other material operational state transitions must remain within explicit transition and recovery bounds where applicable.
+    intent: Contain abnormal operational change.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative material state transitions remain controlled and recoverable.
+          classes: [operational_exercise, runtime_observation]
+      independence: none
+  - id: OPS-4.1
+    level: 4
+    statement: Privileged or consequential operational actions must be strongly bounded, and relevant recovery or disaster procedures must be exercised against explicit objectives.
+    intent: Contain operator-induced and emergency operational failures.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review confirms consequential operations and recovery procedures meet stated control objectives.
+          classes: [operational_exercise, analysis]
+      independence: independent_review
+  - id: OPS-5.1
+    level: 5
+    statement: High-consequence operational procedures and emergency transitions must be independently rehearsed or verified across the explicit operating assumptions and recovery envelope.
+    intent: Establish exceptional confidence in critical operations.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical operational transitions meet their stated bounds.
+          classes: [operational_exercise, reproducible_test]
+      independence: independent_reproduction
