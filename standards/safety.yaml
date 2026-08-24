@@ -1,0 +1,56 @@
+dimension: SAF
+applicability:
+  mode: conditional
+  any_of:
+    - System output or action can directly cause or materially increase credible risk of severe real-world harm beyond ordinary loss of service, confidentiality, or data correctness.
+requirements:
+  - id: SAF-1.1
+    level: 1
+    statement: Once this dimension applies, credible severe-harm channels must be identified and uncontrolled harmful action must not be the default response to ordinary failure.
+    intent: Establish baseline containment of severe consequences.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Identified severe-harm channels have a bounded default failure behavior.
+          classes: [analysis, reproducible_test]
+      independence: none
+  - id: SAF-2.1
+    level: 2
+    statement: Consequential actions must remain within externally identified safety bounds through interlocks, authorization, safe-state behavior, or equivalent containment where those controls apply.
+    intent: Enforce target-owned safety constraints during expected operation.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative consequential actions cannot exceed the identified safety envelope under expected conditions.
+          classes: [reproducible_test, operational_exercise]
+      independence: none
+  - id: SAF-3.1
+    level: 3
+    statement: Misuse, automation error, cascading action, stale or incorrect input, and degraded conditions must not bypass applicable severe-harm containment without detection.
+    intent: Preserve harm containment during abnormal conditions.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative abnormal scenarios remain within or visibly stop at the identified safety envelope.
+          classes: [reproducible_test, operational_exercise, analysis]
+      independence: none
+  - id: SAF-4.1
+    level: 4
+    statement: Catastrophic or high-severity scenarios must have defense-in-depth, independent hazard analysis, emergency containment, and evidence that credible single failures remain bounded where the hazard model requires it.
+    intent: Prevent a single credible failure from directly realizing severe consequences.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent hazard review and direct exercises support the stated severe-harm containment.
+          classes: [analysis, operational_exercise, reproducible_test]
+      independence: independent_review
+  - id: SAF-5.1
+    level: 5
+    statement: High-consequence systems must maintain an explicit safety argument and safe operating envelope with independently reproduced verification and the isolation, redundancy, or diversity required by the target hazard model.
+    intent: Establish exceptional confidence in severe-harm containment without inventing domain limits.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms the safety argument and operating envelope under explicit hazard assumptions.
+          classes: [operational_exercise, reproducible_test, formal_verification]
+      independence: independent_reproduction
