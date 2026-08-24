@@ -1,0 +1,56 @@
+dimension: PRI
+applicability:
+  mode: conditional
+  any_of:
+    - The system observes, derives, stores, transmits, exposes, or acts on personal or privacy-sensitive information.
+requirements:
+  - id: PRI-1.1
+    level: 1
+    statement: Once this dimension applies, privacy-sensitive information must have explicit permitted purposes and exposure boundaries that are enforced by system behavior.
+    intent: Prevent undefined use or exposure of privacy-sensitive information.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Processing and exposure remain inside identified purposes and boundaries.
+          classes: [artifact_inspection, reproducible_test]
+      independence: none
+  - id: PRI-2.1
+    level: 2
+    statement: Collection, minimization, retention, deletion, disclosure, access, and applicable user or domain privacy controls must be enforced for expected operation.
+    intent: Make routine privacy lifecycle constraints operational rather than aspirational.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative information lifecycles obey the identified privacy constraints.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: PRI-3.1
+    level: 3
+    statement: Cross-context linkage, derived-data inference, boundary mistakes, secondary use, and diagnostic leakage must be bounded where they can expose or expand privacy-sensitive information.
+    intent: Contain privacy failures that occur despite authorized system access.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative linkage, inference, and leakage paths remain within stated privacy bounds.
+          classes: [analysis, reproducible_test]
+      independence: none
+  - id: PRI-4.1
+    level: 4
+    statement: High-impact retention, deletion, and exposure failures must have independently reviewed containment and verification capable of detecting material non-conformance.
+    intent: Provide strong evidence for consequential privacy controls.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: High-impact privacy failures are detected and contained and lifecycle controls are effective.
+          classes: [reproducible_test, runtime_observation, analysis]
+      independence: independent_review
+  - id: PRI-5.1
+    level: 5
+    statement: Material re-identification, inference, aggregation, and equivalent advanced privacy risks must be evaluated against explicit assumptions with independently reproduced evidence appropriate to the claimed scope.
+    intent: Establish exceptional confidence against advanced privacy failure modes.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Advanced privacy risks remain within explicit bounds under independent reproduction.
+          classes: [analysis, reproducible_test, formal_verification]
+      independence: independent_reproduction
