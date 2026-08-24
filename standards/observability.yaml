@@ -1,0 +1,53 @@
+dimension: OBS
+applicability: {mode: always}
+requirements:
+  - id: OBS-1.1
+    level: 1
+    statement: Material failures must emit attributable signals sufficient to distinguish failure from successful operation.
+    intent: Establish basic knowledge of material failure state.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative material failures produce distinguishable attributable signals.
+          classes: [reproducible_test, runtime_observation]
+      independence: none
+  - id: OBS-2.1
+    level: 2
+    statement: Relevant health, errors, latency or capacity state, material state transitions, and causal context must be detectable and attributable where they affect operation.
+    intent: Support repeatable diagnosis of normal operational problems.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative operational states can be detected and attributed to their relevant scope.
+          classes: [runtime_observation, reproducible_test]
+      independence: none
+  - id: OBS-3.1
+    level: 3
+    statement: Distributed, degraded, and cascading failures must remain traceable enough to identify actionable detection conditions and causal boundaries.
+    intent: Preserve diagnostic value during complex failure.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative complex failures remain traceable and produce actionable signals.
+          classes: [operational_exercise, runtime_observation]
+      independence: none
+  - id: OBS-4.1
+    level: 4
+    statement: Detection and forensic paths for consequential events must themselves be verified for trustworthy capture, attribution, and material blind spots.
+    intent: Ensure observability does not silently fail when most needed.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review confirms consequential-event detection and attribution, including tested blind spots.
+          classes: [reproducible_test, operational_exercise]
+      independence: independent_review
+  - id: OBS-5.1
+    level: 5
+    statement: Critical detection coverage and attribution must withstand independently reproduced challenge that includes credible signal-loss, ambiguity, and blind-spot scenarios.
+    intent: Establish exceptional confidence in critical runtime knowledge.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical detection coverage under explicit blind-spot scenarios.
+          classes: [operational_exercise, reproducible_test]
+      independence: independent_reproduction
