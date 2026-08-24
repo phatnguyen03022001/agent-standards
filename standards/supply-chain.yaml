@@ -1,0 +1,53 @@
+dimension: SUP
+applicability: {mode: always}
+requirements:
+  - id: SUP-1.1
+    level: 1
+    statement: Material external components and build or toolchain inputs must be identifiable for the assessed revision.
+    intent: Establish visibility into material supply-chain inputs.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Material external and construction inputs can be attributed to the assessed revision.
+          classes: [artifact_inspection, provenance_attestation]
+      independence: none
+  - id: SUP-2.1
+    level: 2
+    statement: Material dependency versions and integrity must be detectable and bounded so fetched or build inputs cannot change invisibly without detection.
+    intent: Prevent silent routine supply-chain drift.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Material input identity and integrity changes are detectable against the claimed revision.
+          classes: [artifact_inspection, provenance_attestation, reproducible_test]
+      independence: none
+  - id: SUP-3.1
+    level: 3
+    statement: Provenance, update risk, transitive exposure, dependency compromise, and build-environment trust must be explicitly bounded where they can affect delivered artifacts.
+    intent: Contain compromise propagation through construction inputs.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative compromise and provenance failures remain within stated construction and dependency trust bounds.
+          classes: [analysis, provenance_attestation, reproducible_test]
+      independence: none
+  - id: SUP-4.1
+    level: 4
+    statement: Consequential delivered artifacts must have strong provenance and integrity evidence plus bounded compromise, revocation, and recovery paths; reproducibility is required where it materially strengthens the claim.
+    intent: Provide strong assurance for high-impact supply chains.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review confirms artifact provenance, integrity, and compromise-recovery bounds.
+          classes: [provenance_attestation, reproducible_test, operational_exercise]
+      independence: independent_review
+  - id: SUP-5.1
+    level: 5
+    statement: Critical supply chains must use independently verified provenance and independently reproducible, hermetic, or equivalently controlled construction where applicable to the claimed trust model.
+    intent: Establish exceptional confidence in critical construction provenance.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical artifact construction and provenance under explicit trust assumptions.
+          classes: [provenance_attestation, reproducible_test]
+      independence: independent_reproduction
