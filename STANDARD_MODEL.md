@@ -1,6 +1,6 @@
-# Standard Model — V1 Candidate
+# Standard Model — V1
 
-**Status:** candidate only; not frozen. Requirement text is canonical only in `standards/*.yaml`.
+**Status:** V1 is frozen at this revision. Requirement text is canonical only in `standards/*.yaml`.
 
 ## Levels
 
