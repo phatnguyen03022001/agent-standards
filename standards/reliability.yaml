@@ -1,0 +1,53 @@
+dimension: REL
+applicability: {mode: always}
+requirements:
+  - id: REL-1.1
+    level: 1
+    statement: Ordinary component failure must not create an uncontrolled failure of the whole in-scope system.
+    intent: Establish a baseline bound on failure propagation.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative component failures remain within stated system failure bounds.
+          classes: [reproducible_test, analysis]
+      independence: none
+  - id: REL-2.1
+    level: 2
+    statement: Timeouts, cancellation, retries, restart behavior, dependency failure, and recovery must be bounded and repeatable under normal real-world conditions where applicable.
+    intent: Prevent routine failure handling from amplifying outages.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Applicable routine failure and recovery mechanisms meet explicit bounds.
+          classes: [reproducible_test, operational_exercise]
+      independence: none
+  - id: REL-3.1
+    level: 3
+    statement: Overload, cascading failure, partial dependency loss, failover, graceful degradation, and recovery paths must remain within explicit continuity and blast-radius bounds where relevant.
+    intent: Contain degraded and cascading failure modes.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Representative degraded scenarios preserve stated containment or controlled degradation.
+          classes: [reproducible_test, operational_exercise]
+      independence: none
+  - id: REL-4.1
+    level: 4
+    statement: Major failure scenarios must have verified containment and recovery objectives, including disaster-class recovery exercises when the target consequence profile requires them.
+    intent: Prove recovery from consequential failures.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: High-impact failure exercises meet stated containment and recovery objectives.
+          classes: [operational_exercise, runtime_observation]
+      independence: independent_review
+  - id: REL-5.1
+    level: 5
+    statement: Significant multi-fault scenarios and critical recovery properties must be supported by independently reproduced evidence across the claimed failure envelope.
+    intent: Establish exceptional confidence in resilience under compounded faults.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent reproduction confirms critical continuity and recovery bounds under multi-fault conditions.
+          classes: [operational_exercise, reproducible_test, formal_verification]
+      independence: independent_reproduction
