@@ -1,0 +1,56 @@
+dimension: DAT
+applicability:
+  mode: conditional
+  any_of:
+    - Material data crosses a storage, transmission, persistence, replication, transformation, or integrity boundary.
+requirements:
+  - id: DAT-1.1
+    level: 1
+    statement: Once this dimension applies, accepted material data must not silently become malformed, lost, duplicated, or corrupted through expected operations.
+    intent: Establish baseline preservation of material data.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Expected data operations preserve declared integrity invariants or fail explicitly.
+          classes: [reproducible_test, formal_verification]
+      independence: none
+  - id: DAT-2.1
+    level: 2
+    statement: Atomicity, consistency, validation, version-transition, and ordinary concurrent-modification expectations must be explicit and enforced at relevant integrity boundaries.
+    intent: Bound routine integrity failures across state transitions.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Relevant transitions and concurrent modifications preserve stated integrity expectations.
+          classes: [reproducible_test, analysis]
+      independence: none
+  - id: DAT-3.1
+    level: 3
+    statement: Corruption, replay, ordering conflict, partial write, replication divergence, migration failure, and recovery interaction must be detected or bounded where those conditions can affect material data.
+    intent: Contain abnormal integrity failures.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Applicable abnormal integrity conditions are detected, rejected, repaired, or contained.
+          classes: [reproducible_test, operational_exercise]
+      independence: none
+  - id: DAT-4.1
+    level: 4
+    statement: High-impact data corruption must be detectably bounded and recoverable to a stated integrity point without silently accepting known-invalid material data.
+    intent: Ensure consequential corruption has verified containment and recovery.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Independent review of corruption and recovery evidence confirms the stated integrity bound.
+          classes: [operational_exercise, reproducible_test]
+      independence: independent_review
+  - id: DAT-5.1
+    level: 5
+    statement: Critical material data must have explicit end-to-end integrity assumptions and guarantees, including provenance or tamper evidence where the target requires them, supported by independently reproduced corruption and recovery assurance.
+    intent: Establish exceptional confidence in critical data integrity.
+    applicability: {mode: always}
+    evidence:
+      required:
+        - demonstrates: Critical end-to-end integrity and recovery guarantees hold under the explicit assumptions.
+          classes: [reproducible_test, formal_verification, provenance_attestation]
+      independence: independent_reproduction
