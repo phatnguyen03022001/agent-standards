@@ -2,7 +2,7 @@ protocol_version: 3
 
 task_id: TASK-0002
 task_revision: 1
-report_revision: 1
+report_revision: 2
 state: REPORTED
 
 task_source:
@@ -312,10 +312,10 @@ executor_checks:
     evidence: "Apache-2.0 license, truthful frozen-V1 wording, generation 1, 14 dimensions, unchanged validator/tests/dependency, exact branch set {dev, main}, and untouched main 49b21c91fc107235ad9ada29e62d5841d2fa17a4 all verified."
 
 authoritative_verification:
-  required: true
+  required: false
   performed: false
-  result: NEEDS_ARCHITECT_REVIEW
-  evidence: "Task Protocol v3 and TASK-0002 require an independent Architect to review the exact committed report before any promotion. This Executor does not self-accept or write ACCEPTED review.yaml."
+  result: NOT_APPLICABLE
+  evidence: "TASK-0002 designates no authoritative project verifier. Independent Architect acceptance of the exact committed report is a separate promotion gate and is not authoritative verifier PASS."
 
 discovered_gaps:
   - gap_id: GAP-001
