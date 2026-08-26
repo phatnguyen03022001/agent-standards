@@ -1,0 +1,1055 @@
+protocol_version: 3
+task_id: TASK-0005
+task_revision: 1
+report_revision: 1
+state: REPORTED
+task_source:
+  path: .agent/tasks/TASK-0005/task.yaml
+  commit: 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170
+  blob_sha: ac256f7144a16b8e2b08db0c1cd729e63cce99d0
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170
+  pre_execution_head: 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170
+  final_execution_head: 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170
+  assurance_subject: 7ef9acaf5127e495fe1d789594e1b6b700dfa52c
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1
+  observed_revision: 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1
+execution_skills_used:
+  required:
+  - executor
+  - adversarial-audit
+  recommended:
+  - verification
+  external:
+  - superpowers/verification-before-completion
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+capability_preflight:
+  phase: EXECUTION
+  required:
+  - exact_remote_ref_read
+  - repository_content_read
+  - repository_content_write
+  available:
+  - exact_remote_ref_read
+  - repository_content_read
+  - repository_content_write
+  missing: []
+  passed: true
+  evidence: Fresh exact branch/ref and exact-commit content reads succeeded. Repository metadata exposed pull/push permission
+    and the connected GitHub surface exposed bounded existing-branch UTF-8 file creation, sufficient for the sole authorized
+    report mutation. No branch-creation, main-write, release, issue, or PR mutation capability was invoked.
+audit_subject:
+  revision: 7ef9acaf5127e495fe1d789594e1b6b700dfa52c
+  planning_base_parent_relationship: The handoff base is a direct child of the audit subject and adds only .agent/tasks/TASK-0005/task.yaml;
+    semantic subject content is therefore exactly the post-remediation candidate.
+  model_blob_sha: 6720cfba97e04279930cf26dccf6558fbc881355
+  readme_blob_sha: 9e58596c032214850bdafa3eb00a9cb38087e594
+  standards_tree_sha: 67355474a553be3d0b59105157640b1ddfdb4fde
+  manifest_blob_sha: d3e33d10e16b9857654dc1830b9bef56d1753d71
+  validator_blob_sha: a6eed727a3c34a6a7642588bbe38ef1dded0132a
+  tests_blob_sha: 72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0
+  dependency_blob_sha: 8392d5414b46b3f92dc29db198ced67c84708438
+  generation: 1
+  dimension_count: 14
+  dimension_blobs:
+    COR: 32fddd06157151f87fde95f8d1713e4fd1726b77
+    SEC: cda9b11469795f9074ba8c790e5018f2ae05e468
+    PRI: 5fec90d13b94644cc739c9e7e036e4c79cd97189
+    DAT: 71bd9247b8f64ed125dc544c25ce736d25a302e7
+    REL: a8b2ab8365302e4620797f32ec7b73812f915f93
+    PER: 278bab79c75b220a7955a6fbdfc96316be99ef83
+    OBS: 91f37867dcd4b18642f2bbc6a6246ca9d7d34cd2
+    MNT: 1af80202d25e69455faac31954cd747aa40b94b9
+    OPS: a5b90ed7a788829e53ef5acadcf5491ffb03bcf3
+    CMP: d6f610600e8feaed378fb67c5738f796abd1b5cd
+    SUP: fd6379490a0f05907ce84bab7a298f66d9e1d5d8
+    EFF: 3e721b918bd0f5fe8dcd203ac7d14222b1e91528
+    ASR: 8f2e5c292d0c8e92667aa3dbded83fef5c81ab92
+    SAF: e9e8155dddfb287c71687db60f299e538c36fc5a
+  identity_result: EXACT_POST_REMEDIATION_SUBJECT_CONFIRMED
+epistemic_semantics:
+  REPRODUCED: A concrete calibration/gaming exploit is demonstrated and attributable to the exact TASK-0005 assurance subject
+    or its exact derived enforcement aids.
+  NOT_REPRODUCED: The attack was independently challenged and no concrete exploit was demonstrated from the available exact
+    evidence. This does not mean clean, disproven, or impossible.
+  UNKNOWN: Available attributable evidence is insufficient to determine a material calibration claim safely. UNKNOWN is never
+    PASS or N/A and blocks V1 release assurance when material to that release claim.
+level_zero_calibration:
+  result: NOT_REPRODUCED
+  evidence: Level 0 has no requirement IDs and is reached whenever the complete applicable Level 1 gate is not satisfied. Because
+    achievement is cumulative and non-numeric, missing Level 1 evidence cannot be offset by higher-level evidence, N/A counts,
+    artifact volume, or points.
+  gaming_challenge: Attempted to obtain positive maturity below an incomplete Level 1 baseline or to use a higher-level PASS
+    as compensation; the normative cumulative rule forbids both paths.
+dimension_level_coverage:
+- dimension: COR
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Direct tests/formal evidence establish expected success and explicit rejection without successful effects.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Ordinary boundaries and state transitions must preserve behavioral invariants repeatably.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Hostile, pathological, raced, partially completed, and dependency-degraded sequences must not commit logically
+      invalid behavior.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence invalid intermediate states require containment before acceptance plus bounded recovery/safe
+      failure, with independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence invariants require an explicit assumption/failure envelope and independent reproduction
+      across that envelope.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: SEC
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Once a material trust/authority boundary exists, direct untrusted access and reachable protected-secret exposure
+      are bounded.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Least authority, expected confidentiality/integrity protection, and fail-closed security decisions add routine
+      enforcement obligations.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Realistic abuse, privilege-escalation, isolation-bypass, and compromise-propagation paths must remain within
+      explicit bounds.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: A credible single control failure on the highest-consequence path must not automatically yield the full protected
+      consequence, under independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Strongest security-boundary trust assumptions are explicit and adversarial effectiveness is independently reproduced
+      across their envelope.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: PRI
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Once privacy-sensitive processing exists, permitted-purpose and exposure boundaries are explicit and directly
+      enforced.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Collection minimization, retention, access, deletion, disclosure, and applicable external privacy behavior
+      become separately evidenced routine controls.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Linkage, inference, secondary use, boundary mistakes, diagnostic leakage, and equivalent privacy-expanding
+      paths are adversarially bounded.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence retention, exposure, and deletion failures require explicit containment bounds and independent
+      review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Advanced highest-consequence privacy risks and assumptions must remain bounded across the claimed scope under
+      independent reproduction.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: DAT
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Material data crossing an integrity boundary must not silently become malformed, lost, duplicated, or corrupted
+      in expected operation.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Atomicity, representation/transition validation, consistency, and concurrency semantics become separate routine
+      obligations when their factual predicates hold.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Corruption, replay, ordering conflict, partial write, replication divergence, migration failure, and recovery
+      interaction must be contained when credible.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence corruption must be stopped before invalid acceptance and recovery must reach a stated integrity
+      point, independently reviewed.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: End-to-end and recovery-integrity guarantees must hold through explicit failure envelopes under independent
+      reproduction.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: REL
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Representative ordinary component failures must stay inside explicit whole-system failure bounds.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Waiting/cancellation, retry/restart, dependency-failure containment, and dependency recovery add routine bounded-failure
+      behavior when applicable.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Overload/cascade and applicable partial-loss/failover/degradation paths require explicit continuity/blast-radius
+      bounds.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence containment and recovery-state/time objectives require direct runtime-capable evidence
+      and independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence multi-fault continuity and recovery must be independently reproduced throughout the stated
+      failure envelope.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: PER
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Expected workload must meet explicit latency, throughput, and computational-behavior bounds.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Representative measurements must support the normal operating envelope rather than assertion alone.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: When saturation-adjacent conditions can affect claims, peak/tail/contention/overload behavior must stay predictably
+      bounded.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence saturation/capacity-limit degradation requires sustained runtime-capable evidence and
+      independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Workload/capacity/environment assumptions become explicit and the selected highest-consequence envelope is
+      independently reproduced across them.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: OBS
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Material failures must emit attributable signals distinguishable from success.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Operational health/error/latency/capacity/state conditions must be detectable and attributable to diagnostic
+      scope.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Applicable distributed, degraded, or cascading paths must preserve detection and causal propagation evidence
+      throughout the path.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence forensic capture, blind spots, and causal attribution must be explicitly selected, challenged,
+      and independently reviewed.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Detection must survive signal-loss/blind-spot challenge and attribution must survive ambiguity/causal-confusion
+      challenge under independent reproduction.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: MNT
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Components/responsibilities/interfaces must permit bounded local change identification without uncontrolled
+      system-wide inference.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Routine changes must remain inside explicit dependency/configuration/ownership/change boundaries.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Representative high-change/high-risk changes must preserve isolation; claimed material migration paths must
+      expose bounded interfaces and dependency direction.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence components must remain evolvable/replaceable and impact must be independently determinable
+      from direct artifacts.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Representative highest-consequence changes must be independently performed or derived while hidden coupling
+      remains inside explicit bounds.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: OPS
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Supported configuration/use and factual operator lifecycle operations require executable procedures to stated
+      states.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Release/distribution/routine change must be repeatable; meaningful reversal, when the target model admits it,
+      requires a bounded path to known state.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Material rollout/migration/maintenance/degraded/emergency transitions, when present, must remain within explicit
+      transition/recovery bounds.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence operator actions require scope/transition bounds and applicable recoverable failures require
+      exercised recovery objectives, independently reviewed.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence procedures/emergency transitions must be independently rehearsed or equivalently verified
+      across explicit operating/recovery assumptions.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: CMP
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Explicitly supported consumers/environments/interfaces must conform to stated contracts.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Supported ranges are explicit and representative combinations conform; supported version transitions, when
+      claimed, have verified semantics.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Claimed deprecation/migration/multi-version/platform/backward/forward compatibility must stay within explicit
+      advanced support bounds.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence or long-lived guarantees must survive controlled transitions under independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence compatibility must be independently reproduced across the complete selected support matrix
+      or equivalent explicit conformance model.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: SUP
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Material external components and build/toolchain inputs are attributable to the assessed revision.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Resolved immutable identity and integrity-changing substitution detection become separate routine provenance
+      controls.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Dependency provenance/transitive/update/compromise bounds and, when delivery transforms the revision, construction-environment
+      trust bounds must withstand representative substitution/tampering.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence artifacts require independently reviewed provenance plus bounded compromise/revocation
+      detection and affected-artifact recovery.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Complete selected construction lineage and undeclared-input resistance require independent reproduction or
+      equivalent rigorous verification.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: EFF
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Expected operations must stay within explicit material resource bounds without gratuitous unbounded leakage/consumption.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Resource use must be attributable to causing scope and representative expected workloads must remain inside
+      explicit bounds.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Workload scaling must remain bounded; factual retry/cache/batch/idle/input amplification paths must not create
+      uncontrolled consumption.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Extreme demand/failure resource or cost escalation must remain inside selected highest-consequence bounds under
+      independent review.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Worst-case assumptions become explicit and the highest-consequence efficiency envelope must be independently
+      reproduced or formally derived throughout them.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: ASR
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Material engineering claims require direct revision/environment-attributable evidence; applicable external
+      constraints require identified source/owner and evidence-based applicability.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Important positive/negative verification becomes repeatable; unresolved evidence blocks passing; external constraints
+      trace to implementing claims and evidence/unresolved status.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Important failure/threat/edge/assumption classes must be systematically traceable to direct evidence or explicit
+      unresolved status.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence direct evidence, method blind spots when factual, scope/exclusions, and external-constraint
+      inventory receive independent challenge.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence assumptions and end-to-end trace are explicit, and direct evidence for each highest-consequence
+      claim is independently reproduced/derived.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+- dimension: SAF
+  overall_attack_result: NOT_REPRODUCED
+  levels:
+  - level: 1
+    result: NOT_REPRODUCED
+    calibration: Once credible severe real-world harm is possible, harm channels are explicit and ordinary failure defaults
+      inside the severe-harm containment boundary.
+  - level: 2
+    result: NOT_REPRODUCED
+    calibration: Consequential actions must enforce externally identified safety bounds in expected operation.
+  - level: 3
+    result: NOT_REPRODUCED
+    calibration: Misuse, automation error, cascading action, stale/incorrect input, degradation, and containment-boundary activation/loss/bypass
+      must remain contained and observable.
+  - level: 4
+    result: NOT_REPRODUCED
+    calibration: Highest-consequence hazards require independent hazard analysis, single-credible-control-failure containment,
+      and emergency containment when an intervention window factually exists.
+  - level: 5
+    result: NOT_REPRODUCED
+    calibration: A complete safety argument plus applicable externally-owned architectural-independence constraints and safe
+      operating envelope receive independent high-assurance verification/reproduction.
+  progression_conclusion: No concrete ceremony-only, duplicate-credit, weaker-evidence, or higher-level-bypass path was demonstrated;
+    higher levels add materially stronger scope, failure challenge, containment/recovery, independence, or explicit envelope
+    assurance.
+synthetic_adversarial_fixtures:
+- id: FTX-CLI
+  name: tiny deterministic CLI
+  observable_facts:
+  - Single-process local CLI with deterministic scalar input-to-output transformation and no network listener.
+  - No authentication, privileged operation, security-sensitive secret, attacker-controlled remote interaction, or material
+    trust/authority boundary is in scope.
+  - No personal or privacy-sensitive information is observed, derived, stored, transmitted, exposed, or acted on.
+  - Input is material to the claimed result and crosses a pure transformation/integrity boundary; after acceptance no in-scope
+    state transition mutates material data, and no persistence, replication, recovery interaction, or concurrent material modification
+    exists.
+  - Output cannot directly cause or materially increase credible severe real-world harm beyond ordinary correctness/service
+    loss.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - DAT
+    na:
+    - SEC
+    - PRI
+    - SAF
+    derivation: DAT applies from the explicit material transformation fact. SEC/PRI/SAF are N/A only because their canonical
+      dimension predicates are explicitly false in this fixture; the CLI label itself establishes nothing.
+  requirement_applicability_notes:
+  - DAT-2.2, DAT-2.4, and DAT-2.5 are N/A from the explicit absence of a state transition changing material data or concurrent
+    modification; DAT-2.3 remains applicable because the dimension applies and accepted data crosses the transformation boundary.
+  - DAT-3.1 is N/A only under the fixture's explicit absence of corruption/replay/ordering/partial-write/replication/migration/recovery-interaction
+    paths; REL conditionals are N/A only where the stated facts exclude waiting, retries, or dependencies.
+  - Conditional high-level requirements do not disappear by target labeling; highest-consequence subsets within every applicable
+    dimension remain non-vacuous.
+  representative_evidence:
+    L1: Deterministic success/rejection tests, failure signals, explicit supported invocation/contract, input provenance, and
+      measured bounded runtime/resources tied to the exact revision.
+    L3: Pathological inputs, interrupted/abnormal executions, resource amplification, and material-data integrity challenges
+      exercised over the complete small operating envelope where factually applicable.
+    L5: Explicit highest-consequence assumptions/envelopes plus independent reproduction of the complete small behavioral,
+      data-integrity, performance/resource, operations, compatibility, supply-chain, and assurance claims. Small scope lowers
+      evidence volume, not the independence bar.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: No points or complexity quota exists. A genuinely tiny target may earn Level 5 if every applicable lower requirement
+    passes and the complete highest-consequence envelope is independently reproduced; simplicity alone grants no credit.
+- id: FTX-WEB
+  name: conventional production web service
+  observable_facts:
+  - Public HTTP service accepts attacker-controlled requests and exposes authenticated and privileged operations.
+  - Stores and transmits persistent user account/profile records containing personal information.
+  - Material records cross request, application, storage, and external-service boundaries.
+  - Uses external dependencies and has ordinary deployment/release, latency/capacity, failure/retry, monitoring, and operational
+    lifecycle concerns.
+  - No output/action can directly cause or materially increase credible severe real-world harm beyond ordinary service, confidentiality,
+    privacy, or correctness loss.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - SEC
+    - PRI
+    - DAT
+    na:
+    - SAF
+    derivation: SEC, PRI, and DAT apply from explicit trust-boundary, personal-information, and material-data-boundary facts.
+      SAF is N/A only from the explicit absence of severe-harm capability.
+  requirement_applicability_notes:
+  - SEC confidentiality/integrity conditionals apply where the stated account/session/secret assets create those interests.
+  - PRI lifecycle/access/disclosure/deletion requirements apply; PRI-2.5 applies only if an externally-owned privacy constraint
+    factually governs the processing.
+  - DAT state-transition and concurrency requirements apply where persistent user records can be changed concurrently; REL/OBS/PER/EFF
+    conditionals apply from the stated dependency/retry/overload facts.
+  representative_evidence:
+    L1: Expected/rejected endpoint tests; authorization and privacy-purpose/exposure tests; data-integrity tests; attributable
+      failure signals; executable deployment/use procedures; exact revision/dependency evidence.
+    L3: Abuse/privilege challenge, race and partial-write scenarios, dependency degradation/retries, overload/backpressure,
+      privacy leakage/inference paths, cascading diagnostic paths, and deployment/degraded-state exercises.
+    L5: Explicit highest-consequence account/data/privacy/security/availability envelopes, full selected compatibility and construction
+      models, and independent reproduction/derivation of their direct evidence plus ASR end-to-end trace.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: Omitting a data inventory or calling the service 'ordinary' cannot create N/A; missing applicability evidence
+    becomes UNKNOWN and L4/L5 selected scope/exclusions receive independent challenge.
+- id: FTX-TXN
+  name: distributed transactional service
+  observable_facts:
+  - Multiple services and replicas process persistent material transactional state with concurrent writers.
+  - Queues/retries, partial completion, failover, replication divergence, ordering, and dependency loss can affect committed
+    outcomes.
+  - Service-to-service privileged operations and attacker-controlled external requests create material trust/authority boundaries.
+  - No personal/privacy-sensitive information is in the assessed scope.
+  - No direct severe-real-world-harm channel beyond service/security/data/correctness loss is in scope.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - SEC
+    - DAT
+    na:
+    - PRI
+    - SAF
+    derivation: SEC and DAT apply from explicit authority and transactional data-boundary facts; PRI and SAF predicates are explicitly
+      false for this fixture.
+  requirement_applicability_notes:
+  - DAT-2.2/2.4/2.5 and DAT-3.1 apply from material state transitions, concurrency, replication/ordering/partial-write facts.
+  - REL retry/dependency/failover conditionals and OBS distributed-path conditionals apply from the stated execution model.
+  - PRI and SAF requirements are excluded only because their dimension predicates are false, not because transactional systems
+    are profiled that way.
+  representative_evidence:
+    L1: Expected transaction outcomes/rejections, basic component-failure containment, integrity-preservation tests, failure
+      signals, operator/release procedures, and exact dependency/input identity.
+    L3: Race/replay/partial-commit/replication divergence, retry amplification, dependency loss/failover, overload/cascade, distributed
+      causal tracing, and adversarial privilege paths exercised against explicit invariants.
+    L5: Explicit highest-consequence transaction/integrity/security/continuity assumptions and multi-fault envelopes, independently
+      reproduced end-to-end including recovery integrity and exact claim/evidence trace.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: A passing happy-path transaction suite cannot bypass L2/L3 blockers, and L5 requires independent reproduction
+    across compounded failure/integrity envelopes rather than more artifacts.
+- id: FTX-CTRL
+  name: security-sensitive control plane
+  observable_facts:
+  - Untrusted API callers request privileged configuration/control effects across explicit authority boundaries.
+  - Protected secrets and security-sensitive integrity interests exist.
+  - Material configuration/state is persisted and transmitted; compromise can propagate to controlled resources.
+  - No personal/privacy-sensitive information is processed in the assessed scope.
+  - Control effects are assumed not to create a credible severe-real-world-harm channel beyond security/service/data consequences.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - SEC
+    - DAT
+    na:
+    - PRI
+    - SAF
+    derivation: SEC and DAT are factually triggered; PRI and SAF are N/A only under the explicit fixture facts.
+  requirement_applicability_notes:
+  - SEC-1.3, SEC-2.3, and SEC-2.5 apply because protected secrets/confidentiality and integrity interests are explicit; all
+    always SEC levels apply once SEC applies.
+  - DAT state-transition validation/consistency and any factual concurrency requirements apply to persisted control state.
+  - L4 SEC single-control-failure and L5 strongest-boundary trust-envelope requirements cannot be emptied by claiming no component
+    is labeled critical.
+  representative_evidence:
+    L1: Positive/negative authorization tests, secret non-exposure, intended control effects, configuration integrity, attributable
+      failures, supported operation procedures, and revision/input provenance.
+    L3: Privilege escalation, isolation bypass, compromised dependency, malformed control state, races/replay, overload, and
+      propagation challenges bounded by explicit authority/integrity/failure limits.
+    L5: Strongest trust boundaries and highest-consequence control effects have explicit assumptions; adversarial effectiveness,
+      data/recovery integrity, operational envelope, and supporting evidence are independently reproduced/derived.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: Self-review cannot satisfy L4/L5 independence, and a target-defined 'noncritical' label cannot empty highest-consequence
+    scope.
+- id: FTX-PRI
+  name: privacy-heavy platform
+  observable_facts:
+  - Collects, stores, links, derives, and discloses personal and privacy-sensitive information across contexts.
+  - Authenticated/privileged access and untrusted client interaction create authority boundaries.
+  - Material personal data crosses collection, transformation, storage, transmission, deletion, and disclosure boundaries.
+  - Derived inference, aggregation, secondary-use, retention, deletion, and diagnostic-leakage risks are credible.
+  - No output/action is assumed to create severe real-world harm beyond privacy/security/data consequences for this fixture.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - SEC
+    - PRI
+    - DAT
+    na:
+    - SAF
+    derivation: PRI, SEC, and DAT are directly triggered by the facts; SAF is N/A only from the explicit severe-harm predicate
+      being false.
+  requirement_applicability_notes:
+  - PRI Level 1/2 lifecycle requirements and PRI-3.1 apply from purpose/exposure, collection/retention/access/deletion/disclosure,
+    and inference/linkage facts.
+  - PRI-2.5 applies only when an applicable externally-owned privacy constraint is actually identified from target/domain facts;
+    absence of inventory cannot make it N/A.
+  - SEC/DAT conditionals apply according to the explicit access, integrity, transformation, storage, and transmission facts.
+  representative_evidence:
+    L1: Purpose/exposure enforcement, expected authorization and personal-data handling, integrity, failure signals, and exact
+      claim/revision evidence.
+    L3: Cross-context linkage/inference/secondary-use/diagnostic leakage, abuse, corruption, retries/degraded dependencies, and
+      observability leakage challenged with direct tests/analysis.
+    L5: Highest-consequence re-identification/inference/aggregation and exposure/deletion/retention assumptions are explicit
+      and independently reproduced across the claimed privacy envelope, with external constraints and evidence trace independently
+      challenged.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: A policy document alone cannot prove runtime privacy behavior; unresolved external constraints or missing
+    attributable evidence stay UNKNOWN and block higher maturity.
+- id: FTX-SAF
+  name: severe-harm/safety-relevant system
+  observable_facts:
+  - Software can command a physical actuator whose incorrect action can directly cause credible severe real-world harm.
+  - Sensor/control state crosses material integrity boundaries and privileged control channels create authority boundaries.
+  - Automation error, stale/incorrect input, degraded conditions, cascading action, and single credible control failure can affect
+    the hazardous path.
+  - An emergency intervention window exists for at least one highest-consequence scenario.
+  - A competent external safety authority requires logically independent emergency shutdown paths for the highest-consequence
+    hazardous path.
+  - No personal/privacy-sensitive information is processed in the assessed scope.
+  dimension_applicability:
+    applicable:
+    - COR
+    - REL
+    - PER
+    - OBS
+    - MNT
+    - OPS
+    - CMP
+    - SUP
+    - EFF
+    - ASR
+    - SEC
+    - DAT
+    - SAF
+    na:
+    - PRI
+    derivation: SAF, SEC, and DAT are triggered by explicit severe-harm, authority, and material-control-data facts; PRI is N/A
+      only because the privacy predicate is explicitly false.
+  requirement_applicability_notes:
+  - SAF Levels 1-4 apply; SAF-4.4 applies from the explicit intervention-window fact.
+  - SAF-5.3 applies because the fixture explicitly includes a competent externally-owned requirement for architectural independence
+    on the highest-consequence severe-harm path.
+  - SEC/DAT requirements remain independently owned for authority and control-state integrity; SAF does not absorb those properties.
+  representative_evidence:
+    L1: Hazard channels and containment boundary are explicit; ordinary failures are exercised to contained behavior; intended/rejected
+      control outcomes and data/security baselines are directly tested.
+    L3: Automation error, stale/incorrect sensor input, degraded/cascading action, bypass attempts, security abuse, corrupted
+      control state, and containment-signaling behavior are directly challenged.
+    L5: Independent hazard/safety argument and explicit safe operating envelope cover highest-consequence assumptions/failures;
+      direct containment evidence is independently reproduced, and any externally required architectural independence is independently
+      verified.
+  gaming_conclusion: NOT_REPRODUCED
+  gaming_evidence: 'High maturity cannot be obtained by a generic safety document or architecture label: runtime containment,
+    independent hazard challenge, explicit assumptions, and independent reproduction remain required.'
+level_4_5_anti_gaming:
+  result: NOT_REPRODUCED
+  scope_selection: For every applicable dimension, the highest-consequence material subset remains non-vacuous even without
+    target labels; unresolved classification or exclusion evidence becomes UNKNOWN. ASR-4.4 independently challenges selection
+    and exclusions.
+  level_4: Each dimension contains independent-review requirements; behavioral dimensions require stronger consequence-focused
+    direct containment/recovery/conformance evidence rather than review ceremony alone.
+  level_5: Every dimension contains at least one independent_reproduction requirement, and cumulative achievement also requires
+    all lower applicable requirements. Several dimensions separate explicit assumptions/trace from the reproduced property so
+    paperwork cannot substitute for direct evidence.
+  rarity_rule: No rarity quota, target percentage, architecture-complexity threshold, or system-size criterion was used. Eligibility
+    is entirely evidence/property based.
+cross_dimension_ownership:
+- dimension: COR
+  owns: Intended behavioral semantics, successful/rejected outcomes, and logical correctness across execution states.
+  boundary: Does not replace DAT integrity across data boundaries, SEC authority/security properties, or domain truth.
+  result: NOT_REPRODUCED
+- dimension: SEC
+  owns: Authority/trust boundaries, security confidentiality/integrity interests, fail-closed security decisions, and adversarial
+    compromise containment.
+  boundary: Does not own general data integrity, privacy-purpose/lifecycle semantics, or safety-domain bounds.
+  result: NOT_REPRODUCED
+- dimension: PRI
+  owns: Purpose limitation, privacy exposure, minimization, retention, access, deletion, disclosure, and advanced privacy risk.
+  boundary: Uses SEC for security boundary properties and DAT for general data integrity; does not substitute those substantive
+    guarantees.
+  result: NOT_REPRODUCED
+- dimension: DAT
+  owns: Integrity of material data across storage/transmission/persistence/replication/transformation boundaries, including atomicity/consistency/recovery.
+  boundary: Does not define intended business semantics (COR) or attacker authority (SEC).
+  result: NOT_REPRODUCED
+- dimension: REL
+  owns: Failure propagation, dependency failure, overload/degradation continuity, recovery, and multi-fault resilience.
+  boundary: Does not own operator procedure quality (OPS) or causal signal quality (OBS).
+  result: NOT_REPRODUCED
+- dimension: PER
+  owns: Delivered latency, throughput, capacity, saturation, and workload-envelope performance.
+  boundary: EFF separately owns resource/cost consumption; the same measurement may support both only when it directly demonstrates
+    both distinct properties.
+  result: NOT_REPRODUCED
+- dimension: OBS
+  owns: Detectability, trustworthy signal capture, attribution, blind spots, and causal trace.
+  boundary: Signals do not themselves prove containment/recovery owned by REL/SAF/SEC/other substantive dimensions.
+  result: NOT_REPRODUCED
+- dimension: MNT
+  owns: Comprehensibility, change isolation, evolvability, impact analysis, and hidden coupling bounds.
+  boundary: Does not own external compatibility promises (CMP) or correctness of changed behavior (COR).
+  result: NOT_REPRODUCED
+- dimension: OPS
+  owns: Executable configuration/use/lifecycle, delivery/reversal, rollout/emergency transitions, and operator-controlled recovery
+    procedures.
+  boundary: Does not replace system resilience properties (REL) or observability properties (OBS).
+  result: NOT_REPRODUCED
+- dimension: CMP
+  owns: Supported consumer/environment/interface contracts, ranges, version transitions, and compatibility conformance models.
+  boundary: Does not own internal changeability (MNT) or general expected behavior outside supported contract scope (COR).
+  result: NOT_REPRODUCED
+- dimension: SUP
+  owns: External/construction input identity, provenance, substitution/tampering detection, construction trust, and delivered-artifact
+    recovery.
+  boundary: Does not prove runtime security merely from provenance; SEC owns runtime/adversarial boundaries.
+  result: NOT_REPRODUCED
+- dimension: EFF
+  owns: Compute/memory/storage/network/energy/monetary resource bounds, attribution, scaling, amplification, and worst-case resource
+    envelope.
+  boundary: Does not duplicate PER latency/throughput/capacity claims; shared tests require distinct direct oracles.
+  result: NOT_REPRODUCED
+- dimension: ASR
+  owns: Claim/evidence attribution, unresolved-evidence honesty, external-constraint inventory/trace, independent evidence challenge,
+    and reproduction completeness.
+  boundary: ASR evidence about a claim never replaces the substantive property evidence owned by COR/SEC/PRI/DAT/REL/PER/OBS/MNT/OPS/CMP/SUP/EFF/SAF.
+  result: NOT_REPRODUCED
+- dimension: SAF
+  owns: Credible severe-harm channels, containment boundaries, hazard analysis, emergency intervention, safety arguments, and safe
+    operating envelope.
+  boundary: External/domain safety truth remains with competent authority; SEC/DAT/COR keep ownership of their substantive supporting
+    properties.
+  result: NOT_REPRODUCED
+evidence_economics:
+  result: NOT_REPRODUCED
+  pass_cost_model: 'PASS cost is attributable property evidence: defined scope/revision/environment, direct evidence obligations,
+    runtime-capable proof for runtime claims, explicit unresolved states, independent review at Level 4, and exceptional independent
+    reproduction/derivation at Level 5.'
+  machinery_not_credit: No artifact count, tool count, framework choice, points, percentages, architecture sophistication, or
+    process volume contributes to maturity.
+  evidence_reuse: A single artifact or execution may support multiple requirements only when it directly demonstrates each distinct
+    obligation; because there is no additive scoring, reuse creates no numerical double credit and unsupported obligations remain
+    unresolved.
+  ceremony_attack: No material requirement was demonstrated to add only ceremony while leaving the proved engineering property
+    unchanged. Static evidence is used for static selection/structure/assumption claims; behavioral claims require runtime-capable
+    or logically equivalent evidence.
+task_0003_epistemic_preservation:
+  historical_findings:
+  - finding_id: F-001
+    historical_result: REPRODUCED
+    treatment: Preserved as REPRODUCED historical evidence. TASK-0005 does not relabel it; current post-remediation guard effectiveness
+      is a separate attack.
+  - finding_id: F-002
+    historical_result: REPRODUCED
+    treatment: Preserved as REPRODUCED historical evidence. TASK-0005 does not relabel it; current post-remediation guard effectiveness
+      is a separate attack.
+  historical_not_reproduced_semantics: TASK-0003 NOT_REPRODUCED attacks remain NOT_REPRODUCED unless new concrete evidence changes
+    them; no such new exploit evidence was demonstrated in this audit.
+task_0004_boundedness_recheck:
+  result: NOT_REPRODUCED
+  exact_tests_blob_sha: 72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0
+  evidence:
+  - ASR-4.3 regression assurance pins the exact frozen applicability object and rejects the exact 'Where appropriate.' mutant
+    while acknowledging the generic validator remains structurally valid.
+  - OBS-1.1 regression assurance pins the exact runtime-capable evidence class list and rejects the exact artifact-only mutant
+    while acknowledging the generic validator remains structurally valid.
+  - test_task_0004_semantic_guards_are_identity_bounded mutates unrelated SEC-2.3 and OBS-2.2 properties without making the two
+    exact guards claim generalized classification.
+  - Direct inspection found no target profile, applicability registry, semantic DSL/parser, NLP/AI classifier, generalized runtime-prose
+    inference, or policy engine in the bounded regression block.
+  conclusion: The post-remediation checks remain exact identity/property regression guards; they do not claim generic semantic
+    knowledge and do not create an implicit target applicability profile.
+current_attack_results:
+- attack_id: CAL-001
+  attack: Higher levels add ceremony or restate lower-level behavior without materially stronger assurance.
+  result: NOT_REPRODUCED
+  evidence: The 14x5 matrix shows higher levels add abnormal/hostile conditions, highest-consequence containment/recovery, independent
+    review, explicit assumptions, and/or independent reproduction rather than artifact count.
+- attack_id: CAL-002
+  attack: A target can empty Level 4/5 scope by declaring no component/path 'critical', 'major', or equivalent.
+  result: NOT_REPRODUCED
+  evidence: STANDARD_MODEL requires the highest-consequence material applicable subset even when no target label exists; uncertain
+    classification becomes UNKNOWN and exclusions are independently challengeable.
+- attack_id: CAL-003
+  attack: A materially narrower assessed scope can be presented as a broader high-maturity claim without consequence.
+  result: NOT_REPRODUCED
+  evidence: PASS is scoped to the assessed scope/revision/environment; evidence must be attributable to that claimed scope, while
+    ASR-4.4 independently challenges high-consequence claim selection/exclusions. A broader claim without attributable evidence
+    remains unresolved rather than inheriting a narrower PASS.
+- attack_id: CAL-004
+  attack: Level 5 can be self-certified by relabeling target-produced evidence as independent.
+  result: NOT_REPRODUCED
+  evidence: STANDARD_MODEL rejects self-certification by relabeling; each dimension has Level 5 independent_reproduction evidence
+    and ASR-5.4 requires reproduction/derivation of each highest-consequence claim's direct evidence.
+- attack_id: CAL-005
+  attack: Ordinary static or review evidence is sufficient for Level 5 runtime/behavioral claims.
+  result: NOT_REPRODUCED
+  evidence: Runtime claims require runtime-capable or logically equivalent evidence; Level 5 behavior/envelope requirements use
+    reproducible_test, operational_exercise, runtime_observation where appropriate, or formal_verification under independent
+    reproduction.
+- attack_id: CAL-006
+  attack: Level 5 eligibility depends on rarity, architecture sophistication, system size, or an implicit quota.
+  result: NOT_REPRODUCED
+  evidence: No numerical/rarity rule exists. Exceptional evidence is the bar; the tiny CLI fixture can qualify only by satisfying
+    every applicable lower requirement and independently reproducing its complete explicit highest-consequence envelope.
+- attack_id: CAL-007
+  attack: A higher-level PASS, duplicated evidence, or strong evidence elsewhere can compensate for a lower-level blocker.
+  result: NOT_REPRODUCED
+  evidence: Cumulative achievement explicitly makes PARTIAL/GAP/UNKNOWN/EXCEPTION block their level and every higher level; there
+    are no points, averages, percentages, or cross-requirement compensation.
+- attack_id: CAL-008
+  attack: Synthetic archetype names can silently establish applicability or N/A.
+  result: NOT_REPRODUCED
+  evidence: All six fixtures derive applicability only from enumerated observable facts and canonical predicates; the same archetype
+    would change outcome if its facts changed.
+- attack_id: CAL-009
+  attack: Missing documentation, inventory, or target identification can manufacture N/A.
+  result: NOT_REPRODUCED
+  evidence: STANDARD_MODEL derives applicability from underlying facts and maps insufficient predicate evidence to UNKNOWN;
+    ASR external-constraint inventory obligations expose omissions rather than making them false.
+- attack_id: CAL-010
+  attack: The same artifact/evidence can be double-counted across dimensions to inflate maturity without proving each property.
+  result: NOT_REPRODUCED
+  evidence: There is no additive score. Each applicable requirement independently requires direct evidence of its own demonstrates
+    obligation; one observation may support distinct claims only when it directly proves each, otherwise the unsupported obligation
+    remains unresolved.
+- attack_id: CAL-011
+  attack: ASR can replace substantive engineering assurance by proving only that claims/evidence records exist.
+  result: NOT_REPRODUCED
+  evidence: STANDARD_MODEL explicitly assigns ASR identification/traceability while substantive dimensions own implementation
+    behavior; ASR-5.4 reproduces direct evidence but does not waive any substantive requirement.
+- attack_id: CAL-012
+  attack: Post-remediation candidate permits the known OBS-1.1 runtime claim to regress to static-only evidence while bounded
+    assurance remains green.
+  result: NOT_REPRODUCED
+  evidence: Post-remediation tests pin OBS-1.1 runtime-capable classes exactly and include the artifact-only mutant rejection;
+    generic validator remains intentionally non-semantic.
+- attack_id: CAL-013
+  attack: TASK-0004 closure became a generalized semantic classifier that creates new false confidence outside the two known properties.
+  result: NOT_REPRODUCED
+  evidence: The guards name exact ASR-4.3 and OBS-1.1 identities/properties. A dedicated boundedness test mutates SEC-2.3 and OBS-2.2
+    and confirms those unrelated mutations are not claimed to be classified by the guards.
+- attack_id: CAL-014
+  attack: Applicable externally-owned constraints can be omitted and still support high maturity.
+  result: NOT_REPRODUCED
+  evidence: ASR-1.2 requires inventory/source/applicability rationale, ASR-2.4/2.5 require constraint-to-claim-to-evidence trace,
+    ASR-4.5 independently challenges completeness, and substantive dimensions enforce identified domain behavior where applicable.
+- attack_id: CAL-015
+  attack: TASK-0004 bounded guards implicitly create a reusable target applicability profile or semantic policy subsystem.
+  result: NOT_REPRODUCED
+  evidence: The regression block is exact identity/property comparison in tests only; it contains no target facts, profiles,
+    registry, policy engine, natural-language classifier, or target assessment path.
+- attack_id: CAL-016
+  attack: Level 4 independent review is only procedural ceremony because no direct stronger property evidence is required.
+  result: NOT_REPRODUCED
+  evidence: Across dimensions, Level 4 requirements pair consequence-scope selection with concrete stronger containment/recovery/runtime/conformance
+    properties where the property is behavioral; static dimensions such as MNT use direct structural/analysis evidence appropriate
+    to their claim.
+- attack_id: CAL-017
+  attack: Level 5 independent reproduction can be satisfied by reproducing only the assessor's paperwork rather than the underlying
+    engineering evidence.
+  result: NOT_REPRODUCED
+  evidence: Independence semantics require reproduction or independent derivation of evidence; ASR-5.4 explicitly targets direct
+    evidence for each highest-consequence engineering claim, while substantive Level 5 requirements target their property envelopes.
+findings: []
+material_unknowns: []
+epistemic_consistency_review:
+  current_reproduced_count: 0
+  current_material_unknown_count: 0
+  current_not_reproduced_count: 17
+  historical_task_0003_reproduced_findings_preserved: 2
+  not_reproduced_never_described_as_clean_or_disproven: true
+  unknown_never_converted_to_pass_or_na: true
+  rarity_never_used_as_level_5_quota: true
+  synthetic_archetype_names_never_used_as_applicability_profiles: true
+  downstream_authority_created: false
+read_only_subject_verification:
+  subject_revision: 7ef9acaf5127e495fe1d789594e1b6b700dfa52c
+  subject_standards_tree_sha: 67355474a553be3d0b59105157640b1ddfdb4fde
+  subject_validator_blob_sha: a6eed727a3c34a6a7642588bbe38ef1dded0132a
+  subject_tests_blob_sha: 72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0
+  base_semantic_delta: NONE; compare subject...base shows only TASK-0005/task.yaml added.
+  candidate_mutation_performed: false
+  non_report_executor_mutation: false
+changed_files:
+- path: .agent/tasks/TASK-0005/report.yaml
+  summary: Canonical Executor-owned evidence for the independent V1 calibration and anti-gaming assurance audit.
+  new_file: true
+  in_scope: true
+  structure_authorized: true
+commits_created: []
+report_commit:
+  identity: enclosing_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  expected_parent: 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170
+  expected_only_changed_path: .agent/tasks/TASK-0005/report.yaml
+  message: 'agent: report TASK-0005 V1 calibration assurance'
+pushed: true
+promoted_to_main: false
+authoritative_verification:
+  required: false
+  performed: false
+  result: NOT_APPLICABLE
+  evidence: TASK-0005 designates no authoritative project verifier. Governing Architect review of the exact committed report is
+    the next boundary.
+local_hygiene:
+  result: PASS
+  run_root: ''
+  cleanup_performed: false
+  retained: []
+  evidence: No mutable target-repository checkout or run-owned target artifact was created. Audit used exact remote Git identities/content;
+    the sole repository mutation is the canonical report commit.
+acceptance_evidence:
+- criterion_id: AC-1
+  status: PROVEN
+  evidence: dimension_level_coverage explicitly covers all 14 manifest dimensions and every Level 1-5 entry (70 cells), plus
+    Level 0 calibration, against exact subject blobs.
+- criterion_id: AC-2
+  status: PROVEN
+  evidence: Six synthetic_adversarial_fixtures provide explicit observable facts, fact-derived dimension/requirement applicability
+    or N/A, representative L1/L3/L5 evidence, and gaming conclusions; labels are never used as predicates.
+- criterion_id: AC-3
+  status: PROVEN
+  evidence: level_4_5_anti_gaming and CAL-002 through CAL-007/CAL-016/CAL-017 challenge non-vacuous scope, cumulative blockers,
+    independent review/reproduction, weak evidence, self-certification, and rarity without a quota.
+- criterion_id: AC-4
+  status: PROVEN
+  evidence: cross_dimension_ownership explicitly analyzes all 14 owners/boundaries, including ASR as evidence/trace assurance
+    rather than a substitute for substantive engineering properties.
+- criterion_id: AC-5
+  status: PROVEN
+  evidence: task_0004_boundedness_recheck directly inspects the exact post-remediation tests blob and confirms exact ASR-4.3/OBS-1.1
+    guards plus an unrelated-mutation boundedness test; no generalized semantic/applicability machinery was found.
+- criterion_id: AC-6
+  status: PROVEN
+  evidence: All 17 current material attacks are classified only NOT_REPRODUCED; there are 0 current REPRODUCED findings and
+    0 material UNKNOWNs. Historical TASK-0003 F-001/F-002 remain REPRODUCED and are not relabeled.
+- criterion_id: AC-7
+  status: PROVEN_BY_ENCLOSING_COMMIT_IDENTITY
+  evidence: Immediately before report mutation, dev remained the exact handoff base and the report path was absent. This immutable
+    report declares the report path as the sole intended change; the enclosing commit must be verified externally after push.
+- criterion_id: AC-8
+  status: PROVEN
+  evidence: final_assurance_conclusion explicitly states whether a material calibration defect or material UNKNOWN remains and
+    creates no remediation, promotion, release, or future-task authority.
+executor_checks:
+- check_id: CHECK-1
+  result: PASS
+  evidence: Audit start and pre-report refresh showed dev exactly 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170; its sole parent is
+    subject 7ef9acaf5127e495fe1d789594e1b6b700dfa52c, and compare subject...base changes only TASK-0005/task.yaml. Exact subject
+    model/standards/validator/tests identities are recorded in audit_subject.
+- check_id: CHECK-2
+  result: PASS
+  evidence: Completed 14-dimension x Levels 1-5 matrix, six fact-based fixtures, Level 4/5 anti-gaming challenge, all-14 ownership
+    challenge, evidence-economics challenge, and TASK-0004 boundedness re-check.
+- check_id: CHECK-3
+  result: PASS
+  evidence: Epistemic review preserves REPRODUCED/NOT_REPRODUCED/UNKNOWN meanings, retains TASK-0003 historical reproduced evidence,
+    has no UNKNOWN-to-PASS/N/A conversion, and uses no Level-5 rarity quota.
+- check_id: CHECK-4
+  result: PASS
+  evidence: Fresh pre-report dev read remained the exact handoff base and .agent/tasks/TASK-0005/report.yaml returned Not Found;
+    only that report path is intended for Executor mutation.
+- check_id: CHECK-5
+  result: ENCLOSING_COMMIT_VERIFICATION_REQUIRED
+  evidence: After the enclosing report commit is pushed, verify dev equals that exact commit; parent is 3edf67ba13b878c8cfa5b4cde41cfb1f95ee5170;
+    main remains 71f2be951c9d44452f5f53122f4062390ef4cb39; branches remain exactly {dev, main}; and the only changed path relative to handoff
+    base is .agent/tasks/TASK-0005/report.yaml.
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+working_tree_after:
+  clean: true
+  summary: 'Remote-only audit path: no mutable target checkout/uncommitted target state. Candidate remained read-only; only the
+    canonical report commit is authorized.'
+final_assurance_conclusion:
+  current_material_calibration_defect_reproduced: false
+  current_material_unknown_remaining: false
+  release_assurance_blocked_by_this_audit: false
+  statement: This independent audit did not reproduce a material V1 calibration/anti-gaming defect and found no material UNKNOWN
+    on the exact post-remediation subject. This is not a claim that NOT_REPRODUCED attacks are disproven or that the candidate
+    is universally clean. Level 5 remains available to any target that genuinely satisfies the exceptional evidence bar; rarity
+    was not used as a quota. TASK-0005 creates no remediation, promotion, tag, release, or later-task authority.
+  next_boundary: Governing Architect review of the exact committed report.
+result: NEEDS_REVIEW
