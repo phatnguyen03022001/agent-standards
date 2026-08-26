@@ -1,0 +1,215 @@
+protocol_version: 3
+
+task_id: TASK-0004
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: audit_finding
+  task_id: "TASK-0003"
+  gap_id: "F-001,F-002"
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - adversarial-audit
+
+execution_skills:
+  required:
+    - executor
+    - verification
+  recommended:
+    - adversarial-audit
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended:
+    - superpowers/test-driven-development
+    - superpowers/verification-before-completion
+
+authority_sources:
+  - source: "User authorization to continue evidence-driven hardening of the five-repository governance ecosystem, 2026-08-26"
+    role: "Current bounded remediation authority after accepted TASK-0003 findings"
+    precedence: 1
+  - source: "TASK-0003 revision 1 read-only audit result, accepted by the Governing Architect on 2026-08-26"
+    role: "Reproduced findings F-001 and F-002, epistemic classification, owning layer, and minimal closure direction"
+    precedence: 2
+  - source: "STANDARD_MODEL.md@71f2be951c9d44452f5f53122f4062390ef4cb39"
+    role: "Frozen V1 normative semantics that the regression assurance must protect without modification"
+    precedence: 3
+  - source: "standards/assurance.yaml@71f2be951c9d44452f5f53122f4062390ef4cb39"
+    role: "Frozen ASR-4.3 factual applicability semantics protected by F-001 closure"
+    precedence: 4
+  - source: "standards/observability.yaml@71f2be951c9d44452f5f53122f4062390ef4cb39"
+    role: "Frozen OBS-1.1 runtime-capable evidence semantics protected by F-002 closure"
+    precedence: 5
+  - source: "tests/test_validate.py@71f2be951c9d44452f5f53122f4062390ef4cb39"
+    role: "Current bounded semantic regression-assurance layer under remediation"
+    precedence: 6
+
+structure_authority:
+  status: RESOLVED
+  source: "Accepted TASK-0003 ownership judgment"
+  rationale: "Both reproduced defects are bounded regression-assurance gaps. The implementation is restricted to tests/test_validate.py plus the canonical Executor report. No new module, schema, validator subsystem, or normative standards change is authorized."
+
+objective: "Close only reproduced findings F-001 and F-002 by adding minimal deterministic V1 semantic regression assurance that rejects the exact false-green mutation classes without pretending to mechanically understand general natural-language semantics."
+
+scope:
+  required_changes:
+    - "In tests/test_validate.py, add bounded deterministic regression assurance for F-001 so the frozen ASR-4.3 applicability semantics remain tied to their known-good factual predicate and a mutant replacing that predicate with discretionary applicability such as 'Where appropriate.' is rejected by the regression suite."
+    - "In tests/test_validate.py, add bounded deterministic regression assurance for F-002 so the frozen OBS-1.1 runtime-behavior evidence obligation cannot regress to static-only artifact evidence while remaining green; a mutant whose relevant evidence classes are only artifact_inspection must be rejected by the regression suite."
+    - "Keep the guard explicitly scoped to known frozen V1 requirement identities/properties. It may use exact expected frozen structure or another equally deterministic bounded invariant, but must not infer arbitrary natural-language semantics from keywords."
+    - "Use causal mutation-based verification: on the authorized pre-fix state, independently reproduce that each seeded mutant false-greens through the existing relevant validator/regression path; after the change, run the same mutants and prove the new bounded regression assurance rejects both while the unmodified frozen corpus passes."
+    - "Run the complete deterministic repository validation and test suite on the exact final implementation state and record exact evidence in .agent/tasks/TASK-0004/report.yaml."
+  allowed_existing_files_or_components:
+    - tests/test_validate.py
+    - tools/validate.py
+    - STANDARD_MODEL.md
+    - standards/manifest.yaml
+    - standards/assurance.yaml
+    - standards/observability.yaml
+    - .agent/tasks/TASK-0004/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "Frozen V1 normative meaning is unchanged."
+  - "STANDARD_MODEL.md is read-only for this task."
+  - "standards/manifest.yaml and every standards/*.yaml file are read-only for this task."
+  - "tools/validate.py is read-only for this task; TASK-0003 located both reproduced defects in bounded semantic regression assurance, not in the generic structural validator."
+  - "F-001 closure must not be implemented as a generalized blacklist or keyword parser for words such as appropriate, relevant, applicable, documented, identified, or equivalent natural-language tokens."
+  - "F-002 closure must not be implemented by guessing whether arbitrary requirement prose is runtime behavior from words such as runtime, emit, execute, operation, behavior, or equivalent tokens."
+  - "Validator coverage must never pretend to exceed what is mechanically knowable."
+  - "Known frozen semantic identities may be pinned deterministically in regression tests because V1 meaning is frozen; this does not create a general semantic parser."
+  - "An incorrect PASS must remain harder than an honest UNKNOWN."
+  - "Semantic rigor is maximal; false-confidence tolerance is near zero; complexity budget is minimal."
+  - "No future task, calibration authority, promotion authority, tag authority, or release authority is created by this task."
+
+forbidden_changes:
+  - "Any change to STANDARD_MODEL.md, README.md, standards/manifest.yaml, any standards/*.yaml file, tools/validate.py, requirements-validator.txt, or dependency metadata."
+  - "Any new DSL, policy engine, schema layer, semantic parser, NLP/AI validator, registry, framework, service, workflow, or generalized rule engine."
+  - "Any attempt to solve F-001 through a broad natural-language keyword blacklist or to solve F-002 through generic prose classification."
+  - "Any unrelated semantic coverage expansion beyond the two reproduced findings."
+  - "Any new source/test/helper file; bounded helpers must remain inside tests/test_validate.py if needed."
+  - "Any TASK-0005 or later task artifact or authority."
+  - "Any branch creation, merge, rebase, reset, force update, main mutation, promotion, tag, release, or repository metadata mutation."
+  - "Any claim that attacks classified NOT_REPRODUCED by TASK-0003 are now proven clean."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0004/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "F-001 is closed by bounded regression assurance: the exact frozen ASR-4.3 applicability remains accepted, while the seeded discretionary-predicate mutant is deterministically rejected without generalized natural-language parsing."
+    evidence_required: "Pre-fix false-green reproduction plus post-fix mutant rejection and unmodified-corpus PASS on the same bounded assurance path."
+  - id: AC-2
+    requirement: "F-002 is closed by bounded regression assurance: the exact frozen OBS-1.1 runtime-capable evidence semantics remain accepted, while the seeded artifact_inspection-only mutant is deterministically rejected without generalized prose classification."
+    evidence_required: "Pre-fix false-green reproduction plus post-fix mutant rejection and unmodified-corpus PASS on the same bounded assurance path."
+  - id: AC-3
+    requirement: "The implementation remains localized to tests/test_validate.py and does not modify any normative standards content, generic validator behavior, dependencies, or repository structure."
+    evidence_required: "Exact changed-file and blob comparison against the authorized base and frozen V1 subject."
+  - id: AC-4
+    requirement: "The new regression logic is explicit, deterministic, bounded to the known frozen requirement identities/properties, and does not create false confidence through keyword heuristics or a generalized semantic engine."
+    evidence_required: "Direct code inspection plus adversarial checks showing representative alternative vague/runtime wording is not claimed to be generally classified."
+  - id: AC-5
+    requirement: "All repository deterministic validation/tests pass on the exact final implementation state, and the report records causal red/green evidence for both findings."
+    evidence_required: "Exact final-state output from validator, full unittest suite, focused F-001/F-002 regression tests, mutation checks, and diff/changed-file verification."
+  - id: AC-6
+    requirement: "No promotion, release, future task, or unrelated assurance authority is created or exercised."
+    evidence_required: "Fresh final refs/tree/task-directory inspection and report evidence."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "Before mutation, reproduce F-001 and F-002 on an isolated copy of the authorized base: the existing validator/relevant regression checks must false-green the seeded 'Where appropriate.' ASR-4.3 mutant and the OBS-1.1 artifact_inspection-only mutant. Record exact reproduction evidence."
+      required: true
+    - id: CHECK-2
+      command_or_check: "After implementation, run focused bounded F-001/F-002 regression tests against both the unmodified frozen corpus and the two seeded mutants; require corpus PASS and both mutants REJECTED."
+      required: true
+    - id: CHECK-3
+      command_or_check: "python tools/validate.py"
+      required: true
+    - id: CHECK-4
+      command_or_check: "python -m unittest discover -s tests -v"
+      required: true
+    - id: CHECK-5
+      command_or_check: "git diff --check"
+      required: true
+    - id: CHECK-6
+      command_or_check: "Verify changed implementation files are exactly tests/test_validate.py plus the canonical TASK-0004 report artifact; STANDARD_MODEL.md, README.md, standards/manifest.yaml, all standards/*.yaml, tools/validate.py, requirements-validator.txt, branch topology, main, tags, releases, and metadata remain unchanged."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: ""
+    expected_signal: ""
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions:
+  - "If either finding cannot be closed without modifying frozen normative semantics, generic validator behavior, dependencies, or adding generalized semantic machinery, stop BLOCKED and return evidence rather than expanding scope."
+  - "If causal pre-fix reproduction cannot be independently demonstrated, stop and report the discrepancy; do not implement a speculative fix."
+  - "Any newly discovered material issue outside F-001/F-002 is reported as an observation only and does not expand this task."
+  - "Promotion, tag, release, calibration audit, and any later work require fresh Governing Architect judgment after exact report review."
+
+execution_ready: true
