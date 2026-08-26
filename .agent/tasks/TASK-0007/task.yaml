@@ -1,0 +1,256 @@
+protocol_version: 3
+
+task_id: TASK-0007
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: accepted_task_result
+  task_id: "TASK-0006"
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - verification
+
+execution_skills:
+  required:
+    - executor
+    - verification
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended:
+    - superpowers/verification-before-completion
+
+authority_sources:
+  - source: "User authorization to complete the evidence-driven V1 hardening and release path for the governance ecosystem, 2026-08-26"
+    role: "Release objective and bounded completion authority"
+    precedence: 1
+  - source: ".agent/tasks/TASK-0006/report.yaml@cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93"
+    role: "Accepted final exact-candidate V1 assurance evidence with RELEASE_READY judgment"
+    precedence: 2
+  - source: ".agent/tasks/TASK-0005/report.yaml@a40801382740131a3069212a37d8abf20421956f"
+    role: "Accepted independent calibration and anti-gaming assurance"
+    precedence: 3
+  - source: ".agent/tasks/TASK-0004/report.yaml@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Accepted bounded remediation evidence for historical F-001/F-002"
+    precedence: 4
+  - source: ".agent/tasks/TASK-0003/report.yaml@2e97aebb52260899cfe2649fa1d97b06888e1eea"
+    role: "Accepted Extreme V1 semantic audit evidence preserving historical epistemic state"
+    precedence: 5
+  - source: "STANDARD_MODEL.md@a40801382740131a3069212a37d8abf20421956f"
+    role: "Exact V1 normative semantic subject already assured for release"
+    precedence: 6
+
+structure_authority:
+  status: RESOLVED
+  source: "Accepted TASK-0006 release-ready assurance plus repository V1 release precedent"
+  rationale: "No semantic, implementation, documentation, validator, dependency, or repository-metadata change is required. The only pre-release Executor-owned content mutation is .agent/tasks/TASK-0007/report.yaml. After exact Architect acceptance of that report, the same authority permits an exact fast-forward promotion of main, exact v1.0.0 tag creation, and one GitHub Release without a further repository-content commit."
+
+objective: "Complete the V1 release lifecycle for the exact accepted agent-standards candidate without changing its engineering semantics: establish durable pre-release evidence, obtain Governing Architect acceptance, fast-forward main to the exact reviewed report commit, create v1.0.0 at that exact commit, publish the matching GitHub Release, and verify one exact final identity."
+
+scope:
+  required_changes:
+    - "PRE-RELEASE EXECUTION: refresh exact remote truth and require dev to equal the handoff base, main to remain 71f2be951c9d44452f5f53122f4062390ef4cb39, branches exactly {dev, main}, and no existing tag/release conflict for v1.0.0."
+    - "Reconcile the accepted TASK-0006 report commit cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93, its exact report-only lineage, and the assured semantic subject a40801382740131a3069212a37d8abf20421956f."
+    - "Verify the handoff-base delta after accepted TASK-0006 consists only of TASK-0007 planning authority and that all material semantic blobs remain identical to the accepted assurance subject."
+    - "Create, commit, and push only .agent/tasks/TASK-0007/report.yaml containing exact pre-release identities, no-drift evidence, release-shape evidence, proposed promotion candidate identity, exact tag/release identity, and terminal REVIEW_REQUIRED status."
+    - "Stop after the pre-release report commit. Promotion, tag creation, and release publication are forbidden until a Governing Architect explicitly ACCEPTS the exact TASK-0007 report commit and issues continuation under this task."
+    - "PROMOTION CONTINUATION after exact Architect acceptance: refresh refs again; require dev to equal the exact reviewed TASK-0007 report commit, main to remain the expected pre-promotion SHA, branches exactly {dev, main}, and no release conflict; then update main only by a non-force fast-forward ref move to the exact reviewed report commit."
+    - "After promotion require main == dev == reviewed_report.commit exactly. Do not create a merge, squash, rebase, empty promotion commit, reconstructed tree, or any other commit."
+    - "RELEASE CONTINUATION after successful promotion: create exactly one lightweight version tag v1.0.0 resolving to the exact promoted/reviewed report commit, with no force or replacement semantics."
+    - "Publish exactly one non-draft, non-prerelease GitHub Release for tag v1.0.0 with title 'v1.0.0' and the bounded release notes defined by this task."
+    - "Final verification must require dev == main == v1.0.0 tag target == reviewed TASK-0007 report commit, exactly one matching GitHub Release exists, branch topology remains {dev, main}, and no post-release repository content commit exists."
+  allowed_existing_files_or_components:
+    - STANDARD_MODEL.md
+    - README.md
+    - LICENSE
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tests/test_validate.py
+    - requirements-validator.txt
+    - .agent/tasks/TASK-0003/*
+    - .agent/tasks/TASK-0004/*
+    - .agent/tasks/TASK-0005/*
+    - .agent/tasks/TASK-0006/*
+    - .agent/tasks/TASK-0007/task.yaml
+  expected_files_are_restrictive: true
+
+release_identity:
+  version: v1.0.0
+  tag: v1.0.0
+  tag_kind: lightweight
+  release_title: v1.0.0
+  draft: false
+  prerelease: false
+  release_notes: |
+    agent-standards v1.0.0 is the first stable release of the evidence-driven engineering maturity standard.
+
+    Highlights:
+    - Generation 1 with 14 engineering dimensions and cumulative Levels 0-5.
+    - Explicit PASS, N/A, UNKNOWN, and EXCEPTION semantics designed to resist grade inflation and self-certification.
+    - Evidence and independence requirements that make higher maturity materially stronger rather than more ceremonial.
+    - Bounded deterministic regression assurance for known applicability and runtime-evidence false-green classes.
+    - Independent semantic, calibration, anti-gaming, and final exact-candidate assurance completed before release.
+
+    Consumers should pin the exact release tag or immutable commit identity when using the standard as an assessment authority.
+
+invariants:
+  - "The released V1 engineering semantics are exactly those already assured by TASK-0006; this task changes no semantic subject content."
+  - "Generation remains exactly 1 with exactly the existing 14 dimensions and Levels 0-5."
+  - "Historical TASK-0003 F-001/F-002 remain historical REPRODUCED evidence; remediation and current reopening results remain separate."
+  - "No accepted NOT_REPRODUCED result is relabeled clean or disproven."
+  - "The only pre-release content mutation is TASK-0007/report.yaml."
+  - "Architect acceptance of the exact pre-release report is mandatory before promotion."
+  - "Promotion is a non-force fast-forward ref update only."
+  - "The version tag and GitHub Release must resolve to the exact same reviewed report commit as dev and main."
+  - "No repository metadata mutation is needed or authorized for this release task."
+  - "No release branch, merge commit, promotion commit, post-tag content commit, or history surgery is permitted."
+  - "No TASK-0008 or later task is created by Executor."
+
+forbidden_changes:
+  - "Any mutation to STANDARD_MODEL.md, README.md, LICENSE, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, or any non-report repository content."
+  - "Any modification to TASK-0007/task.yaml by Executor."
+  - "Any repository metadata mutation including description, topics, visibility, default branch, features, or settings."
+  - "Any branch creation, release branch, merge, squash, rebase, reset, force update, reconstructed commit/tree, or empty promotion commit."
+  - "Any promotion before exact Governing Architect acceptance of the TASK-0007 report commit."
+  - "Any version tag other than v1.0.0 or any tag target other than the exact reviewed report commit."
+  - "Any GitHub Release other than the single non-draft, non-prerelease v1.0.0 release defined here."
+  - "Any package publication, artifact upload, website/docs deployment, CI expansion, or external publication not explicitly authorized here."
+  - "Any TASK-0008 or later task, review.yaml, continuation artifact, or additional repository file."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0007/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "The exact accepted TASK-0006 report identity and assured V1 semantic subject are reconciled without ambiguity or drift."
+    evidence_required: "Exact commit/tree/blob comparisons recorded in TASK-0007/report.yaml."
+  - id: AC-2
+    requirement: "The pre-release repository shape is conflict-free: expected dev/main lineage, exactly {dev, main}, no existing v1.0.0 tag, and no conflicting GitHub Release."
+    evidence_required: "Fresh exact remote reads recorded immediately before report publication."
+  - id: AC-3
+    requirement: "The TASK-0007 planning commit changes only TASK-0007/task.yaml relative to the accepted TASK-0006 report commit; no semantic content changed after final assurance."
+    evidence_required: "Exact compare and material blob identity evidence."
+  - id: AC-4
+    requirement: "The canonical TASK-0007 pre-release report is the sole Executor content mutation and is committed/pushed on dev for independent Architect review."
+    evidence_required: "Exact enclosing report commit identity, expected parent, and sole changed path verified externally after push."
+  - id: AC-5
+    requirement: "No promotion, tag, or release occurs during pre-release EXECUTION before exact Architect acceptance."
+    evidence_required: "Final pre-review refs/tags/releases evidence in report."
+  - id: AC-6
+    requirement: "After authorized continuation, main is promoted only by non-force fast-forward to the exact reviewed report commit and equals dev."
+    evidence_required: "Fresh pre/post ref reads showing exact identity and no new commit."
+  - id: AC-7
+    requirement: "v1.0.0 is a lightweight tag resolving to the exact reviewed/promoted report commit and is the only new version tag."
+    evidence_required: "Exact tag-ref read after creation."
+  - id: AC-8
+    requirement: "The GitHub Release is exactly v1.0.0, non-draft, non-prerelease, uses the authorized release notes, and points to the exact v1.0.0 tag/reviewed commit."
+    evidence_required: "Fresh GitHub Release read after publication."
+  - id: AC-9
+    requirement: "Final release identity is singular and exact: dev == main == tag target == reviewed report commit, with no post-release content commit or release conflict."
+    evidence_required: "Final refs/tag/release/task-tree verification."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "At pre-release start, require dev to equal the exact handoff base, main to equal 71f2be951c9d44452f5f53122f4062390ef4cb39, branches exactly {dev, main}, and no v1.0.0 tag or GitHub Release conflict."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Verify accepted TASK-0006 report commit cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93 is exact, its report-only lineage is valid, and TASK-0007 planning adds only task.yaml while all material semantic blobs remain identical to the assured subject a40801382740131a3069212a37d8abf20421956f."
+      required: true
+    - id: CHECK-3
+      command_or_check: "Before report commit, verify the only intended Executor content change is .agent/tasks/TASK-0007/report.yaml and re-read refs/tags/releases for staleness."
+      required: true
+    - id: CHECK-4
+      command_or_check: "After report commit/push, verify dev equals the exact report commit, its sole parent is the handoff base, only TASK-0007/report.yaml changed, main/tags/releases remain unchanged, then stop REVIEW_REQUIRED."
+      required: true
+    - id: CHECK-5
+      command_or_check: "PROMOTION continuation only after exact Architect acceptance: refresh truth, require reviewed report commit still equals dev and main is unchanged, then non-force fast-forward main to that exact commit and verify main == dev."
+      required: true
+    - id: CHECK-6
+      command_or_check: "RELEASE continuation only after promotion: create lightweight refs/tags/v1.0.0 at the exact reviewed commit; verify it resolves exactly; then publish one non-draft, non-prerelease GitHub Release with the exact authorized title/notes."
+      required: true
+    - id: CHECK-7
+      command_or_check: "Final verification: dev == main == v1.0.0 tag target == reviewed report commit; exactly one matching GitHub Release exists; branches remain {dev, main}; no post-release repository commit or additional task exists."
+      required: true
+  authoritative_verification:
+    required: true
+    mechanism: "Independent Governing Architect acceptance of the exact TASK-0007 pre-release report commit before promotion; subsequent exact ref/tag/release verification after continuation."
+    expected_signal: "ARCHITECT_RESULT: ACCEPTED for exact TASK-0007 report commit, followed by exact successful promotion and release identity."
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: true
+
+release_authority:
+  create_version_tag: true
+  mutate_repository_metadata: false
+  publish_release: true
+
+blocking_decisions:
+  - "If dev, main, branch topology, accepted report identity, semantic blob identities, or release-shape assumptions drift at any boundary, stop STALE_STATE or REVERIFY_REQUIRED before mutation."
+  - "If v1.0.0 tag or a conflicting GitHub Release exists before authorized creation, stop BLOCKED; never overwrite or force-replace release identity."
+  - "If the environment cannot perform the required non-force main ref update, lightweight tag creation, or GitHub Release publication in the relevant continuation phase, stop CURRENT_PHASE_CAPABILITY_UNAVAILABLE rather than substituting a different mechanism."
+  - "No promotion, tag, or release is permitted until the exact TASK-0007 pre-release report commit is independently ACCEPTED by the Governing Architect."
+  - "After successful release, no further repository mutation is authorized by TASK-0007."
+
+execution_ready: true
