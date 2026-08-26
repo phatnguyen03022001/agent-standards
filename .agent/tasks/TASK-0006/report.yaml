@@ -1,0 +1,396 @@
+protocol_version: 3
+
+task_id: TASK-0006
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0006/task.yaml
+  commit: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  blob_sha: "6747563208263ea899227e433f56fab1c7cd9506"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  pre_execution_head: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  final_execution_head: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  assurance_subject: "a40801382740131a3069212a37d8abf20421956f"
+  frozen_pre_remediation_subject: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - adversarial-audit
+    - verification
+  recommended: []
+  external:
+    - superpowers/executing-plans
+    - superpowers/verification-before-completion
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+  missing: []
+  passed: true
+  evidence: "Fresh GitHub exact-ref/content reads succeeded; agent-runtime get_head/sync established a clean exact local dev binding at the handoff base; Python 3.13.5 with PyYAML 6.0.3 executed run-owned isolated snapshots; GitHub Git-data write primitives provide an exact-parent report commit and non-force ref update for the sole authorized repository mutation."
+
+candidate_identity:
+  assurance_subject: "a40801382740131a3069212a37d8abf20421956f"
+  subject_tree_sha: "265ba6cf62cd22f0e1ea1d1b5954d073bbdb551d"
+  planning_commit: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  planning_tree_sha: "78948464249e08c0a099be6962e1d0d38fd5f79b"
+  planning_parent: "a40801382740131a3069212a37d8abf20421956f"
+  planning_changed_path: .agent/tasks/TASK-0006/task.yaml
+  relation_result: EXACT_DIRECT_PRE_PLANNING_CANDIDATE_CONFIRMED
+  model_blob_sha: "6720cfba97e04279930cf26dccf6558fbc881355"
+  readme_blob_sha: "9e58596c032214850bdafa3eb00a9cb38087e594"
+  standards_tree_sha: "67355474a553be3d0b59105157640b1ddfdb4fde"
+  manifest_blob_sha: "d3e33d10e16b9857654dc1830b9bef56d1753d71"
+  validator_blob_sha: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+  tests_blob_sha: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+  dependency_blob_sha: "8392d5414b46b3f92dc29db198ced67c84708438"
+  generation: 1
+  dimension_count: 14
+  dimension_blobs:
+    COR: "32fddd06157151f87fde95f8d1713e4fd1726b77"
+    SEC: "cda9b11469795f9074ba8c790e5018f2ae05e468"
+    PRI: "5fec90d13b94644cc739c9e7e036e4c79cd97189"
+    DAT: "71bd9247b8f64ed125dc544c25ce736d25a302e7"
+    REL: "a8b2ab8365302e4620797f32ec7b73812f915f93"
+    PER: "278bab79c75b220a7955a6fbdfc96316be99ef83"
+    OBS: "91f37867dcd4b18642f2bbc6a6246ca9d7d34cd2"
+    MNT: "1af80202d25e69455faac31954cd747aa40b94b9"
+    OPS: "a5b90ed7a788829e53ef5acadcf5491ffb03bcf3"
+    CMP: "d6f610600e8feaed378fb67c5738f796abd1b5cd"
+    SUP: "fd6379490a0f05907ce84bab7a298f66d9e1d5d8"
+    EFF: "3e721b918bd0f5fe8dcd203ac7d14222b1e91528"
+    ASR: "8f2e5c292d0c8e92667aa3dbded83fef5c81ab92"
+    SAF: "e9e8155dddfb287c71687db60f299e538c36fc5a"
+  exact_materialization_evidence: "All 14 standards YAML blobs, manifest, tools/validate.py, and tests/test_validate.py in the runnable assurance projection were individually Git-hash verified against the exact subject before execution."
+
+accepted_lineage:
+  task_0003:
+    revision: 2
+    report_commit: "2e97aebb52260899cfe2649fa1d97b06888e1eea"
+    report_blob_sha: "28d10289f94aabb375bb6ed424cc4d6b3e4fdeaa"
+    task_blob_sha: "26a82d60a76ce5194c31a736491a03efd6b4aa37"
+    evidence_role: "Durable Extreme V1 semantic audit; historical F-001/F-002 REPRODUCED."
+  task_0004:
+    revision: 2
+    report_commit: "7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    report_blob_sha: "99a3ca10c582e6351d4eca38f87d8ff9b34ef802"
+    task_blob_sha: "7f077b2485b7520bfb2f95893b1b64ac91924764"
+    evidence_role: "Fresh durable remediation assurance; candidate ADOPTED_UNCHANGED under revision 2 and F-001/F-002 bounded regressions closed."
+  task_0005:
+    revision: 1
+    report_commit: "a40801382740131a3069212a37d8abf20421956f"
+    report_blob_sha: "d2a64c00fa1caaefd6d37e662cd514fba5fde899"
+    task_blob_sha: "ac256f7144a16b8e2b08db0c1cd729e63cce99d0"
+    evidence_role: "Accepted calibration/anti-gaming assurance; 0 current material findings and 0 material UNKNOWNs."
+  stale_task_0004_revision_1:
+    task_commit: "b1fb19691161e16f342c8f6853a569b54c3d5a4e"
+    task_blob_sha: "e19fe158c810cee1ef8aac399c85e96f3ddb384c"
+    implementation_commit: "f1db78b8c17c098054475b15707576d43dd34842"
+    treatment: "STALE_HISTORY_ONLY"
+    evidence: "TASK-0003 revision-2 durable report explicitly treated the pre-existing TASK-0004 task/test state as stale downstream state. TASK-0004 revision 2 was later created at 68f6a182ab55453a65bb3717dda3a05121a00d5d and independently adopted/verified the tests under fresh authority before report 7ef9acaf5127e495fe1d789594e1b6b700dfa52c. No revision-1 completion claim is used here."
+  semantic_delta_reconciliation:
+    result: NONE_AFTER_ACCEPTED_REMEDIATION
+    evidence: "From accepted TASK-0004 report commit 7ef9acaf5127e495fe1d789594e1b6b700dfa52c through exact candidate a40801382740131a3069212a37d8abf20421956f, only TASK-0005 task/report artifacts were added; frozen model, README, standards tree, validator, tests, and dependency identities are unchanged. The TASK-0006 planning commit then adds only TASK-0006/task.yaml and is excluded from the assurance subject."
+
+epistemic_semantics:
+  REPRODUCED: "A concrete final-gate exploit/blocker is demonstrated and attributable to the exact subject or exact relevant historical subject."
+  NOT_REPRODUCED: "The attack was challenged and no concrete exploit/blocker was demonstrated from exact available evidence; this is not clean, disproven, or impossible."
+  UNKNOWN: "Available attributable evidence is insufficient to decide a material final-gate claim safely; UNKNOWN is never PASS/N/A/RELEASE_READY."
+
+historical_epistemic_state:
+  - finding_id: F-001
+    historical_result: REPRODUCED
+    current_reopening_result: NOT_REPRODUCED
+    treatment: "Historical reproduction remains true; fresh exact current evidence shows the known regression is not reopened."
+  - finding_id: F-002
+    historical_result: REPRODUCED
+    current_reopening_result: NOT_REPRODUCED
+    treatment: "Historical reproduction remains true; fresh exact current evidence shows the known regression is not reopened."
+
+deterministic_verification:
+  exact_subject: "a40801382740131a3069212a37d8abf20421956f"
+  runtime: "Python 3.13.5; PyYAML 6.0.3"
+  validator:
+    result: PASS
+    output: "VALID: standards definition"
+    exit_code: 0
+  full_unittest:
+    result: PASS
+    tests_run: 54
+    output: "Ran 54 tests; OK"
+    exit_code: 0
+  focused_known_regressions:
+    result: PASS
+    tests_run: 5
+    output: "Ran 5 tests; OK"
+    tests:
+      - test_asr_4_3_frozen_applicability_contract
+      - test_asr_4_3_discretionary_predicate_mutant_rejected
+      - test_obs_1_1_frozen_runtime_evidence_contract
+      - test_obs_1_1_artifact_only_mutant_rejected
+      - test_task_0004_semantic_guards_are_identity_bounded
+  whitespace_diff_check:
+    result: PASS
+    method: "git diff --cached --check on the exact hash-verified runnable subject projection"
+    output: ""
+    exit_code: 0
+    note: "This is logically equivalent and stricter for the materialized projection: each runnable source blob was first matched to the exact Git subject identity, then the projection was staged in a run-owned repository and checked for whitespace errors."
+
+causal_known_regressions:
+  frozen_pre_remediation_subject:
+    revision: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+    tests_blob_sha: "8aede49fb03600d94c0c5105f124230ea855299f"
+    validator_blob_sha: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+    standards_tree_sha: "67355474a553be3d0b59105157640b1ddfdb4fde"
+    baseline: "PASS — validator VALID; original suite Ran 49 tests; OK"
+    f_001:
+      mutation: "ASR-4.3 applicability -> {mode: conditional, any_of: ['Where appropriate.']}"
+      generic_validator: "FALSE_GREEN — exit 0"
+      original_suite: "FALSE_GREEN — exit 0; Ran 49 tests; OK"
+      result: REPRODUCED
+    f_002:
+      mutation: "OBS-1.1 evidence.required[0].classes -> ['artifact_inspection']"
+      generic_validator: "FALSE_GREEN — exit 0"
+      original_suite: "FALSE_GREEN — exit 0; Ran 49 tests; OK"
+      result: REPRODUCED
+  current_candidate:
+    revision: "a40801382740131a3069212a37d8abf20421956f"
+    baseline: "PASS — validator VALID; full suite Ran 54 tests; OK; focused 5 tests OK"
+    f_001:
+      generic_validator: "STRUCTURALLY_VALID — exit 0, intentionally non-semantic"
+      bounded_suite: "REJECTED — exit 1 on full mutated suite"
+      reopening_result: NOT_REPRODUCED
+    f_002:
+      generic_validator: "STRUCTURALLY_VALID — exit 0, intentionally non-semantic"
+      bounded_suite: "REJECTED — exit 1 on full mutated suite"
+      reopening_result: NOT_REPRODUCED
+    unrelated_control:
+      mutation: "SEC-2.3 applicability -> 'Where appropriate.' and OBS-2.2 evidence classes -> ['artifact_inspection']"
+      generic_validator: "PASS — exit 0"
+      full_suite: "PASS — Ran 54 tests; OK"
+      conclusion: "Exact guards do not claim generalized classification outside ASR-4.3 and OBS-1.1."
+  guard_boundedness:
+    result: PASS
+    evidence: "Direct inspection shows exact ASR-4.3 applicability-object equality and exact OBS-1.1 evidence-class equality; no generalized natural-language parser, keyword classifier, target applicability profile, semantic DSL, policy engine, or unrelated requirement classifier is present."
+
+release_shape_pre_report:
+  dev: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  main: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+  branches_exactly:
+    - dev
+    - main
+  tags: []
+  github_releases: []
+  task_namespace_exactly:
+    - TASK-0001
+    - TASK-0002
+    - TASK-0003
+    - TASK-0004
+    - TASK-0005
+    - TASK-0006
+  conflicting_release_identity: false
+  repository_metadata_observed:
+    default_branch: main
+    description: null
+    topics: []
+  mutation_performed_before_report: false
+  result: PASS
+
+final_gate_attacks:
+  - attack_id: FG-001
+    attack: "TASK-0006 planning commit is accidentally treated as part of the V1 assurance subject or candidate identity is ambiguous."
+    result: NOT_REPRODUCED
+    evidence: "0c013accd3ca76b0670f2efe5f6e532ab574592b has sole parent a40801382740131a3069212a37d8abf20421956f and adds only TASK-0006/task.yaml; exact assurance subject remains a40801382740131a3069212a37d8abf20421956f."
+  - attack_id: FG-002
+    attack: "Frozen normative, validator, test, dependency, or README content drifted after accepted TASK-0004/TASK-0005 assurance."
+    result: NOT_REPRODUCED
+    evidence: "Exact candidate identities match the accepted post-remediation/calibration identities; compare from 7ef9acaf5127e495fe1d789594e1b6b700dfa52c through a40801382740131a3069212a37d8abf20421956f adds only TASK-0005 task/report artifacts."
+  - attack_id: FG-003
+    attack: "Superseded TASK-0004 revision-1 execution history is being used as accepted completion evidence."
+    result: NOT_REPRODUCED
+    evidence: "Accepted TASK-0003 revision-2 report explicitly marks the pre-existing downstream TASK-0004/test state stale; accepted TASK-0004 revision-2 report independently revalidates and adopts the state under fresh authority."
+  - attack_id: FG-004
+    attack: "Exact current candidate fails deterministic structural/test/whitespace verification."
+    result: NOT_REPRODUCED
+    evidence: "Validator exit 0; 54/54 unittest PASS; focused 5/5 PASS; whitespace/diff check exit 0."
+  - attack_id: FG-005
+    attack: "Historical F-001 discretionary-applicability false-green is reopened on the current candidate."
+    result: NOT_REPRODUCED
+    evidence: "Fresh old subject false-greens the exact mutant with 49/49 PASS, while current mutated suite exits 1 and unmodified current corpus passes. Historical F-001 remains REPRODUCED."
+  - attack_id: FG-006
+    attack: "Historical F-002 static-only runtime-evidence false-green is reopened on the current candidate."
+    result: NOT_REPRODUCED
+    evidence: "Fresh old subject false-greens the exact mutant with 49/49 PASS, while current mutated suite exits 1 and unmodified current corpus passes. Historical F-002 remains REPRODUCED."
+  - attack_id: FG-007
+    attack: "TASK-0004 guards create generalized semantic/applicability confidence beyond their known exact identities."
+    result: NOT_REPRODUCED
+    evidence: "Direct guard inspection is exact identity/property bounded; unrelated SEC-2.3/OBS-2.2 semantic mutants remain structurally/suite-valid, proving the guards do not claim generalized classification."
+  - attack_id: FG-008
+    attack: "Accepted TASK-0005 calibration/anti-gaming assurance is invalidated by a post-audit semantic delta."
+    result: NOT_REPRODUCED
+    evidence: "No semantic/validator/test/dependency delta exists after the accepted TASK-0005 subject; TASK-0005 recorded zero current material findings and zero material UNKNOWNs, and fresh exact candidate verification/regression checks remain consistent with that accepted evidence."
+  - attack_id: FG-009
+    attack: "Historical REPRODUCED or current NOT_REPRODUCED/UNKNOWN semantics are whitewashed into clean/PASS."
+    result: NOT_REPRODUCED
+    evidence: "F-001/F-002 remain explicitly REPRODUCED history; current reopening is separately NOT_REPRODUCED; NOT_REPRODUCED is not described as clean/disproven and no UNKNOWN is converted to PASS/N/A."
+  - attack_id: FG-010
+    attack: "Current release shape contains a conflicting tag, GitHub Release, branch topology, later task, or ref identity."
+    result: NOT_REPRODUCED
+    evidence: "Fresh pre-report state: branches exactly {dev, main}; dev=0c013accd3ca76b0670f2efe5f6e532ab574592b; main=71f2be951c9d44452f5f53122f4062390ef4cb39; tags=[]; releases=[]; task namespace exactly TASK-0001..TASK-0006."
+  - attack_id: FG-011
+    attack: "Executor mutates candidate or any unauthorized repository content before final assurance report."
+    result: NOT_REPRODUCED
+    evidence: "Candidate remained read-only; isolated mutations existed only inside the run-owned /tmp evidence root. No repository mutation occurred before the report operation."
+
+final_epistemic_review:
+  current_material_reproduced_blockers: 0
+  current_material_unknowns: 0
+  current_not_reproduced_attacks: 11
+  historical_reproduced_findings_preserved: 2
+  not_reproduced_never_described_as_clean_or_disproven: true
+  unknown_never_converted_to_pass_or_na: true
+  release_ready_predicate_satisfied: true
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: NOT_APPLICABLE
+  evidence: "TASK-0006 designates no authoritative project verifier. Governing Architect review of the exact committed report is the next boundary."
+
+local_hygiene:
+  result: PASS
+  run_root: "/tmp/agent-standards-task0006.oHqXAl"
+  cleanup_performed: true
+  retained: []
+  evidence: "Run-owned disposable exact-subject/old-subject/mutant materializations and logs are removed after their summarized evidence is captured; no target-repository artifact is retained locally by this task."
+
+changed_files:
+  - path: .agent/tasks/TASK-0006/report.yaml
+    summary: "Canonical Executor-owned final exact-candidate V1 assurance evidence and bounded RELEASE_READY judgment."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created: []
+report_commit:
+  identity: enclosing_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  expected_parent: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  expected_only_changed_path: .agent/tasks/TASK-0006/report.yaml
+  message: "agent: report TASK-0006 final V1 assurance"
+
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Exact assurance commit/tree plus model/README/standards/manifest/validator/tests/dependency and all 14 dimension blob identities are established. Accepted TASK-0004/TASK-0005 semantic delta is NONE except accepted test remediation and later task/report artifacts."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "TASK-0003 rev2 report 2e97aebb..., TASK-0004 rev2 report 7ef9acaf..., TASK-0005 rev1 report a4080138... are reconciled by exact identities; TASK-0004 rev1 task e19fe158.../implementation f1db78b8... is explicitly stale history and not completion evidence."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "Exact hash-verified assurance materialization: python tools/validate.py PASS; python -m unittest discover -s tests -v PASS 54/54; logically equivalent exact-projection whitespace check PASS."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "Fresh exact old subject reproduces both historical false-greens with validator + 49/49 tests PASS; exact current candidate baseline passes, both same mutants are rejected by the current suite, and unrelated-control evidence proves boundedness."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "All 11 material final-gate attacks are NOT_REPRODUCED; 0 current material REPRODUCED blockers and 0 material UNKNOWNs remain. Historical F-001/F-002 remain REPRODUCED."
+  - criterion_id: AC-6
+    status: PROVEN
+    evidence: "Fresh pre-report release shape has exact branches {dev, main}, expected dev/main identities, no tags, no GitHub releases, task namespace TASK-0001..TASK-0006, and no conflicting release identity; all inspected read-only."
+  - criterion_id: AC-7
+    status: PROVEN_BY_ENCLOSING_COMMIT_IDENTITY
+    evidence: "Immediately before report publication, dev remains the exact handoff base and report.yaml is absent; this report declares the sole intended path. The enclosing commit/ref update must be verified externally after push because immutable report content cannot contain its own commit SHA."
+  - criterion_id: AC-8
+    status: PROVEN
+    evidence: "No material blocker/UNKNOWN, deterministic failure, lineage/drift ambiguity, or release conflict remains. Final judgment is RELEASE_READY assurance only; promotion/tag/release/metadata mutation remain unauthorized."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Audit start dev=0c013accd3ca76b0670f2efe5f6e532ab574592b; sole parent candidate=a40801382740131a3069212a37d8abf20421956f; planning commit adds only TASK-0006/task.yaml; exact material identities recorded."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Accepted TASK-0003/TASK-0004/TASK-0005 durable report identities and stale TASK-0004 rev1 history reconciled without stale completion evidence."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Exact isolated subject: validator PASS, full unittest 54/54 PASS, exact-projection whitespace/diff check PASS."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "Fresh old-subject F-001/F-002 mutants false-green through validator + 49-test suite; exact current baseline passes and same mutants are rejected by the 54-test suite."
+  - check_id: CHECK-5
+    result: PASS
+    evidence: "Direct inspection plus unrelated-control execution prove exact identity/property bounded guards, not generalized semantic/applicability classification."
+  - check_id: CHECK-6
+    result: PASS
+    evidence: "Fresh pre-report refs/topology/task namespace/tags/releases/candidate/report identities show no conflicting release identity."
+  - check_id: CHECK-7
+    result: PASS
+    evidence: "Final epistemic review: current blockers=0, current material UNKNOWN=0, all material final-gate attacks NOT_REPRODUCED, historical F-001/F-002 preserved REPRODUCED."
+  - check_id: CHECK-8
+    result: PASS
+    evidence: "Before report commit the only intended repository change is .agent/tasks/TASK-0006/report.yaml; no other target mutation was performed."
+  - check_id: CHECK-9
+    result: SELF_REFERENCE_RESOLVED_EXTERNALLY
+    evidence: "After the enclosing report commit/push, Executor must verify dev equals that exact commit, sole parent is 0c013accd3ca76b0670f2efe5f6e532ab574592b, main remains 71f2be951c9d44452f5f53122f4062390ef4cb39, branches remain exactly {dev, main}, and changed path is only TASK-0006/report.yaml."
+
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "Candidate remained read-only; only the canonical report commit is authorized. Run-owned verification state is cleaned after evidence capture."
+
+final_assurance_conclusion:
+  result: RELEASE_READY
+  current_material_blocker_reproduced: false
+  current_material_unknown_remaining: false
+  deterministic_verification_passed: true
+  lineage_and_drift_reconciled: true
+  release_shape_conflict: false
+  statement: "The exact candidate a40801382740131a3069212a37d8abf20421956f passes the authorized final V1 assurance gate. RELEASE_READY is an assurance judgment only and does not authorize promotion, main mutation, tag creation, GitHub Release publication, repository metadata mutation, or later-task creation."
+  next_boundary: "Governing Architect review of the exact enclosing TASK-0006 report commit."
+
+result: NEEDS_REVIEW
