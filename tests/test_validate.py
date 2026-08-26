@@ -440,9 +440,77 @@ class ValidatorTests(unittest.TestCase):
         finally:
             td.cleanup()
 
-    def _requirement(self, filename, rid):
-        data = yaml.safe_load((ROOT / "standards" / filename).read_text(encoding="utf-8"))
+    def _requirement(self, filename, rid, root=ROOT):
+        data = yaml.safe_load((root / "standards" / filename).read_text(encoding="utf-8"))
         return next(req for req in data["requirements"] if req["id"] == rid)
+
+    def _assert_asr_4_3_frozen_applicability(self, root):
+        self.assertEqual(
+            {
+                "mode": "conditional",
+                "any_of": [
+                    "A material verification blind spot exists in a verification method used for a "
+                    "highest-consequence engineering claim."
+                ],
+            },
+            self._requirement("assurance.yaml", "ASR-4.3", root)["applicability"],
+        )
+
+    def _assert_obs_1_1_frozen_runtime_evidence(self, root):
+        self.assertEqual(
+            ["reproducible_test", "runtime_observation"],
+            self._requirement("observability.yaml", "OBS-1.1", root)["evidence"]["required"][0]["classes"],
+        )
+
+    def test_asr_4_3_frozen_applicability_contract(self):
+        self._assert_asr_4_3_frozen_applicability(ROOT)
+
+    def test_asr_4_3_discretionary_predicate_mutant_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "assurance.yaml")
+            req = next(req for req in data["requirements"] if req["id"] == "ASR-4.3")
+            req["applicability"] = {"mode": "conditional", "any_of": ["Where appropriate."]}
+            self._write(p, data)
+            self.assertTrue(validate.validate(dst))
+            with self.assertRaises(AssertionError):
+                self._assert_asr_4_3_frozen_applicability(dst)
+        finally:
+            td.cleanup()
+
+    def test_obs_1_1_frozen_runtime_evidence_contract(self):
+        self._assert_obs_1_1_frozen_runtime_evidence(ROOT)
+
+    def test_obs_1_1_artifact_only_mutant_rejected(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "observability.yaml")
+            req = next(req for req in data["requirements"] if req["id"] == "OBS-1.1")
+            req["evidence"]["required"][0]["classes"] = ["artifact_inspection"]
+            self._write(p, data)
+            self.assertTrue(validate.validate(dst))
+            with self.assertRaises(AssertionError):
+                self._assert_obs_1_1_frozen_runtime_evidence(dst)
+        finally:
+            td.cleanup()
+
+    def test_task_0004_semantic_guards_are_identity_bounded(self):
+        td, dst = self._copy_tree()
+        try:
+            p, data = self._load(dst, "security.yaml")
+            req = next(req for req in data["requirements"] if req["id"] == "SEC-2.3")
+            req["applicability"] = {"mode": "conditional", "any_of": ["Where appropriate."]}
+            self._write(p, data)
+
+            p, data = self._load(dst, "observability.yaml")
+            req = next(req for req in data["requirements"] if req["id"] == "OBS-2.2")
+            req["evidence"]["required"][0]["classes"] = ["artifact_inspection"]
+            self._write(p, data)
+
+            self._assert_asr_4_3_frozen_applicability(dst)
+            self._assert_obs_1_1_frozen_runtime_evidence(dst)
+        finally:
+            td.cleanup()
 
     def test_audit_b_applicability_predicates_use_underlying_facts(self):
         for filename, rid in (("assurance.yaml", "ASR-4.3"), ("security.yaml", "SEC-2.3"),
