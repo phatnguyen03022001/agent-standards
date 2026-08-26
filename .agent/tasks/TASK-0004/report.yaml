@@ -1,0 +1,219 @@
+protocol_version: 3
+
+task_id: TASK-0004
+task_revision: 2
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0004/task.yaml
+  commit: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  blob_sha: "7f077b2485b7520bfb2f95893b1b64ac91924764"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  pre_execution_head: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  final_execution_head: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  frozen_v1_pre_fix_subject: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - verification
+  recommended: []
+  external:
+    - superpowers/verification-before-completion
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+  missing: []
+  passed: true
+  evidence: "Fresh GitHub branch/ref and exact-commit content reads succeeded; GitHub exposed existing-branch Git object/ref write actions; Python 3.13.5 executed deterministic tests in a run-owned disposable snapshot reconstructed from exact Git blob contents with blob-SHA verification. The separately exposed agent-runtime connector was not relied upon."
+
+candidate_treatment:
+  stale_revision_1_history_commit: "f1db78b8c17c098054475b15707576d43dd34842"
+  revision_2_base_tests_blob_sha: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+  frozen_pre_fix_tests_blob_sha: "8aede49fb03600d94c0c5105f124230ea855299f"
+  decision: ADOPTED_UNCHANGED
+  revision_2_implementation_mutation: false
+  evidence: "The pre-existing candidate was inspected only as untrusted base content and independently verified under revision 2. Fresh evidence showed exact identity/property-bounded ASR-4.3 and OBS-1.1 guards, both seeded mutants rejected by the bounded guards, and representative unrelated mutations not classified by those guards. No rewrite, revert, cherry-pick, cosmetic edit, or history surgery was performed."
+  stale_evidence_treatment: "No TASK-0004 revision-1 execution log, result, or completion claim was used as revision-2 acceptance evidence."
+
+frozen_subject_identity:
+  revision: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+  standards_tree_sha: "67355474a553be3d0b59105157640b1ddfdb4fde"
+  manifest_blob_sha: "d3e33d10e16b9857654dc1830b9bef56d1753d71"
+  validator_blob_sha: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+  tests_blob_sha: "8aede49fb03600d94c0c5105f124230ea855299f"
+  model_blob_sha: "6720cfba97e04279930cf26dccf6558fbc881355"
+  readme_blob_sha: "9e58596c032214850bdafa3eb00a9cb38087e594"
+  dependency_blob_sha: "8392d5414b46b3f92dc29db198ced67c84708438"
+  exact_snapshot_verification: "Every materialized frozen standards/*.yaml blob, tools/validate.py, and tests/test_validate.py matched its Git blob SHA before execution."
+
+causal_reproduction:
+  baseline:
+    validator: "PASS — VALID: standards definition"
+    unittest: "PASS — Ran 49 tests; OK"
+  f_001:
+    mutation: "ASR-4.3 applicability replaced with mode=conditional, any_of=['Where appropriate.']."
+    generic_validator: "FALSE_GREEN — exit 0; VALID: standards definition"
+    frozen_regression_suite: "FALSE_GREEN — exit 0; Ran 49 tests; OK"
+    result: REPRODUCED
+  f_002:
+    mutation: "OBS-1.1 evidence.required[0].classes replaced with ['artifact_inspection']."
+    generic_validator: "FALSE_GREEN — exit 0; VALID: standards definition"
+    frozen_regression_suite: "FALSE_GREEN — exit 0; Ran 49 tests; OK"
+    result: REPRODUCED
+  evidence_origin: "Fresh revision-2 isolated execution against the exact frozen V1 snapshot; not inherited from stale revision-1 execution evidence."
+
+final_state_verification:
+  implementation_head: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  tests_blob_sha: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+  focused_regressions:
+    result: PASS
+    tests_run: 5
+    evidence:
+      - test_asr_4_3_frozen_applicability_contract: PASS
+      - test_asr_4_3_discretionary_predicate_mutant_rejected: PASS
+      - test_obs_1_1_frozen_runtime_evidence_contract: PASS
+      - test_obs_1_1_artifact_only_mutant_rejected: PASS
+      - test_task_0004_semantic_guards_are_identity_bounded: PASS
+  validator: "PASS — VALID: standards definition"
+  full_unittest: "PASS — Ran 54 tests; OK"
+  diff_check: "PASS — git diff --check produced no output and exit 0 for the frozen-tests-to-candidate implementation diff"
+  implementation_diff: "Exactly tests/test_validate.py; 70 insertions, 2 deletions relative to frozen V1 tests; no revision-2 implementation mutation because this content was adopted unchanged from the handoff base."
+  guard_inspection: "New TASK-0004 guard block pins exact ASR-4.3 and OBS-1.1 properties; no casefold semantic classifier, keyword loop, generalized natural-language parser, DSL, policy engine, or generic runtime-prose inference is introduced by the candidate block."
+
+frozen_boundary_verification:
+  revision_2_base_matches_frozen_subject:
+    STANDARD_MODEL.md: "6720cfba97e04279930cf26dccf6558fbc881355"
+    README.md: "9e58596c032214850bdafa3eb00a9cb38087e594"
+    standards_tree: "67355474a553be3d0b59105157640b1ddfdb4fde"
+    tools_validate_py: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+    requirements_validator_txt: "8392d5414b46b3f92dc29db198ced67c84708438"
+  result: PASS
+  evidence: "All frozen normative/generic-validator/dependency blobs and the complete standards tree at the revision-2 base equal the frozen V1 subject identities. Revision 2 made no implementation mutation. Pre-report refs remained exactly dev=68f6a182ab55453a65bb3717dda3a05121a00d5d and main=71f2be951c9d44452f5f53122f4062390ef4cb39; branch topology exactly {dev, main}; tags and releases empty; repository settings/description/topics were only read, not mutated."
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: ""
+  evidence: ""
+
+local_hygiene:
+  result: PASS
+  run_root: "/tmp/agent-standards-task0004-r2.GLfDwj"
+  cleanup_performed: true
+  retained: []
+  evidence: "The exact run-owned root resolved canonically to itself under /tmp, was not a symlink, was owned by the executing user, and was removed after evidence was materialized; existence check after cleanup was false."
+
+changed_files:
+  - path: .agent/tasks/TASK-0004/report.yaml
+    summary: "Canonical Executor-owned fresh revision-2 evidence; records causal reproduction, ADOPTED_UNCHANGED candidate treatment, final-state verification, and stale revision-1 boundary."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created: []
+report_commit:
+  identity: enclosing_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  expected_parent: "68f6a182ab55453a65bb3717dda3a05121a00d5d"
+  expected_only_changed_path: .agent/tasks/TASK-0004/report.yaml
+  message: "agent: report TASK-0004 revision 2 regression assurance"
+
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Fresh frozen-snapshot reproduction showed the ASR-4.3 'Where appropriate.' mutant false-greens the original validator and 49-test suite; the exact final candidate accepts the frozen ASR-4.3 contract and rejects that mutant in the focused regression suite without generalized semantic parsing."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "Fresh frozen-snapshot reproduction showed the OBS-1.1 artifact_inspection-only mutant false-greens the original validator and 49-test suite; the exact final candidate accepts the frozen runtime-capable evidence contract and rejects that mutant in the focused regression suite without generalized prose classification."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "Direct inspection and the unrelated-mutation regression demonstrate exact identity/property-bounded guards; representative SEC-2.3 vague applicability and OBS-2.2 static-only mutations are outside the guards and are not claimed to be generally classified."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "Frozen V1 standards tree, STANDARD_MODEL.md, README.md, tools/validate.py, and requirements-validator.txt blob identities are unchanged at the revision-2 base/final implementation state; no revision-2 implementation mutation occurred, main remained frozen, tags/releases remained empty, and no repository metadata mutation was performed."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "Exact final implementation snapshot: 5 focused tests PASS, python tools/validate.py PASS, full unittest discovery 54 tests PASS, and git diff --check PASS."
+  - criterion_id: AC-6
+    status: PROVEN
+    evidence: "This report explicitly treats f1db78b8c17c098054475b15707576d43dd34842 as stale history, uses only fresh revision-2 evidence, records ADOPTED_UNCHANGED, and sets final_execution_head to the revision-2 base because no implementation mutation was required. The enclosing report commit identity is intentionally self-reference-resolved externally."
+  - criterion_id: AC-7
+    status: PROVEN
+    evidence: "No promotion, main mutation, tag, release, later task, issue/PR action, or unrelated assurance authority was created or exercised; only the authorized report commit/push is performed after final implementation verification."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Exact frozen V1 snapshot: baseline validator VALID and 49 tests OK; F-001 mutant validator VALID + 49 tests OK; F-002 mutant validator VALID + 49 tests OK. Both false-greens were independently reproduced."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Exact revision-2-base tests blob 72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0 is bounded to ASR-4.3 applicability and OBS-1.1 evidence properties, deterministic, and introduces no generalized semantic keyword inference. Decision: ADOPTED_UNCHANGED."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Five focused final-state tests passed: both frozen contracts accepted, both seeded mutants rejected by bounded guards, and representative unrelated mutations did not make the guards claim generalized classification."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "python tools/validate.py -> VALID: standards definition."
+  - check_id: CHECK-5
+    result: PASS
+    evidence: "python -m unittest discover -s tests -v -> Ran 54 tests; OK."
+  - check_id: CHECK-6
+    result: PASS
+    evidence: "git diff --check -> exit 0 with no output for the exact implementation diff; changed implementation path relative to frozen tests is exactly tests/test_validate.py."
+  - check_id: CHECK-7
+    result: PASS
+    evidence: "Frozen normative/generic-validator/dependency blobs and standards tree are unchanged; revision 2 introduced no implementation mutation; pre-report branch topology is exactly {dev, main}, main is 71f2be951c9d44452f5f53122f4062390ef4cb39, tags/releases are empty, and metadata was read-only. The sole authorized revision-2 repository mutation is this report artifact."
+  - check_id: CHECK-8
+    result: SELF_REFERENCE_RESOLVED_EXTERNALLY
+    evidence: "Immediately after the enclosing report commit is pushed, Executor must refresh refs and verify that dev equals that exact commit, its sole parent is 68f6a182ab55453a65bb3717dda3a05121a00d5d, its only changed path is .agent/tasks/TASK-0004/report.yaml, main/topology/tags/releases/metadata remain unchanged, TASK-0004 contains only task.yaml plus report.yaml, and stale revision-1 history remains described as stale. The enclosing commit SHA cannot be embedded in its own immutable content."
+
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "No mutable target-repository checkout was used. Run-owned verification state was cleaned. No revision-2 implementation mutation was required; the sole remote mutation is the canonical report commit."
+
+result: NEEDS_REVIEW
