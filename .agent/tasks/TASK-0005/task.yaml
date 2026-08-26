@@ -1,0 +1,232 @@
+protocol_version: 3
+
+task_id: TASK-0005
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: accepted_task_result
+  task_id: "TASK-0004"
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - adversarial-audit
+
+execution_skills:
+  required:
+    - executor
+    - adversarial-audit
+  recommended:
+    - verification
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: "User authorization to continue evidence-driven hardening of the five-repository governance ecosystem, 2026-08-26"
+    role: "Current assurance objective and evidence-created-work constraint"
+    precedence: 1
+  - source: ".agent/tasks/TASK-0003/report.yaml@2e97aebb52260899cfe2649fa1d97b06888e1eea"
+    role: "Accepted Extreme V1 semantic audit evidence and epistemic semantics"
+    precedence: 2
+  - source: ".agent/tasks/TASK-0004/report.yaml@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Accepted bounded remediation evidence closing F-001 and F-002"
+    precedence: 3
+  - source: "STANDARD_MODEL.md@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Current V1 normative maturity, applicability, evidence, independence, and anti-gaming model under calibration audit"
+    precedence: 4
+  - source: "standards/manifest.yaml@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Generation 1 and exact 14-dimension registry under audit"
+    precedence: 5
+  - source: "standards/*.yaml@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Current V1 requirement progression and evidence obligations under audit"
+    precedence: 6
+  - source: "tests/test_validate.py@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Current bounded semantic regression assurance after TASK-0004"
+    precedence: 7
+
+structure_authority:
+  status: RESOLVED
+  source: "TASK-0005 read-only assurance boundary"
+  rationale: "The standards candidate is read-only. The only Executor-owned repository mutation authorized is creation and commit of .agent/tasks/TASK-0005/report.yaml. No normative, validator, test, dependency, metadata, ref-topology, release, or future-task mutation is authorized."
+
+objective: "Independently determine whether V1 Levels 0-5 and the 14 dimensions are calibrated strongly enough that high maturity reflects materially stronger engineering assurance rather than scoring mechanics, ceremony, self-certification, scope gaming, or weak evidence, while preserving minimal complexity and honest UNKNOWN semantics."
+
+scope:
+  required_changes:
+    - "Perform a fresh independent read-only calibration and anti-gaming audit of the exact post-remediation V1 assurance candidate at 7ef9acaf5127e495fe1d789594e1b6b700dfa52c."
+    - "Challenge every dimension across Levels 1-5 for meaningful cumulative progression: each higher level must require materially stronger property assurance or evidence rather than terminology, ceremony, duplicate proof, or restated lower-level behavior."
+    - "Challenge Level 4 and Level 5 specifically for non-vacuous highest-consequence scope, stronger containment/assurance, independent challenge, and Level 5 exceptional evidence including independent reproduction or derivation where required."
+    - "Do not use rarity as a quota. Determine only whether Level 5 has an exceptional evidence bar; if every assessed target genuinely satisfies it, every such target remains eligible."
+    - "Use synthetic target archetypes only as adversarial fixtures, including at least a tiny deterministic CLI, conventional production web service, distributed transactional service, security-sensitive control plane, privacy-heavy platform, and severe-harm/safety-relevant system. Archetype names never establish applicability or N/A; every conclusion must derive from explicit observable target facts plus normative rules."
+    - "For each fixture, state the minimal observable facts assumed, which dimensions/requirements become applicable or N/A from those facts, what distinguishes representative Level 1, Level 3, and Level 5 evidence, and whether any scoring or evidence path could grant unjustified high maturity."
+    - "Attack cross-dimension ownership for material overlap, double-counting, or missing property ownership. ASR may own claim/evidence completeness and independence but must not replace the substantive engineering property owned by another dimension."
+    - "Attack evidence economics: PASS should be expensive in attributable evidence, not in machinery. Identify requirements that add ceremony without proving a stronger property, or that permit a strong claim with evidence weaker than the claim."
+    - "Re-check that TASK-0004 closures remain bounded regression assurance and did not accidentally create a generalized semantic classifier, implicit applicability profile, or new false-confidence path."
+    - "Classify every material attack exactly as REPRODUCED, NOT_REPRODUCED, or UNKNOWN. NOT_REPRODUCED is not disproven or clean. UNKNOWN never becomes PASS or N/A and blocks V1 release assurance only when the unknown is material to the release claim."
+    - "For every REPRODUCED finding record the violated normative rule, concrete calibration or gaming exploit, exact evidence, material consequence, correct owning layer, and minimal closure direction only. Do not propose implementation patches or future task authority."
+    - "For every material UNKNOWN record exactly what evidence is missing, why it matters, and whether it blocks V1 release assurance."
+    - "Create, commit, and push only .agent/tasks/TASK-0005/report.yaml as the durable Executor evidence artifact, then stop for Governing Architect review."
+  allowed_existing_files_or_components:
+    - STANDARD_MODEL.md
+    - README.md
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tests/test_validate.py
+    - requirements-validator.txt
+    - .agent/tasks/TASK-0003/*
+    - .agent/tasks/TASK-0004/*
+    - .agent/tasks/TASK-0005/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "Audit subject is exactly the post-remediation V1 assurance candidate at 7ef9acaf5127e495fe1d789594e1b6b700dfa52c; this planning commit is not part of the semantic subject."
+  - "The standards candidate, validator, tests, dependencies, README, and repository metadata are read-only during execution."
+  - "The only authorized Executor mutation is .agent/tasks/TASK-0005/report.yaml and its commit/push on dev."
+  - "Semantic rigor is maximal; false-confidence tolerance is near zero; complexity budget is minimal."
+  - "An incorrect PASS must be harder to obtain than an honest UNKNOWN."
+  - "Level 5 requires exceptional assurance evidence; rarity is an expected consequence, never a statistical target or acceptance criterion."
+  - "Synthetic archetypes are adversarial fixtures only and never applicability profiles."
+  - "Applicability and N/A are derived only from observable target facts and canonical predicates, never from archetype labels or missing documentation."
+  - "Validator coverage must not pretend to exceed mechanically defensible knowledge."
+  - "Calibration must judge stronger engineering assurance, not amount of ceremony, number of artifacts, tool count, or architecture sophistication."
+  - "agent-standards judges engineering properties and evidence; it does not prescribe product documentation structure, workflow, target architecture, or universal build-versus-buy outcomes."
+  - "TASK-0003 NOT_REPRODUCED results remain epistemically NOT_REPRODUCED unless new concrete evidence changes them."
+  - "TASK-0004 acceptance does not imply V1 release readiness."
+  - "No downstream fix, promotion, tag, release, or future task authority is created by this task."
+
+forbidden_changes:
+  - "Any mutation to STANDARD_MODEL.md, README.md, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, or any non-report repository content."
+  - "Any modification to TASK-0005/task.yaml by Executor."
+  - "Any TASK-0006 or later task artifact, fix artifact, proposed patch, review.yaml, continuation artifact, promotion artifact, or release artifact."
+  - "Any branch creation, main mutation, merge, rebase, reset, force update, promotion, tag, release, repository metadata mutation, issue creation, or pull request mutation."
+  - "Any statistical quota for Level 5."
+  - "Any implicit applicability profile based on archetype names."
+  - "Any new target-profile subsystem, scoring engine, points model, DSL, semantic parser, NLP/AI validator, policy engine, registry, framework, database, or workflow machinery."
+  - "Any claim that NOT_REPRODUCED means clean or disproven."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0005/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "All 14 dimensions and Levels 1-5 receive explicit independent calibration review with no silent omission."
+    evidence_required: "A complete dimension/level coverage matrix or equivalent report evidence tied to exact V1 artifacts."
+  - id: AC-2
+    requirement: "At least the six required synthetic archetypes are challenged as fact-based adversarial fixtures rather than applicability profiles."
+    evidence_required: "Per-fixture observable facts, derived applicability/N/A, representative L1/L3/L5 evidence distinctions, and gaming conclusions."
+  - id: AC-3
+    requirement: "Level 4/5 non-vacuous scope, exceptional Level 5 evidence, cumulative lower-level blockers, independence, and evidence sufficiency are challenged for unjustified high-maturity paths without using rarity quotas."
+    evidence_required: "Concrete adversarial cases and exact normative trace for every material conclusion."
+  - id: AC-4
+    requirement: "Cross-dimension overlap, missing ownership, double-counting, and ASR-versus-substantive-dimension boundaries are challenged for material calibration defects."
+    evidence_required: "Explicit ownership analysis across all 14 dimensions with any ambiguity classified epistemically."
+  - id: AC-5
+    requirement: "TASK-0004 closures are re-checked as bounded exact-identity assurance and do not introduce generalized semantic classification or applicability semantics."
+    evidence_required: "Direct inspection of the exact current regression guards and their boundedness."
+  - id: AC-6
+    requirement: "Every material attack is classified only as REPRODUCED, NOT_REPRODUCED, or UNKNOWN with exact release-assurance impact."
+    evidence_required: "Per-attack evidence plus an epistemic consistency review."
+  - id: AC-7
+    requirement: "The audit creates no candidate mutation and persists only the canonical TASK-0005 report evidence."
+    evidence_required: "Fresh final ref/tree/changed-path verification showing the report commit is the sole Executor change."
+  - id: AC-8
+    requirement: "The final conclusion states whether a material calibration defect or material UNKNOWN remains, without authorizing remediation or release."
+    evidence_required: "Final bounded assurance conclusion traceable to exact findings and unknowns."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "At audit start, require dev HEAD to equal the exact handoff base and confirm the TASK-0005 audit subject files match their 7ef9acaf5127e495fe1d789594e1b6b700dfa52c identities/content."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Complete the full 14-dimension/Levels 1-5 calibration matrix, six required fact-based synthetic fixtures, Level 4/5 anti-gaming challenge, cross-dimension ownership challenge, and TASK-0004 boundedness re-check."
+      required: true
+    - id: CHECK-3
+      command_or_check: "Perform epistemic consistency review: no NOT_REPRODUCED result becomes clean/disproven, no UNKNOWN becomes PASS/N/A, and rarity is never used as a Level 5 quota."
+      required: true
+    - id: CHECK-4
+      command_or_check: "Before report commit, verify the only intended Executor repository change is .agent/tasks/TASK-0005/report.yaml."
+      required: true
+    - id: CHECK-5
+      command_or_check: "After report commit/push, refresh refs and verify dev equals the exact report commit, main remains 71f2be951c9d44452f5f53122f4062390ef4cb39, branch set remains exactly {dev, main}, and the report commit changes only .agent/tasks/TASK-0005/report.yaml relative to the handoff base."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: ""
+    expected_signal: ""
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions:
+  - "Any material calibration finding remains a finding only; remediation requires later Governing Architect judgment and fresh authority."
+  - "Any material UNKNOWN that prevents safe V1 calibration assurance blocks release assurance but does not manufacture a fix task by itself."
+  - "If the audit cannot distinguish stronger evidence/property assurance from mere ceremony for a material Level 4/5 path, classify that path UNKNOWN rather than PASS."
+  - "Promotion, tag, release, and any later work remain unauthorized."
+
+execution_ready: true
