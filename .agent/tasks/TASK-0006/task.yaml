@@ -1,0 +1,248 @@
+protocol_version: 3
+
+task_id: TASK-0006
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: accepted_task_result
+  task_id: "TASK-0005"
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - adversarial-audit
+
+execution_skills:
+  required:
+    - executor
+    - adversarial-audit
+    - verification
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended:
+    - superpowers/verification-before-completion
+
+authority_sources:
+  - source: "User authorization to continue evidence-driven hardening of the five-repository governance ecosystem, 2026-08-26"
+    role: "Current final-assurance objective; future work remains evidence-created"
+    precedence: 1
+  - source: ".agent/tasks/TASK-0003/report.yaml@2e97aebb52260899cfe2649fa1d97b06888e1eea"
+    role: "Accepted Extreme V1 semantic audit evidence preserving F-001/F-002 historical reproduced findings"
+    precedence: 2
+  - source: ".agent/tasks/TASK-0004/report.yaml@7ef9acaf5127e495fe1d789594e1b6b700dfa52c"
+    role: "Accepted fresh remediation evidence closing F-001/F-002 with bounded exact-identity regression assurance"
+    precedence: 3
+  - source: ".agent/tasks/TASK-0005/report.yaml@a40801382740131a3069212a37d8abf20421956f"
+    role: "Accepted independent calibration/anti-gaming evidence with no current material finding or material UNKNOWN"
+    precedence: 4
+  - source: "Governing Architect acceptance of TASK-0005 report commit a40801382740131a3069212a37d8abf20421956f, 2026-08-26"
+    role: "Current review judgment establishing eligibility for a final exact-candidate release-assurance gate"
+    precedence: 5
+  - source: "STANDARD_MODEL.md@a40801382740131a3069212a37d8abf20421956f"
+    role: "Current frozen V1 normative interpretation under final assurance"
+    precedence: 6
+  - source: "standards/*.yaml@a40801382740131a3069212a37d8abf20421956f"
+    role: "Current frozen V1 canonical requirements under final assurance"
+    precedence: 7
+  - source: "tools/validate.py@a40801382740131a3069212a37d8abf20421956f"
+    role: "Current deterministic structural validator"
+    precedence: 8
+  - source: "tests/test_validate.py@a40801382740131a3069212a37d8abf20421956f"
+    role: "Current deterministic regression suite including bounded F-001/F-002 guards"
+    precedence: 9
+
+structure_authority:
+  status: RESOLVED
+  source: "TASK-0006 final-assurance boundary"
+  rationale: "The exact V1 candidate is read-only. The only Executor-owned repository mutation authorized is .agent/tasks/TASK-0006/report.yaml and its commit/push. No implementation, normative, validator, test, dependency, topology, metadata, promotion, tag, release, or future-task mutation is authorized."
+
+objective: "Perform the final independent exact-candidate V1 assurance gate on the current accepted candidate, proving no material semantic/calibration blocker, unresolved material UNKNOWN, lineage/drift defect, deterministic verification failure, or known-regression reopening remains before the Governing Architect may separately consider promotion and release authority."
+
+scope:
+  required_changes:
+    - "Audit the exact pre-task V1 release candidate at a40801382740131a3069212a37d8abf20421956f. The TASK-0006 planning commit is not part of the assurance subject."
+    - "Re-establish exact identity of STANDARD_MODEL.md, README.md, standards/manifest.yaml, all 14 standards/*.yaml files, tools/validate.py, tests/test_validate.py, requirements-validator.txt, and accepted TASK-0003/TASK-0004/TASK-0005 report artifacts."
+    - "Verify that semantic/normative/validator content has not drifted since the accepted TASK-0004/TASK-0005 subjects except for the already accepted bounded tests/test_validate.py remediation and later task/report artifacts."
+    - "Independently inspect accepted lineage: TASK-0003 revision 2 durable audit evidence, TASK-0004 revision 2 durable remediation evidence, TASK-0005 revision 1 durable calibration evidence, and the superseded/stale TASK-0004 revision-1 execution history. Confirm no stale execution claim is being treated as accepted completion evidence."
+    - "Run deterministic verification on a run-owned isolated materialization of the exact assurance subject: python tools/validate.py, python -m unittest discover -s tests -v, and git diff --check or a logically equivalent exact-tree whitespace/diff check."
+    - "Re-run the two known regression challenges causally: on the frozen pre-remediation V1 subject at 71f2be951c9d44452f5f53122f4062390ef4cb39 each seeded F-001/F-002 mutant must still false-green through the original bounded assurance path, while on the exact current candidate the bounded ASR-4.3 and OBS-1.1 guards must reject those same mutants and accept the unmodified current corpus."
+    - "Re-check that TASK-0004 guards remain exact identity/property bounded and do not claim generalized semantic knowledge, target applicability profiles, or unrelated requirement classification."
+    - "Reconcile TASK-0003 and TASK-0005 epistemic state without whitewashing: historical F-001/F-002 remain REPRODUCED history; current reopened-regression attacks may be NOT_REPRODUCED only if fresh exact evidence fails to reproduce a reopening. NOT_REPRODUCED is never clean/disproven."
+    - "Review current release-shape prerequisites read-only: exact branch topology, current dev/main identities, existing tags, existing GitHub releases, task namespace, and absence of conflicting release identity. Do not mutate any of them."
+    - "Classify every material final-gate attack as REPRODUCED, NOT_REPRODUCED, or UNKNOWN. Any material REPRODUCED blocker or material UNKNOWN makes the final result NOT_RELEASE_READY."
+    - "Create, commit, and push only .agent/tasks/TASK-0006/report.yaml containing complete exact-candidate evidence and a bounded RELEASE_READY or NOT_RELEASE_READY conclusion. RELEASE_READY is only an assurance judgment; it does not authorize promotion, tag creation, GitHub Release publication, or metadata mutation."
+
+  allowed_existing_files_or_components:
+    - STANDARD_MODEL.md
+    - README.md
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tests/test_validate.py
+    - requirements-validator.txt
+    - .agent/tasks/TASK-0001/*
+    - .agent/tasks/TASK-0002/*
+    - .agent/tasks/TASK-0003/*
+    - .agent/tasks/TASK-0004/*
+    - .agent/tasks/TASK-0005/*
+    - .agent/tasks/TASK-0006/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "Assurance subject is exactly a40801382740131a3069212a37d8abf20421956f; this planning commit is not part of that subject."
+  - "The candidate, standards, validator, tests, dependencies, accepted reports, README, refs, tags, releases, and repository metadata are read-only during execution."
+  - "The only authorized Executor mutation is .agent/tasks/TASK-0006/report.yaml and its commit/push on dev."
+  - "Historical TASK-0003 F-001/F-002 remain REPRODUCED historical evidence even when current regression reopening is NOT_REPRODUCED."
+  - "NOT_REPRODUCED is not disproven, not clean, and not universally safe."
+  - "UNKNOWN never becomes PASS, N/A, or RELEASE_READY when material to the final release claim."
+  - "An incorrect RELEASE_READY judgment must be harder to obtain than an honest NOT_RELEASE_READY/UNKNOWN conclusion."
+  - "Level 5 rarity is not a quota and is not part of this final gate."
+  - "Validator/test coverage must not pretend to exceed mechanically defensible knowledge."
+  - "No final-gate evidence may derive from the stale TASK-0004 revision-1 completion claim; only exact current artifacts and accepted durable reports may be relied upon."
+  - "No future task, promotion, tag, release, repository-metadata, or branch-mutation authority is created by this task."
+
+forbidden_changes:
+  - "Any mutation to STANDARD_MODEL.md, README.md, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, accepted prior task/report artifacts, or any non-report repository content."
+  - "Any modification to TASK-0006/task.yaml by Executor."
+  - "Any TASK-0007 or later task artifact, proposed fix, review.yaml, continuation artifact, promotion artifact, release artifact, or metadata artifact."
+  - "Any branch creation, main mutation, merge, rebase, reset, force update, promotion, tag creation/deletion, release creation/deletion, repository metadata mutation, issue creation, or pull request mutation."
+  - "Any generalized semantic parser, NLP/AI validator, scoring engine, target-profile subsystem, policy engine, DSL, registry, framework, database, or workflow machinery."
+  - "Any claim that release is authorized merely because this audit returns RELEASE_READY."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0006/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - isolated_deterministic_python_execution
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "Exact final candidate identity and all frozen V1 semantic/derived-assurance blobs are established without drift ambiguity."
+    evidence_required: "Exact commit/tree/blob identities for the assurance subject and explicit semantic-delta reconciliation from TASK-0004/TASK-0005 accepted state."
+  - id: AC-2
+    requirement: "Accepted TASK-0003/TASK-0004/TASK-0005 lineage is reconciled and stale TASK-0004 revision-1 execution history is not treated as current completion evidence."
+    evidence_required: "Exact task/report SHAs, parent/changed-path lineage where material, and an explicit stale-history treatment statement."
+  - id: AC-3
+    requirement: "All deterministic repository verification passes on an isolated materialization of the exact assurance subject."
+    evidence_required: "Exact outputs/results for validator, full unittest suite, and diff/whitespace verification tied to the exact subject."
+  - id: AC-4
+    requirement: "Known F-001/F-002 regressions remain causally demonstrated on the frozen pre-remediation subject and remain closed on the exact current candidate with bounded guards."
+    evidence_required: "Fresh old-subject false-green reproduction, current-candidate unmodified PASS, exact seeded-mutant rejection, and direct boundedness inspection."
+  - id: AC-5
+    requirement: "No material semantic/calibration attack reopening or material UNKNOWN remains on the exact final candidate."
+    evidence_required: "Final-gate attack matrix using only REPRODUCED/NOT_REPRODUCED/UNKNOWN and preserving historical epistemic state."
+  - id: AC-6
+    requirement: "Release-shape prerequisites are inspected read-only with no conflicting existing release identity and no unauthorized mutation."
+    evidence_required: "Fresh refs/topology/tags/releases/task-namespace evidence and explicit mutation boundary verification."
+  - id: AC-7
+    requirement: "The only Executor repository mutation is the canonical TASK-0006 report commit."
+    evidence_required: "Fresh post-push compare showing exactly one report commit/changed path relative to the handoff base and no other ref/content mutation."
+  - id: AC-8
+    requirement: "Final conclusion is RELEASE_READY only when no material reproduced blocker, material UNKNOWN, deterministic verification failure, lineage defect, drift ambiguity, or conflicting release identity remains."
+    evidence_required: "A final bounded release-assurance conclusion with explicit statement that promotion/tag/release remain separately unauthorized."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "At audit start, require dev HEAD to equal the exact handoff base and prove the assurance subject at a40801382740131a3069212a37d8abf20421956f is the direct pre-planning candidate with exact material blob/tree identities."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Reconcile accepted TASK-0003/TASK-0004/TASK-0005 report identities/lineage and stale TASK-0004 revision-1 history without using stale completion evidence."
+      required: true
+    - id: CHECK-3
+      command_or_check: "On an isolated exact-subject materialization run python tools/validate.py, python -m unittest discover -s tests -v, and git diff --check or logically equivalent exact-tree whitespace verification; record exact results."
+      required: true
+    - id: CHECK-4
+      command_or_check: "Freshly reproduce F-001/F-002 false-green behavior on exact frozen pre-remediation subject 71f2be951c9d44452f5f53122f4062390ef4cb39, then prove exact current candidate accepts the unmodified frozen/current contracts and rejects the same two seeded mutants through the bounded guards."
+      required: true
+    - id: CHECK-5
+      command_or_check: "Inspect TASK-0004 guard implementation directly and prove it remains exact identity/property bounded rather than generalized semantic/applicability classification."
+      required: true
+    - id: CHECK-6
+      command_or_check: "Refresh dev/main refs, branch topology, task namespace, tags, GitHub releases, and exact candidate/report identities before report mutation; require no conflicting release identity."
+      required: true
+    - id: CHECK-7
+      command_or_check: "Perform final epistemic consistency review and emit RELEASE_READY only if no material REPRODUCED blocker or material UNKNOWN remains and all deterministic/lineage/release-shape checks pass."
+      required: true
+    - id: CHECK-8
+      command_or_check: "Before report commit, verify the only intended Executor repository change is .agent/tasks/TASK-0006/report.yaml."
+      required: true
+    - id: CHECK-9
+      command_or_check: "After report commit/push, refresh refs and verify dev equals the exact report commit, its sole parent is the handoff base, main remains unchanged, branch set remains exactly {dev, main}, and the report commit changes only .agent/tasks/TASK-0006/report.yaml."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: ""
+    expected_signal: ""
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions:
+  - "Any material REPRODUCED final-gate blocker, material UNKNOWN, deterministic verification failure, lineage ambiguity, drift ambiguity, or conflicting release identity yields NOT_RELEASE_READY and stops without remediation."
+  - "Any newly discovered issue outside this assurance task is recorded only as a report finding/observation; no fix or future task is created under TASK-0006."
+  - "RELEASE_READY is an assurance judgment only. Promotion, version-tag creation, GitHub Release publication, and metadata mutation remain unauthorized until separate Governing Architect/user authority exists."
+
+execution_ready: true
