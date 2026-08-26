@@ -1,0 +1,285 @@
+protocol_version: 3
+
+task_id: TASK-0007
+task_revision: 1
+report_revision: 1
+state: REPORTED
+terminal_status: REVIEW_REQUIRED
+
+task_source:
+  path: .agent/tasks/TASK-0007/task.yaml
+  commit: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  blob_sha: "98e8b4685ebace968b4ec1df0e587f1a9aef1f9e"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  pre_execution_head: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  final_execution_head: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  accepted_final_assurance_report: "cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93"
+  assured_semantic_subject: "a40801382740131a3069212a37d8abf20421956f"
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - verification
+  recommended: []
+  external:
+    - superpowers/verification-before-completion
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+  missing: []
+  passed: true
+  evidence: "Fresh canonical GitHub ref/content reads succeeded and exact Git-data blob/tree/commit plus non-force ref-update primitives are currently exposed. No local execution capability is required by TASK-0007 EXECUTION."
+
+accepted_assurance_reconciliation:
+  task_0006_report_commit: "cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93"
+  task_0006_report_tree_sha: "f69145f9af6b411785aa46c08dc28b1e1745b7e5"
+  task_0006_report_parent: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  task_0006_report_blob_sha: "8839149b96f1e6bde35fb166013e80cf25833d81"
+  task_0006_report_only_changed_path: .agent/tasks/TASK-0006/report.yaml
+  task_0006_final_assurance_result: RELEASE_READY
+  assured_semantic_subject: "a40801382740131a3069212a37d8abf20421956f"
+  assured_subject_tree_sha: "265ba6cf62cd22f0e1ea1d1b5954d073bbdb551d"
+  reconciliation_result: EXACT_ACCEPTED_RELEASE_READY_EVIDENCE_CONFIRMED
+
+lineage:
+  assured_subject: "a40801382740131a3069212a37d8abf20421956f"
+  task_0006_planning_commit: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  task_0006_planning_parent: "a40801382740131a3069212a37d8abf20421956f"
+  task_0006_planning_only_changed_path: .agent/tasks/TASK-0006/task.yaml
+  task_0006_report_commit: "cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93"
+  task_0006_report_parent: "0c013accd3ca76b0670f2efe5f6e532ab574592b"
+  task_0006_report_only_changed_path: .agent/tasks/TASK-0006/report.yaml
+  task_0007_planning_commit: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  task_0007_planning_parent: "cdc0d77ec7bc84d89fd0a13dcd12a6e8f5eacc93"
+  task_0007_planning_only_changed_path: .agent/tasks/TASK-0007/task.yaml
+  subject_to_handoff_compare:
+    status: ahead
+    ahead_by: 3
+    changed_paths:
+      - .agent/tasks/TASK-0006/task.yaml
+      - .agent/tasks/TASK-0006/report.yaml
+      - .agent/tasks/TASK-0007/task.yaml
+  result: EXACT_LINEAR_REPORT_AND_PLANNING_ONLY_LINEAGE
+
+no_semantic_drift:
+  comparison_base: "a40801382740131a3069212a37d8abf20421956f"
+  comparison_head: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  handoff_tree_sha: "86f64b488ad9a5a20913a9bce5f3ca009d2840b0"
+  changed_paths_are_only_task_evidence: true
+  material_identities:
+    standard_model_blob_sha: "6720cfba97e04279930cf26dccf6558fbc881355"
+    readme_blob_sha: "9e58596c032214850bdafa3eb00a9cb38087e594"
+    standards_tree_sha: "67355474a553be3d0b59105157640b1ddfdb4fde"
+    manifest_blob_sha: "d3e33d10e16b9857654dc1830b9bef56d1753d71"
+    validator_blob_sha: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+    tests_blob_sha: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+    dependency_blob_sha: "8392d5414b46b3f92dc29db198ced67c84708438"
+    dimension_blobs:
+      COR: "32fddd06157151f87fde95f8d1713e4fd1726b77"
+      SEC: "cda9b11469795f9074ba8c790e5018f2ae05e468"
+      PRI: "5fec90d13b94644cc739c9e7e036e4c79cd97189"
+      DAT: "71bd9247b8f64ed125dc544c25ce736d25a302e7"
+      REL: "a8b2ab8365302e4620797f32ec7b73812f915f93"
+      PER: "278bab79c75b220a7955a6fbdfc96316be99ef83"
+      OBS: "91f37867dcd4b18642f2bbc6a6246ca9d7d34cd2"
+      MNT: "1af80202d25e69455faac31954cd747aa40b94b9"
+      OPS: "a5b90ed7a788829e53ef5acadcf5491ffb03bcf3"
+      CMP: "d6f610600e8feaed378fb67c5738f796abd1b5cd"
+      SUP: "fd6379490a0f05907ce84bab7a298f66d9e1d5d8"
+      EFF: "3e721b918bd0f5fe8dcd203ac7d14222b1e91528"
+      ASR: "8f2e5c292d0c8e92667aa3dbded83fef5c81ab92"
+      SAF: "e9e8155dddfb287c71687db60f299e538c36fc5a"
+  result: PASS
+  evidence: "Exact compare from the assured subject to the handoff base reports only TASK-0006 task/report and TASK-0007 task artifacts. Current root/subtree reads reproduce the accepted model, README, standards, manifest, validator, tests, dependency, and all 14 dimension identities."
+
+historical_epistemic_preservation:
+  F-001:
+    historical_result: REPRODUCED
+    current_reopening_result: NOT_REPRODUCED
+    relabeled_clean_or_disproven: false
+  F-002:
+    historical_result: REPRODUCED
+    current_reopening_result: NOT_REPRODUCED
+    relabeled_clean_or_disproven: false
+  result: PRESERVED
+
+release_shape_pre_report:
+  dev: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  main: "71f2be951c9d44452f5f53122f4062390ef4cb39"
+  branches_exactly:
+    - dev
+    - main
+  tags: []
+  github_releases: []
+  task_namespace_exactly:
+    - TASK-0001
+    - TASK-0002
+    - TASK-0003
+    - TASK-0004
+    - TASK-0005
+    - TASK-0006
+    - TASK-0007
+  task_0007_report_present_before_publication: false
+  conflicting_release_identity: false
+  result: PASS
+
+release_identity:
+  version: v1.0.0
+  tag: v1.0.0
+  tag_kind: lightweight
+  release_title: v1.0.0
+  draft: false
+  prerelease: false
+  target_identity_rule: "Exact TASK-0007 reviewed_report.commit after Governing Architect ACCEPTED; the same exact commit must equal dev and main after promotion."
+  current_tag_state: ABSENT
+  current_release_state: ABSENT
+
+proposed_promotion_candidate:
+  identity: enclosing_report_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  eligibility: "Only after Governing Architect explicitly ACCEPTS this exact committed report."
+  expected_parent: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  expected_only_changed_path: .agent/tasks/TASK-0007/report.yaml
+  promotion_semantics: "Non-force fast-forward main ref move only; no new commit."
+
+authoritative_verification:
+  required: true
+  performed: false
+  result: PENDING_GOVERNING_ARCHITECT_REVIEW
+  evidence: "TASK-0007 requires independent Governing Architect acceptance of the exact enclosing report commit before any promotion, tag creation, or GitHub Release publication."
+
+local_hygiene:
+  result: PASS
+  run_root: ""
+  cleanup_performed: false
+  retained: []
+  evidence: "No local checkout, run-owned filesystem materialization, or temporary local repository artifact was created for this remote-only pre-release execution."
+
+changed_files:
+  - path: .agent/tasks/TASK-0007/report.yaml
+    summary: "Canonical Executor-owned pre-release identity, no-drift, release-shape, and Architect-review-boundary evidence."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created: []
+report_commit:
+  identity: enclosing_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  expected_parent: "e6998f9c0fdc4bc67548683e1c0235e3a5c45584"
+  expected_only_changed_path: .agent/tasks/TASK-0007/report.yaml
+  message: "agent: report TASK-0007 pre-release evidence"
+
+pushed: true
+promoted_to_main: false
+version_tag_created: false
+github_release_published: false
+repository_metadata_mutated: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Exact TASK-0006 report commit cdc0d77e..., parent 0c013acc..., report blob 8839149b..., RELEASE_READY conclusion, and assured subject a4080138.../tree 265ba6cf... are independently reconciled."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "Fresh pre-publication remote reads require dev=e6998f9c..., main=71f2be95..., exactly {dev, main}, no tags, no GitHub Releases, and no v1.0.0 conflict."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "cdc0d77e... to e6998f9c... is exactly one planning commit adding only TASK-0007/task.yaml; a4080138... to e6998f9c... changes only TASK-0006 task/report and TASK-0007 task artifacts; all recorded material identities are unchanged."
+  - criterion_id: AC-4
+    status: PROVEN_BY_ENCLOSING_COMMIT_IDENTITY
+    evidence: "This report declares the sole intended Executor mutation. The enclosing commit SHA, exact parent, and sole changed path are verified externally after push because immutable report content cannot contain its own commit SHA."
+  - criterion_id: AC-5
+    status: PROVEN_BY_POST_PUSH_EXTERNAL_CHECK
+    evidence: "Pre-publication main/tags/releases are unchanged and absent as required. After push, Executor must re-read them and stop before promotion/tag/release."
+  - criterion_id: AC-6
+    status: DEFERRED_TO_AUTHORIZED_CONTINUATION
+    evidence: "Promotion is forbidden in the current pre-release EXECUTION portion."
+  - criterion_id: AC-7
+    status: DEFERRED_TO_AUTHORIZED_CONTINUATION
+    evidence: "v1.0.0 tag creation is forbidden before accepted report review and promotion."
+  - criterion_id: AC-8
+    status: DEFERRED_TO_AUTHORIZED_CONTINUATION
+    evidence: "GitHub Release publication is forbidden before accepted report review and promotion."
+  - criterion_id: AC-9
+    status: DEFERRED_TO_AUTHORIZED_CONTINUATION
+    evidence: "Final singular release identity is verified only in the later authorized release continuation."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Start shape: dev=e6998f9c..., main=71f2be95..., branches exactly {dev, main}, tags=[], GitHub Releases=[]."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Accepted TASK-0006 report-only lineage is exact; assured subject a4080138... remains the semantic subject; TASK-0007 planning adds only task.yaml; all material semantic identities are unchanged."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Immediately before publication the intended Executor content delta is only .agent/tasks/TASK-0007/report.yaml; fresh refs/tags/releases remain at the required conflict-free shape."
+  - check_id: CHECK-4
+    result: SELF_REFERENCE_RESOLVED_EXTERNALLY
+    evidence: "After commit/push, verify dev equals the exact enclosing report commit, its sole parent is e6998f9c..., only TASK-0007/report.yaml changed, main remains 71f2be95..., tags/releases remain absent, then stop REVIEW_REQUIRED."
+  - check_id: CHECK-5
+    result: DEFERRED
+    evidence: "Requires exact Architect acceptance; not authorized in this execution portion."
+  - check_id: CHECK-6
+    result: DEFERRED
+    evidence: "Requires successful authorized promotion; not authorized in this execution portion."
+  - check_id: CHECK-7
+    result: DEFERRED
+    evidence: "Final release verification belongs to the later authorized continuation."
+
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "No local checkout was used. Canonical remote repository content remains unchanged except for the authorized enclosing TASK-0007 report commit after publication."
+
+pre_release_conclusion:
+  result: REVIEW_REQUIRED
+  accepted_assurance_reconciled: true
+  semantic_drift_detected: false
+  release_identity_conflict: false
+  promotion_performed: false
+  tag_created: false
+  github_release_published: false
+  repository_metadata_mutated: false
+  statement: "Pre-release evidence is ready for Governing Architect review of the exact enclosing TASK-0007 report commit. No promotion, v1.0.0 tag, GitHub Release, repository metadata mutation, or later release phase is authorized before explicit acceptance."
+  next_boundary: "Governing Architect review of the exact enclosing TASK-0007 report commit."
+
+result: NEEDS_REVIEW
