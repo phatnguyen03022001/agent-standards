@@ -1,24 +1,24 @@
 protocol_version: 3
 
 task_id: TASK-0009
-task_revision: 1
-report_revision: 1
+task_revision: 2
+report_revision: 2
 state: REPORTED
 
 task_source:
   path: .agent/tasks/TASK-0009/task.yaml
-  commit: "819101c1bef7e1e61754bdf110c0c47cbeb036e6"
-  blob_sha: "2457977d9055e54e14d642eb60a8a74519584b61"
+  commit: "87dac83771b3e642da2ef025f0ac80d34b462812"
+  blob_sha: "2dbe8b6c6136df630e93b9fc83b063b338628836"
 
 execution:
   repository: phatnguyen03022001/agent-standards
   branch:
     name: dev
     role: integration
-  authorized_base_head: "819101c1bef7e1e61754bdf110c0c47cbeb036e6"
-  pre_execution_head: "819101c1bef7e1e61754bdf110c0c47cbeb036e6"
-  final_execution_head: "40b962ab6313665bba0db4d57e58289726a67e83"
-  mode: bounded_non_released_assessment_kernel_candidate
+  authorized_base_head: "87dac83771b3e642da2ef025f0ac80d34b462812"
+  pre_execution_head: "87dac83771b3e642da2ef025f0ac80d34b462812"
+  final_execution_head: "1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+  mode: bounded_f001_trajectory_basis_correction
 
 skill_library:
   repository: phatnguyen03022001/agent-skills
@@ -46,8 +46,7 @@ pre_execution_checks:
   skill_revision_confirmed: true
   required_execution_skills_available: true
   structure_authority_confirmed: true
-  working_tree_clean: true
-  evidence: "Fresh remote truth before mutation: dev=819101c1bef7e1e61754bdf110c0c47cbeb036e6, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}. TASK-0009 r1 blob 2457977d9055e54e14d642eb60a8a74519584b61 resolved at the exact base. Pinned agent-skills commit and required executor authority were accessible. Trusted local checkout was synchronized cleanly to the exact base before verification."
+  evidence: "Fresh remote truth before mutation: dev=87dac83771b3e642da2ef025f0ac80d34b462812, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}. TASK-0009 revision 2 blob 2dbe8b6c6136df630e93b9fc83b063b338628836 resolved at the exact base. Required executor/simplicity/verification skills resolved at pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1."
 
 capability_preflight:
   phase: EXECUTION
@@ -63,19 +62,20 @@ capability_preflight:
     - deterministic_python_test_execution
   missing: []
   passed: true
-  evidence: "GitHub exact-ref/content reads and Git-data writes were available. Trusted agent-runtime executed deterministic Python verification at the exact base and implementation HEAD. An isolated shell sandbox executed the exact focused candidate unittest command against bytes whose Git blob SHAs matched the remote candidate blobs."
+  evidence: "GitHub exact-ref/content reads and Git-data writes were available. Deterministic Python execution was proven before remote mutation by materializing exact GitHub candidate blobs from the revision-2 base and running the focused candidate discovery command successfully. The agent-runtime connector was discoverable but its direct invocation surface returned Resource not found, so it was not relied upon."
 
-pre_implementation_verification:
-  result: PASS
-  head: "819101c1bef7e1e61754bdf110c0c47cbeb036e6"
-  validator: "python tools/validate.py -> VALID: standards definition"
-  unittest: "python -m unittest discover -s tests -v -> 54 tests, OK"
-  runtime_wrapper_note: "Verifier process exit code was 0; agent-runtime classified the run FAIL only because Python test cache made the trusted checkout dirty after execution. The checkout was resynchronized cleanly before mutation."
+revision_finding:
+  id: F-001
+  prior_status: REPRODUCED
+  result: CLOSED_FOR_REVIEW
+  cause: "Revision-1 establish_trajectory required ChangeBasis.SUBJECT in addition to comparability and exact_property_changed, overconstraining K11/K12."
+  correction: "Removed only the universal SUBJECT-basis gate. change_bases remains explicit and preserved as possibly multi-causal explanatory context; comparability and exact_property_changed remain substantive trajectory gates."
 
 causal_tdd:
   result: PASS
-  failing_regression_evidence: "With the final test_model.py present and model.py absent, python -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v failed with ModuleNotFoundError: No module named 'model'."
-  passing_regression_evidence: "After the minimal dependency-free model was added, the same focused suite ran 11 tests and passed."
+  failing_regression_evidence: "Added test_process_market_basis_can_establish_exact_property_trajectory using comparable=true, exact_property_changed=true, PROCESS+MARKET bases and no SUBJECT. Against the unchanged revision-1 model, the exact focused discovery command ran 12 tests with exactly this new regression failing; a direct probe returned established=false with reasons exactly ('subject_change_basis_missing',)."
+  passing_regression_evidence: "After deleting only the SUBJECT membership rejection from establish_trajectory, the exact focused discovery command ran 12 tests and all passed. The new case established trajectory and preserved PROCESS+MARKET bases."
+  negative_guard_evidence: "Knowledge/correction-only evidence with exact_property_changed=false remains rejected with property_change_not_established; insufficient comparability remains rejected with insufficient_comparability even when exact_property_changed=true."
 
 candidate_identity:
   status: NON_RELEASED_CANDIDATE
@@ -86,27 +86,27 @@ candidate_identity:
 candidate_verification:
   result: PASS
   command: "python -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v"
-  tests_run: 11
-  evidence: "All focused regressions passed. Local verified files hashed exactly to remote blobs README=29a651733a79040046f681eefce2726cc0ad2b53, model=43dbb1fbd107ed2b5fb8c8878b9e917cf74d3d89, tests=681bab1dd21ea434a274b47d70654a06e8840d12."
+  tests_run: 12
+  evidence: "Final suite: Ran 12 tests, OK. Tested final candidate files hashed exactly to GitHub blobs README=249dda376432473c153ed4311df36c8a629935b7, model=9fd60367418de951cd9488088f402a817dc0914c, tests=4a9dc6a91277390299d2873b39d9faaf827754f3."
 
 final_generation_1_verification:
   result: PASS
-  head: "40b962ab6313665bba0db4d57e58289726a67e83"
   validator: "python tools/validate.py -> VALID: standards definition"
   unittest: "python -m unittest discover -s tests -v -> 54 tests, OK"
-  runtime_wrapper_note: "Verifier process exit code was 0 and all required V1 commands passed; wrapper status was postcondition_failed solely because Python cache dirtied the checkout. A trusted sync restored the exact implementation HEAD cleanly afterward."
+  exactness_evidence: "The isolated verification workspace used exact base Git blobs for tools/validate.py, tests/test_validate.py, standards/manifest.yaml, and all 14 standards/*.yaml; git hash-object matched every remote blob identity before the final commands ran."
+  frozen_generation_1_changed: false
 
 implementation_diff:
   result: PASS
-  base: "819101c1bef7e1e61754bdf110c0c47cbeb036e6"
-  head: "40b962ab6313665bba0db4d57e58289726a67e83"
+  base: "87dac83771b3e642da2ef025f0ac80d34b462812"
+  head: "1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
   ahead_by: 1
   changed_paths:
     - candidate/assessment_kernel/README.md
     - candidate/assessment_kernel/model.py
     - candidate/assessment_kernel/test_model.py
-  frozen_generation_1_changed: false
-  evidence: "GitHub compare reports exactly one implementation commit and exactly the three authorized added candidate files; base tree was reused directly for every pre-existing path. main remained 3f4950f280a3a35fee81471d4b83715fa72cf9ee."
+  new_paths: []
+  evidence: "GitHub compare reports exactly one implementation commit: README +1/-1, model +0/-2, test_model +15/-0. The implementation tree was built on the exact revision-2 base tree, preserving all frozen Generation 1 paths byte-for-byte."
 
 authoritative_verification:
   required: false
@@ -116,31 +116,31 @@ authoritative_verification:
 
 local_hygiene:
   result: PASS
-  run_root: "/tmp/task0009"
+  run_root: "/tmp/task0009-r2"
   cleanup_performed: true
   retained: []
-  evidence: "Run-owned isolated sandbox was removed after focused verification; trusted runtime checkout was resynchronized cleanly to the implementation HEAD."
+  evidence: "Run-owned isolated verification workspace realpath was confirmed as /tmp/task0009-r2, confirmed non-symlink, then removed after evidence capture."
 
 changed_files:
   - path: candidate/assessment_kernel/README.md
-    summary: "Marks the artifact NON_RELEASED_CANDIDATE / NONE / NOT_ASSIGNED and documents only the minimum candidate semantics and boundaries."
-    new_file: true
+    summary: "Removed the incorrect mandatory subject-change-basis statement and documents comparability + exact-property change as the trajectory gate with explanatory multi-causal bases."
+    new_file: false
     in_scope: true
     structure_authorized: true
   - path: candidate/assessment_kernel/model.py
-    summary: "Dependency-free explicit structured assessment/evaluation and trajectory candidate with no NLP, scoring, aggregation, or archetype control logic."
-    new_file: true
+    summary: "Removed only the universal ChangeBasis.SUBJECT rejection from establish_trajectory."
+    new_file: false
     in_scope: true
     structure_authorized: true
   - path: candidate/assessment_kernel/test_model.py
-    summary: "Deterministic adversarial regressions for inference, applicability, exception, identity/context, trajectory, family dependency, multi-causal history, aggregation absence, and archetype non-authority."
-    new_file: true
+    summary: "Added the causal PROCESS+MARKET/no-SUBJECT trajectory regression while preserving all revision-1 tests."
+    new_file: false
     in_scope: true
     structure_authorized: true
 
 commits_created:
-  - sha: "40b962ab6313665bba0db4d57e58289726a67e83"
-    message: "feat: add non-released assessment kernel candidate"
+  - sha: "1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+    message: "fix: remove mandatory subject trajectory basis"
 
 pushed: true
 promoted_to_main: false
@@ -148,63 +148,42 @@ promoted_to_main: false
 acceptance_evidence:
   - criterion_id: AC-1
     status: PROVEN
-    evidence: "Candidate constants and README expose NON_RELEASED_CANDIDATE / NONE / NOT_ASSIGNED; compare changes no frozen V1 file."
+    evidence: "The new focused regression failed against the revision-1 model solely because subject_change_basis_missing was emitted."
   - criterion_id: AC-2
     status: PROVEN
-    evidence: "Model accepts explicit enums/dataclasses, evidence-supported inference membership, structured context/dependencies, and contains no NLP/keyword/prose heuristic path."
+    evidence: "PROCESS+MARKET with no SUBJECT establishes trajectory when comparability and exact-property change are true, and the original basis set is preserved."
   - criterion_id: AC-3
     status: PROVEN
-    evidence: "Tests separate UNKNOWN from NOT_APPLICABLE, prove PASS-only satisfaction, and prove EXCEPTION never launders GAP or wraps PASS."
+    evidence: "Knowledge/correction-only and insufficient-comparability trajectory cases remain rejected; removing SUBJECT did not manufacture trajectory."
   - criterion_id: AC-4
     status: PROVEN
-    evidence: "Tests reject missing immutable normative identity, missing evidence, and missing required material context while accepting a narrow claim-relative subject context."
+    evidence: "Candidate suite is 12/12 PASS; frozen Generation 1 validator is VALID and all 54 tests PASS on exact base blobs; implementation compare contains only the three authorized existing candidate files."
   - criterion_id: AC-5
     status: PROVEN
-    evidence: "Positive same-source substantive trajectory passes with explicit comparability/property change; knowledge-only, correction/supersession, and insufficient-comparability deltas do not establish trajectory."
-  - criterion_id: AC-6
-    status: PROVEN
-    evidence: "Independent Product transparency PASS coexists with Engineering security GAP; an explicitly security-dependent Product claim cannot PASS while dependency is unmet."
-  - criterion_id: AC-7
-    status: PROVEN
-    evidence: "No aggregation/scoring API exists; obligation satisfaction is claim-local and tests assert forbidden synthetic API names are absent."
-  - criterion_id: AC-8
-    status: PROVEN
-    evidence: "model.py contains no archetype A-D branch, mapping, profile, or applicability shortcut; focused test inspects production source."
-  - criterion_id: AC-9
-    status: PROVEN
-    evidence: "Trajectory facts preserve multi-causal change bases and explicit correction/supersession history without manufacturing subject improvement."
-  - criterion_id: AC-10
-    status: PROVEN
-    evidence: "Final V1 validator and 54-test suite passed unchanged; focused 11-test candidate suite passed on bytes matching remote blobs; compare contains only authorized candidate paths."
-  - criterion_id: AC-11
-    status: PROVEN
-    evidence: "Implementation is one commit on dev; report is the only authorized next change; main/branches were rechecked before report creation and no promotion/release/tag operation was performed."
+    evidence: "Revision-2 task/base/implementation lineage and F-001 causal evidence are recorded here. dev-only implementation was pushed; main remained unchanged; no branch, promotion, tag, release, metadata mutation, or canonicalization operation was performed."
 
 executor_checks:
   - check_id: CHECK-1
     result: PASS
-    evidence: "Exact base/dev/main/branch topology, task identity, and pinned skill authority confirmed before mutation."
+    evidence: "Exact r2 base/dev/main/branch topology, task blob, and pinned required skills were confirmed before mutation."
   - check_id: CHECK-2
     result: PASS
-    evidence: "At base: validator VALID and 54 V1 tests OK."
+    evidence: "Focused F-001 regression produced one causal RED with reason subject_change_basis_missing against revision-1 behavior."
   - check_id: CHECK-3
     result: PASS
-    evidence: "Focused final regression file failed before model existed, then passed after minimal model implementation."
+    evidence: "Final focused candidate command: 12 tests, OK."
   - check_id: CHECK-4
     result: PASS
-    evidence: "Focused candidate unittest command: 11 tests, OK."
+    evidence: "Final exact frozen V1 commands: validator VALID; 54 tests, OK."
   - check_id: CHECK-5
     result: PASS
-    evidence: "At exact implementation HEAD: V1 validator VALID, 54 tests OK, candidate 11 tests OK."
+    evidence: "Implementation delta contains only candidate/assessment_kernel/README.md, model.py, and test_model.py; no new path exists."
   - check_id: CHECK-6
     result: PASS
-    evidence: "Pre-existing base tree reused; implementation compare contains exactly README.md/model.py/test_model.py under candidate/assessment_kernel; main unchanged."
+    evidence: "dev moved non-force to exact implementation commit 1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83; base compare is one commit with only the authorized three candidate corrections."
   - check_id: CHECK-7
-    result: PASS
-    evidence: "dev moved non-force to exact implementation commit; base compare is one commit with only three authorized candidate files; next mutation is only this report."
-  - check_id: CHECK-8
     result: PENDING_ENCLOSING_REPORT_COMMIT_VERIFICATION
-    evidence: "Must be verified after this report is committed and pushed."
+    evidence: "Must be verified after this report revision is committed and pushed."
 
 discovered_gaps: []
 structural_observations: []
@@ -213,6 +192,6 @@ blockers: []
 
 working_tree_after:
   clean: true
-  summary: "Trusted runtime checkout clean and synchronized to final implementation HEAD before report commit."
+  summary: "Run-owned isolated verification workspace removed; remote dev points to exact final implementation HEAD before report commit."
 
 result: NEEDS_REVIEW
