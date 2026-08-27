@@ -1,0 +1,350 @@
+protocol_version: 3
+task_id: TASK-0008
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0008/task.yaml
+  commit: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  blob_sha: "da41d883be79c00f112b7dcc977e0c5dc21e1ccd"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  pre_execution_head: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  final_execution_head: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  mode: report_only_adversarial_architecture_validation
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - adversarial-audit
+    - design-review
+    - verification
+  recommended: []
+  external:
+    - superpowers/using-superpowers
+    - superpowers/executing-plans
+    - superpowers/verification-before-completion
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+  evidence: "Fresh remote truth: dev=386a8b7c82fd01392694f9e97f2c4c0bbfc85c82; main=3f4950f280a3a35fee81471d4b83715fa72cf9ee; branches exactly dev/main. TASK-0008 r1 blob da41d883be79c00f112b7dcc977e0c5dc21e1ccd resolved at base. Required pinned skill files and protocol/report contract resolved at 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1. No local target checkout was mutated."
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+  missing: []
+  passed: true
+  evidence: "Fresh GitHub branch/ref and exact-commit content reads succeeded. Repository permissions expose push/write authority and the connected GitHub contents write action is currently available. No branch creation, main mutation, release, or metadata capability is relied upon."
+
+planning_delta:
+  base: "3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+  head: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  result: PASS
+  changed_files:
+    - .agent/tasks/TASK-0008/task.yaml
+  evidence: "Exact compare main baseline -> handoff base is one commit ahead and contains only the TASK-0008 planning task file; frozen V1 semantic artifacts are unchanged."
+
+kernel_status:
+  authority: NON_AUTHORITATIVE_HYPOTHESES_UNDER_TEST
+  canonicalized: false
+  generation_2_declared: false
+  approved_by_executor: false
+
+coverage_matrix:
+  - {hypothesis: H1, archetype: A, result: SURVIVES, reasoning: "Observed learning outcomes can support the exact outcome claim, but cannot by themselves support a stronger causal product-contribution claim; the hypothesis blocks that inference jump."}
+  - {hypothesis: H1, archetype: B, result: SURVIVES, reasoning: "Code or adoption evidence does not establish labor savings, operating cost, or vendor-dependency economics without evidence tied to the exact workflow, team, period, and economic claim."}
+  - {hypothesis: H1, archetype: C, result: SURVIVES, reasoning: "Migration success evidence must bind the exact source/target data, transformation, run, and success property; near-zero later retention is irrelevant to that one-shot claim."}
+  - {hypothesis: H1, archetype: D, result: SURVIVES, reasoning: "User-reported trust evidence can support the trust claim but cannot satisfy an independent technical security/privacy/safety claim; exact claim binding preserves the boundary."}
+  - {hypothesis: H2, archetype: A, result: SURVIVES, reasoning: "Subscription or recurring-use labels do not decide which outcome, causal, support, or business obligations apply; the factual predicate for the exact obligation does."}
+  - {hypothesis: H2, archetype: B, result: SURVIVES, reasoning: "Zero external revenue does not make Business concerns N/A when build cost, operating cost, labor savings, opportunity cost, or vendor dependence are materially present."}
+  - {hypothesis: H2, archetype: C, result: SURVIVES, reasoning: "A one-shot utility can validly have near-zero retention by design, so a retention obligation is not made applicable merely by calling the target a product or utility."}
+  - {hypothesis: H2, archetype: D, result: SURVIVES, reasoning: "The generic regulated/high-consequence fixture label does not establish any particular legal, security, privacy, or safety predicate; concrete jurisdiction, data, trust-boundary, and consequence facts do."}
+  - {hypothesis: H3, archetype: A, result: SURVIVES, reasoning: "A PARTIAL outcome/evidence obligation remains unmet even when other product observations PASS; it cannot be converted into maturity satisfaction by surrounding success."}
+  - {hypothesis: H3, archetype: B, result: SURVIVES, reasoning: "A PASS on verified labor savings cannot compensate for an UNKNOWN cost obligation or a GAP in a material vendor-dependency obligation."}
+  - {hypothesis: H3, archetype: C, result: SURVIVES, reasoning: "A successful migration outcome does not satisfy a distinct applicable rollback, integrity, or verification obligation that is PARTIAL, GAP, UNKNOWN, or EXCEPTION."}
+  - {hypothesis: H3, archetype: D, result: SURVIVES, reasoning: "PASS-like user trust evidence cannot satisfy a known Engineering SEC GAP; N/A can only remove a proven-inapplicable obligation and never acts as a PASS."}
+  - {hypothesis: H4, archetype: A, result: SURVIVES, reasoning: "Consumer outcomes, support operations, economics, and attribution obligations can be parallel rather than cumulative; the hypothesis permits claim-level state instead of manufacturing a scalar."}
+  - {hypothesis: H4, archetype: B, result: SURVIVES, reasoning: "Internal-tool economics supplies a direct no-scalar case: labor savings, operating cost, vendor dependence, and opportunity cost are material parallel properties with no defensible universal ordinal order."}
+  - {hypothesis: H4, archetype: C, result: SURVIVES, reasoning: "Correctness, integrity, rollback/recovery, and one-shot outcome obligations need not form one cumulative ladder; requirement-level state remains interpretable."}
+  - {hypothesis: H4, archetype: D, result: SURVIVES, reasoning: "Regulated service obligations can be independent high-consequence gates; the hypothesis allows no scalar unless the particular dimension actually proves a cumulative ladder."}
+  - {hypothesis: H5, archetype: A, result: SURVIVES, reasoning: "A longitudinal outcome claim may require product/service identity plus cohort, measurement window, curriculum version, support process, and other claim-material context; repository commit alone is under-specified."}
+  - {hypothesis: H5, archetype: B, result: SURVIVES, reasoning: "An economics claim may require team/workflow, time window, deployment/configuration, and vendor context; unrelated universal fields need not be added."}
+  - {hypothesis: H5, archetype: C, result: SURVIVES, reasoning: "A migration claim may require source/target dataset identities, transformation/configuration, run scope, and execution context; retention or unrelated product metadata is unnecessary."}
+  - {hypothesis: H5, archetype: D, result: SURVIVES, reasoning: "A regulated-service claim may require service scope, environment, jurisdiction/regime, population, and other claim-material context; the hypothesis does not require a universal cross-domain mega-schema."}
+  - {hypothesis: H6, archetype: A, result: SURVIVES, reasoning: "Better instrumentation or newly recovered old outcome data can raise a later assessment without any change to the underlying learning service or historical user outcomes."}
+  - {hypothesis: H6, archetype: B, result: SURVIVES, reasoning: "Backfilled cost records can improve certainty about economics without the internal tool, workflow, or realized economics changing."}
+  - {hypothesis: H6, archetype: C, result: SURVIVES, reasoning: "Late discovery of old migration logs can upgrade knowledge about the same completed run without changing that historical run."}
+  - {hypothesis: H6, archetype: D, result: SURVIVES, reasoning: "Correction of a prior scoring or evidence-mapping mistake can change assessment status while the regulated service itself remains unchanged."}
+  - {hypothesis: H7, archetype: A, result: SURVIVES, reasoning: "With the same deployed source code, curriculum/support-process changes can establish trajectory for an exact outcome property when cohort/scope are sufficiently comparable and the outcome itself is evidenced as changed."}
+  - {hypothesis: H7, archetype: B, result: SURVIVES, reasoning: "Labor-savings trajectory requires comparable workflow/team/time definitions and evidence that realized labor changed; a revised estimate or score alone is insufficient."}
+  - {hypothesis: H7, archetype: C, result: SURVIVES, reasoning: "Two migration runs can be compared only for an exact property over sufficiently comparable scopes/data; a status delta without comparable run semantics does not establish trajectory."}
+  - {hypothesis: H7, archetype: D, result: SURVIVES, reasoning: "Incident, trust, privacy, or safety properties may change because operations/processes changed while source stays fixed; trajectory attaches to the exact property, not to source revision."}
+  - {hypothesis: H8, archetype: A, result: SURVIVES, reasoning: "Curriculum, support process, population behavior, and observation changes can all contribute to one assessment delta; forcing one reason would erase material explanation."}
+  - {hypothesis: H8, archetype: B, result: SURVIVES, reasoning: "Vendor pricing, workflow changes, tool configuration, and measurement correction can jointly change an economics assessment."}
+  - {hypothesis: H8, archetype: C, result: SURVIVES, reasoning: "Dataset characteristics, transformation logic, operator process, and evidence correction can jointly explain migration-assessment change."}
+  - {hypothesis: H8, archetype: D, result: SURVIVES, reasoning: "Regulatory interpretation, service configuration, security process, incident learning, and scope can change together; one exclusive basis would be false precision."}
+  - {hypothesis: H9, archetype: A, result: SURVIVES, reasoning: "Historical outcome assessments are attributable judgments over evidence and context; later reinterpretation or corrected telemetry must not rewrite them as if objective maturity history had always been known."}
+  - {hypothesis: H9, archetype: B, result: SURVIVES, reasoning: "A corrected cost model is a corrected judgment, distinguishable from an actual historical reduction in operating cost or labor."}
+  - {hypothesis: H9, archetype: C, result: SURVIVES, reasoning: "Late evidence can change the judgment about an old run without changing the old run; provenance of both judgments remains necessary."}
+  - {hypothesis: H9, archetype: D, result: SURVIVES, reasoning: "A changed regulatory interpretation or corrected assessor judgment must remain distinguishable from an actual evolution of the regulated service."}
+  - {hypothesis: H10, archetype: A, result: SURVIVES, reasoning: "A favorable average learning outcome cannot legitimately conceal a material failing subgroup, surface, or scope when that failure is relevant to the asserted claim."}
+  - {hypothesis: H10, archetype: B, result: SURVIVES, reasoning: "Large labor savings cannot compensate away a material vendor lock-in, cost, or governance failure by weighted or overall scoring."}
+  - {hypothesis: H10, archetype: C, result: SURVIVES, reasoning: "High aggregate migration success cannot hide destructive failures in a critical record class or scope."}
+  - {hypothesis: H10, archetype: D, result: SURVIVES, reasoning: "User trust PASS-like evidence and other strong families cannot compensate for a known Engineering SEC GAP; both facts must remain visible."}
+
+mandatory_attacks:
+  - attack_id: ATK-TRAJECTORY-SAME-CODE
+    targets: [H1, H5, H6, H7, H8, H9]
+    fixture: "A plus cross-cutting service-state variation"
+    setup: "Deployed source commit is unchanged. Curriculum and support process change; cohort definition and measurement window are held sufficiently comparable. User completion outcome moves to a later measured state with attributable operational/outcome evidence."
+    result: SURVIVES
+    finding: "Substantive trajectory can be asserted for the exact outcome-bearing claim because the assessed property itself changed under sufficient comparability. Source revision is not the subject-state identity. The result does not by itself establish that source code or product causally caused the change."
+    minimum_correction: NONE
+  - attack_id: ATK-KNOWLEDGE-VS-MATURITY
+    targets: [H1, H6, H7, H8, H9]
+    fixture: A/B/C/D
+    setup: "Underlying subject is unchanged. Instrumentation improves, newly available old evidence is recovered, or a prior scoring/evidence-mapping mistake is corrected, producing a higher later assessment."
+    result: SURVIVES
+    finding: "The later assessment may be better informed or corrected, but the delta is classified as observation/assessment-correction rather than subject improvement unless separate evidence establishes subject-property change."
+    minimum_correction: NONE
+  - attack_id: ATK-BUSINESS-INTERNAL-TOOL
+    targets: [H1, H2, H4, H5, H10]
+    fixture: B
+    setup: "Internal engineering tool has zero external revenue but attributable build cost, operating cost, material labor savings, vendor dependency, and opportunity cost."
+    result: SURVIVES
+    finding: "Business/economic applicability follows those material facts, not monetization or external revenue. The parallel economic claims do not require a scalar."
+    minimum_correction: NONE
+  - attack_id: ATK-USER-PRODUCT-ONE-SHOT
+    targets: [H1, H2, H4, H5]
+    fixture: C
+    setup: "Migration utility is intended to succeed once. Correct migrations terminate use; successful users therefore have near-zero retention by design."
+    result: SURVIVES
+    finding: "Retention is not a universal maturity requirement. Exact intended outcome/correctness may be assessed without treating successful non-return as immaturity."
+    minimum_correction: NONE
+  - attack_id: ATK-FAMILY-BOUNDARY
+    targets: [H1, H3, H4, H10]
+    fixture: D
+    setup: "User-reported trust evidence is PASS-like while Engineering SEC independently has a known applicable GAP."
+    result: SURVIVES
+    finding: "Both facts remain simultaneously true. Trust evidence cannot satisfy the SEC obligation, and no family/overall compression can compensate the SEC GAP away."
+    minimum_correction: NONE
+  - attack_id: ATK-NON-LADDER-SCALAR
+    targets: [H3, H4, H10]
+    fixture: B
+    setup: "Plausible non-engineering Business Economics dimension contains parallel claims for realized labor savings, operating cost visibility, vendor dependency, and opportunity cost. No universal cumulative ordering among those obligations is defensible."
+    result: SURVIVES
+    finding: "The kernel permits requirement/claim-level states and forbids manufacturing a dimension scalar merely for presentation. Status semantics remain meaningful without a scalar."
+    minimum_correction: NONE
+  - attack_id: ATK-IDENTITY-UNDER-OVER
+    targets: [H1, H5, H7]
+    fixture: A/B/C/D
+    setup: "Under-specified identity uses only repository commit for claims materially affected by population, time window, curriculum/support process, dataset/run, workflow/team, jurisdiction, or environment. Over-specified alternative requires one universal schema carrying unrelated fields for every claim."
+    result: SURVIVES
+    finding: "Repository commit alone is insufficient when non-source context can change interpretation. The minimum identity is typed and claim-relative: include only attributes whose difference is material to the exact claim and comparison. No universal mega-schema is required."
+    minimum_correction: NONE
+  - attack_id: ATK-CAUSAL-INFERENCE
+    targets: [H1, H5, H7, H10]
+    fixture: A
+    setup: "Observational evidence shows user outcomes improved. A stronger claim asserts that the product caused the improvement."
+    result: SURVIVES
+    finding: "Outcome realization evidence may support the observational outcome claim, but the causal product-contribution claim requires evidence adequate to that stronger inference, such as a credible counterfactual design or equivalent causal identification. No generic claim-strength or evidence-strength score is needed."
+    minimum_correction: NONE
+
+trajectory_cases:
+  - case_id: TR-POS-1
+    classification: SUBSTANTIVE_TRAJECTORY_SUPPORTED
+    setup: "Same deployed source; support process materially changes; same outcome definition and sufficiently comparable cohort/window; attributable evidence shows successful-completion property changed."
+    reason: "The assessed outcome-bearing property changed and the comparison is sufficiently comparable. The trajectory claim is limited to that exact property; causal attribution to software is not inferred."
+  - case_id: TR-FP-1
+    classification: REJECTED_AS_SUBJECT_IMPROVEMENT
+    setup: "Instrumentation fixes an undercount and later assessment score rises while historical underlying outcomes are unchanged."
+    reason: "Observation quality changed; the subject property did not. Change basis is observation/assessment correction."
+  - case_id: TR-FP-2
+    classification: REJECTED_AS_SUBJECT_IMPROVEMENT
+    setup: "A prior scoring/status mapping mistake is corrected or the governing standard/threshold changes, producing a higher status for unchanged subject evidence."
+    reason: "Assessment/standards basis changed; no evidence establishes subject-property change."
+  - case_id: TR-FP-3
+    classification: COMPARISON_NOT_ESTABLISHED
+    setup: "Aggregate outcome rises because the population mix changes materially, with no stratification or evidence supporting like-for-like comparability."
+    reason: "Score delta exists but comparability for the exact trajectory claim is insufficient."
+
+status_algebra_no_scalar:
+  case: "Internal-tool Business Economics candidate with no defensible cumulative ladder."
+  states:
+    - {claim: realized_labor_savings, status: PASS, meaning: "Exact obligation and evidence are satisfied for its assessed scope."}
+    - {claim: operating_cost_visibility, status: PARTIAL, meaning: "Some cost components are established but the exact obligation is not fully satisfied."}
+    - {claim: vendor_dependency_exit_risk, status: GAP, meaning: "Evidence establishes non-conformance for the exact applicable obligation."}
+    - {claim: opportunity_cost_attribution, status: UNKNOWN, meaning: "Available attributable evidence cannot establish satisfaction or inapplicability."}
+    - {claim: external_revenue_effect, status: N/A, meaning: "Only valid if its explicit applicability predicate depends on external revenue and target facts demonstrate that predicate false; it is excluded, not passed."}
+    - {claim: bounded_procurement_exception, status: EXCEPTION, meaning: "Applicable obligation is intentionally unmet under explicit bounded acceptance; it remains unmet for maturity."}
+  anti_gaming: "No state is converted to points, percentages, weights, family score, or synthetic overall score. PASS on labor savings does not compensate PARTIAL/GAP/UNKNOWN/EXCEPTION elsewhere. N/A removes only a proven-inapplicable obligation."
+  result: SURVIVES
+
+identity_derivation:
+  principle: "Typed identity is derived from the exact claim and comparison, not from a universal target profile."
+  examples:
+    A: ["service/product identity", "assessed claim", "population/cohort when material", "measurement window", "curriculum/support-process version when material", "standards revision for maturity claims"]
+    B: ["tool/service identity", "workflow/team scope", "time window", "deployment/configuration when material", "vendor/economic context when material", "standards revision for maturity claims"]
+    C: ["utility identity", "source/target dataset identity", "transformation/configuration", "run/scope", "standards revision for maturity claims"]
+    D: ["service identity", "environment/surface", "jurisdiction/regime when material", "population/scope", "service/process configuration when material", "standards revision for maturity claims"]
+  excluded_rule: "Do not require unrelated fields merely because they exist in another archetype or could matter to a different claim."
+
+cross_cutting_attacks:
+  - attack_id: XC-REGULATORY-CLASSIFICATION
+    targets: [H2, H5]
+    setup: "A governing external rule uses an authoritative classification such as a regulated service class as an applicability predicate."
+    result: SURVIVES
+    reason: "A validated authoritative classification is a target fact used by the governing predicate, not an analytic archetype shortcut. The generic A-D fixture names still carry no applicability authority by themselves."
+  - attack_id: XC-STANDARD-RELAXATION
+    targets: [H6, H8, H9]
+    setup: "Subject evidence is unchanged but a later standards revision relaxes or redefines an obligation and assessment status rises."
+    result: SURVIVES
+    reason: "History must attribute the standards/assessment basis; the higher judgment is not evidence that the subject improved."
+  - attack_id: XC-SUBGROUP-COMPRESSION
+    targets: [H1, H10]
+    setup: "A population-wide average is favorable while a material subgroup has a severe failure relevant to the asserted scope."
+    result: SURVIVES
+    reason: "A population metric may be reported for its exact claim, but it cannot be used as compensating compression that hides the material subgroup failure."
+  - attack_id: XC-SUBJECT-SPLIT-MERGE
+    targets: [H5, H7, H9]
+    setup: "One service is split into materially different tiers or two services are merged between assessments."
+    result: SURVIVES
+    reason: "Trajectory is permitted only for the exact comparable unit/claim after typed identity and scope mapping; history preserves the judgment boundaries instead of fabricating one continuous objective scalar history."
+
+hypothesis_decisions:
+  - {hypothesis: H1, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H2, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H3, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H4, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H5, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H6, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H7, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H8, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H9, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+  - {hypothesis: H10, decision: SURVIVES_UNCHANGED, correction: NONE, authority: ADVISORY_PENDING_ARCHITECT_REVIEW}
+
+correction_traceability: []
+
+structural_blocker:
+  discovered: false
+  evidence: "All mandatory attacks and added cross-cutting attacks can be represented with the existing minimal hypotheses and claim/requirement-level state. No new family manifest, lifecycle schema, scalar system, evidence taxonomy, or validator machinery is necessary to state the surviving invariants."
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: NOT_APPLICABLE
+  evidence: "TASK-0008 designates no authoritative verifier. Exact committed report review by the governing Architect is the next boundary."
+
+local_hygiene:
+  result: PASS
+  run_root: ""
+  cleanup_performed: false
+  retained: []
+  evidence: "Execution used bounded remote reads plus in-memory analysis only; no target-repository local workspace or run-owned filesystem artifact was created."
+
+changed_files:
+  - path: .agent/tasks/TASK-0008/report.yaml
+    summary: "Canonical Executor-owned adversarial assessment-kernel hypothesis validation evidence."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created: []
+report_commit:
+  identity: enclosing_commit
+  sha: SELF_REFERENCE_RESOLVED_EXTERNALLY
+  expected_parent: "386a8b7c82fd01392694f9e97f2c4c0bbfc85c82"
+  expected_only_changed_path: .agent/tasks/TASK-0008/report.yaml
+  message: "agent: report TASK-0008 kernel adversarial validation"
+
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "coverage_matrix contains exactly 40 unique H1-H10 x A-D cells, every cell is explicitly reasoned, and archetype labels are never used as applicability authority."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "mandatory_attacks explicitly covers same-code non-source change, knowledge-only assessment change, internal-tool economics without revenue, one-shot utility without retention, trust/SEC divergence, non-ladder scalar candidate, typed identity under/over-specification, and causal-inference burden."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "status_algebra_no_scalar preserves PASS/PARTIAL/GAP/UNKNOWN/N/A/EXCEPTION without scalar or soft scoring and states the non-compensation rule."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "trajectory_cases includes one positive same-source substantive-property trajectory case plus three rejected false-positive/comparability cases with distinct causes: instrumentation correction, assessment/standards correction, and population non-comparability."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "No FAILS or AMBIGUOUS result was reproduced, so no kernel rewrite is proposed. Every surviving hypothesis is retained unchanged and explicitly remains advisory pending Architect review."
+  - criterion_id: AC-6
+    status: PROVEN_BY_ENCLOSING_COMMIT_IDENTITY
+    evidence: "Before publication dev remained 386a8b7c82fd01392694f9e97f2c4c0bbfc85c82, main remained 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches were exactly dev/main, report.yaml was absent, and the report is the sole intended content change. Enclosing commit/ref shape is verified externally after publication because immutable report content cannot contain its own commit SHA."
+  - criterion_id: AC-7
+    status: PROVEN
+    evidence: "hypothesis_decisions gives a bounded advisory summary: all ten survive unchanged, none require correction, none remain ambiguous, no structural blocker is discovered; report state remains REPORTED and terminal result remains NEEDS_REVIEW."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Fresh start refs: dev=386a8b7c82fd01392694f9e97f2c4c0bbfc85c82; main=3f4950f280a3a35fee81471d4b83715fa72cf9ee; branches exactly {dev, main}. TASK-0008 r1 and pinned agent-skills 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1 resolved exactly."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Exact compare 3f4950f280a3a35fee81471d4b83715fa72cf9ee..386a8b7c82fd01392694f9e97f2c4c0bbfc85c82 is one planning commit changing only .agent/tasks/TASK-0008/task.yaml; frozen V1 semantic artifacts did not change."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "In-memory structural verification of this report finds 40 unique matrix cells covering all H1-H10 x A-D, every mandatory AC-2 attack present, all decisions advisory, and no canonical/approved/Generation-2 claim."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "Fresh pre-publication refs still dev=386a8b7c82fd01392694f9e97f2c4c0bbfc85c82, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}; report.yaml is absent at the base and the sole intended content mutation is .agent/tasks/TASK-0008/report.yaml."
+  - check_id: CHECK-5
+    result: SELF_REFERENCE_RESOLVED_EXTERNALLY
+    evidence: "After enclosing report commit/push, Executor must require dev equals that commit, its sole parent is 386a8b7c82fd01392694f9e97f2c4c0bbfc85c82, compare from base changes only .agent/tasks/TASK-0008/report.yaml, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, and branches remain exactly {dev, main}."
+
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "No local target checkout was used. Before report publication the remote target had no Executor content change; only the canonical report commit is authorized."
+
+final_advisory_conclusion:
+  result: ALL_TEN_HYPOTHESES_SURVIVE_UNCHANGED
+  survive_unchanged: [H1, H2, H3, H4, H5, H6, H7, H8, H9, H10]
+  require_correction: []
+  ambiguous: []
+  structural_blocker: false
+  statement: "Under the authorized A-D fixture matrix, mandatory counterexamples, and added cross-cutting attacks, no concrete falsifier or unresolved ambiguity was reproduced for H1-H10. This is Executor advisory evidence only; it does not canonicalize, approve, release, or declare Generation 2."
+  next_boundary: "Governing Architect review of the exact enclosing TASK-0008 report commit."
+
+result: NEEDS_REVIEW
