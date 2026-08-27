@@ -14,7 +14,8 @@ Key boundaries:
 - Only an accepted applicable `PASS` with no exception disposition satisfies the local obligation.
 - Evidence must explicitly support the exact asserted inference; no prose, NLP, keyword, confidence, or fuzzy inference exists.
 - Subject context is claim-relative; required context is declared by the fixture rather than imposed by a universal domain schema.
-- Cross-family judgments stay independent unless the exact claim explicitly carries a dependency.
+- Cross-family judgments stay independent unless the exact claim explicitly carries a dependency. `Dependency.satisfied` is a caller-supplied structured fact; the kernel validates dependency identity and the supplied satisfied/unsatisfied state but does not resolve another assessment.
+- `TrajectoryFacts` are caller-supplied structured facts independent of local obligation evaluation. Trajectory endpoints must still carry valid attributable assessment/claim/family/authority/subject identity and unambiguous material context.
 - Trajectory requires explicit comparability and exact-property change. Change bases are explanatory context and may be multi-causal; no individual basis token is universally required. A changed assessment, better observation, correction, or supersession alone is not substantive improvement or regression.
 - Source revision is only one possible subject-context field and is not required to change for substantive trajectory.
 - No family, dimension, overall, weighted, percentage, or maturity score/aggregation API exists.

@@ -8,6 +8,10 @@ CANDIDATE_AUTHORITY = "NONE"
 CANDIDATE_GENERATION = "NOT_ASSIGNED"
 
 
+def _identifying(value: str) -> bool:
+    return isinstance(value, str) and bool(value.strip())
+
+
 class Applicability(str, Enum):
     APPLICABLE = "APPLICABLE"
     NOT_APPLICABLE = "NOT_APPLICABLE"
@@ -61,8 +65,23 @@ class SubjectIdentity:
     required_context: Tuple[str, ...] = ()
 
     def has_required_context(self) -> bool:
-        present = {key for key, value in self.material_context if key and value}
-        return bool(self.kind and self.identifier) and set(self.required_context) <= present
+        if not _identifying(self.kind) or not _identifying(self.identifier):
+            return False
+
+        context_keys = []
+        for key, value in self.material_context:
+            if not _identifying(key) or not _identifying(value):
+                return False
+            context_keys.append(key)
+        if len(context_keys) != len(set(context_keys)):
+            return False
+
+        if any(not _identifying(key) for key in self.required_context):
+            return False
+        if len(self.required_context) != len(set(self.required_context)):
+            return False
+
+        return set(self.required_context) <= set(context_keys)
 
 
 @dataclass(frozen=True)
@@ -123,16 +142,25 @@ class TrajectoryResult:
 def evaluate(assessment: Assessment) -> Evaluation:
     reasons = []
 
-    if not assessment.authority.identifier or not assessment.authority.immutable_revision:
+    if not _identifying(assessment.assessment_id):
+        reasons.append("missing_assessment_identity")
+    if not _identifying(assessment.claim_id):
+        reasons.append("missing_claim_identity")
+    if not _identifying(assessment.family):
+        reasons.append("missing_family_identity")
+    if not _identifying(assessment.authority.identifier) or not _identifying(assessment.authority.immutable_revision):
         reasons.append("missing_normative_identity")
     if not assessment.subject.has_required_context():
         reasons.append("missing_material_context")
     if not assessment.evidence:
         reasons.append("missing_evidence")
-    if not assessment.asserted_inference:
+    elif any(not _identifying(item.identifier) for item in assessment.evidence):
+        reasons.append("missing_evidence_identity")
+    if not _identifying(assessment.asserted_inference):
         reasons.append("missing_asserted_inference")
     elif assessment.evidence and not any(
-        assessment.asserted_inference in item.supported_inferences
+        _identifying(item.identifier)
+        and assessment.asserted_inference in item.supported_inferences
         for item in assessment.evidence
     ):
         reasons.append("unsupported_inference")
@@ -142,6 +170,8 @@ def evaluate(assessment: Assessment) -> Evaluation:
             reasons.append("missing_applicable_judgment")
         if assessment.disposition is Disposition.EXCEPTION and assessment.judgment is Judgment.PASS:
             reasons.append("exception_cannot_wrap_pass")
+        if any(not _identifying(dependency.claim_id) for dependency in assessment.dependencies):
+            reasons.append("missing_dependency_identity")
         if any(not dependency.satisfied for dependency in assessment.dependencies):
             reasons.append("unmet_dependency")
     else:
@@ -167,12 +197,27 @@ def evaluate(assessment: Assessment) -> Evaluation:
     )
 
 
+def _has_trajectory_identity(assessment: Assessment) -> bool:
+    return (
+        _identifying(assessment.assessment_id)
+        and _identifying(assessment.claim_id)
+        and _identifying(assessment.family)
+        and _identifying(assessment.authority.identifier)
+        and _identifying(assessment.authority.immutable_revision)
+        and assessment.subject.has_required_context()
+    )
+
+
 def establish_trajectory(
     before: Assessment,
     after: Assessment,
     facts: TrajectoryFacts,
 ) -> TrajectoryResult:
     reasons = []
+    if not _has_trajectory_identity(before):
+        reasons.append("invalid_before_identity")
+    if not _has_trajectory_identity(after):
+        reasons.append("invalid_after_identity")
     if before.claim_id != after.claim_id:
         reasons.append("different_claim")
     if before.family != after.family:
