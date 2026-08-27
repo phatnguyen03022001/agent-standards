@@ -53,8 +53,7 @@ Levels are cumulative. A higher level cannot bypass an unmet applicable lower-le
 
 ```bash
 python -m pip install -r requirements-validator.txt
-python tools/validate.py
-python -m unittest discover -s tests -v
+python tools/verify.py
 ```
 
 ## License
