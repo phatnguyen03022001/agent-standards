@@ -1,13 +1,13 @@
 protocol_version: 3
 
 task_id: TASK-0009
-task_revision: 1
+task_revision: 2
 state: APPROVED
 
 origin:
-  type: accepted_task_result
-  task_id: "TASK-0008"
-  gap_id: ""
+  type: architect_review
+  task_id: "TASK-0009"
+  gap_id: "F-001"
 
 architect_binding:
   target_repository: phatnguyen03022001/agent-standards
@@ -47,83 +47,58 @@ external_skills:
   execution_recommended: []
 
 authority_sources:
-  - source: "User authorization to proceed from accepted kernel falsification into one bounded non-released implementation candidate, 2026-08-27"
-    role: "Implementation objective and bounded write authority"
+  - source: "Architect review of TASK-0009 revision 1 report commit 06c2f1a78b44c6fda95d0eebacedbd79c0b9309f"
+    role: "Revision-required finding F-001: trajectory implementation adds an unauthorized mandatory SUBJECT change basis"
     precedence: 1
-  - source: ".agent/tasks/TASK-0008/report.yaml@3990606a410ebd1c7d7f82b7f1a98524c932c701"
-    role: "Accepted adversarial evidence for the prior ten non-authoritative kernel hypotheses and archetype attacks"
+  - source: ".agent/tasks/TASK-0009/task.yaml@819101c1bef7e1e61754bdf110c0c47cbeb036e6"
+    role: "Revision 1 candidate semantics and implementation boundary preserved except where this revision explicitly corrects F-001"
     precedence: 2
+  - source: ".agent/tasks/TASK-0008/report.yaml@3990606a410ebd1c7d7f82b7f1a98524c932c701"
+    role: "Accepted prior adversarial evidence for assessment-kernel hypotheses"
+    precedence: 3
   - source: "STANDARD_MODEL.md@3f4950f280a3a35fee81471d4b83715fa72cf9ee"
     role: "Frozen Generation 1 normative baseline that must remain untouched"
-    precedence: 3
+    precedence: 4
   - source: "phatnguyen03022001/agent-skills@0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
     role: "Pinned protocol v3 and execution governance"
-    precedence: 4
+    precedence: 5
 
 structure_authority:
   status: RESOLVED
-  source: "Current repository structure plus pinned simplicity guidance and explicit user-approved candidate isolation"
-  rationale: "The smallest sufficient implementation is one shallow isolated top-level candidate sandbox containing exactly a human-readable candidate identity/semantics note, one dependency-free Python model/evaluator, and one deterministic unittest regression module. The candidate must not enter standards/, modify the V1 validator, or introduce a package/framework/schema layer before the semantics are proven."
+  source: "TASK-0009 revision 1 structure plus bounded Architect correction F-001"
+  rationale: "No structural change is required. Correct only candidate/assessment_kernel/model.py, README.md, and test_model.py as necessary, then update the existing TASK-0009 report. No new file, dependency, parser, schema, or framework is authorized."
 
-objective: "Implement a visibly non-authoritative, non-released Assessment Kernel Candidate that makes the corrected shared assessment semantics explicit enough for deterministic evaluation, encodes the material adversarial counterexamples as executable regressions, and leaves frozen Generation 1 authority completely unchanged."
+objective: "Correct the TASK-0009 Assessment Kernel Candidate trajectory semantics so substantive trajectory requires sufficient comparability and evidence that the exact assessed property changed, without additionally requiring one synthetic mandatory SUBJECT change-basis token; preserve every other accepted candidate boundary and frozen Generation 1 semantics."
 
-candidate_semantics:
-  identity:
-    status: NON_RELEASED_CANDIDATE
-    authority: NONE
-    generation: NOT_ASSIGNED
-  invariants:
-    - id: K1
-      statement: "Evidence must support the exact semantics, scope, and inference asserted by a judgment; an assessment must not assert any stronger inference than the explicitly represented evidence establishes."
-    - id: K2
-      statement: "Applicability is fact-based. Factual non-applicability is distinct from unknown applicability; insufficient applicability evidence must not become N/A."
-    - id: K3
-      statement: "Incomplete establishment, known non-conformance, and insufficient knowledge remain distinguishable. Candidate representation may separate applicability, judgment, and disposition semantics; it must not mechanically require every future family to expose the full Generation 1 flat status vocabulary."
-    - id: K4
-      statement: "Only PASS satisfies an applicable maturity obligation. PARTIAL or equivalent incomplete state, GAP, UNKNOWN, and any unmet obligation carrying an accepted EXCEPTION disposition do not become PASS or manufacture maturity."
-    - id: K5
-      statement: "EXCEPTION is disposition semantics for an unmet applicable obligation, not a mechanism that converts non-conformance into PASS. Generation 1 EXCEPTION representation remains untouched."
-    - id: K6
-      statement: "No family maturity scalar exists by default. No dimension scalar exists unless a defensible cumulative ordinal ladder is explicitly established outside this candidate."
-    - id: K7
-      statement: "Every material judgment identifies the exact immutable normative authority/semantics under which it was made."
-    - id: K8
-      statement: "Every material judgment remains attributable to the evidence used to establish it."
-    - id: K9
-      statement: "Subject identity is typed and claim-relative: include known or reasonably identifiable context material to interpreting the exact judgment without imposing a universal mega-schema. Missing material identity/context preserves uncertainty rather than silently assuming equivalence."
-    - id: K10
-      statement: "A changed assessment judgment, improved instrumentation, recovered evidence, or scoring correction alone does not prove the assessed subject property changed."
-    - id: K11
-      statement: "Substantive improvement or regression requires comparability sufficient for the exact comparison claim plus evidence that the exact assessed property itself changed."
-    - id: K12
-      statement: "Change basis may be multi-causal; subject, observation, assessment-correction, standards, scope, process, market, or other explicitly represented bases may coexist."
-    - id: K13
-      statement: "Assessment history is attributable judgment history, not objective immutable maturity history; correction or supersession must remain distinguishable from substantive subject evolution."
-    - id: K14
-      statement: "No averages, percentages, weighted scores, synthetic overall score, implicit family scalar, or compensating aggregation may hide a material failure."
-    - id: K15
-      statement: "A judgment in one family does not automatically establish or negate a judgment in another family. Cross-family effect exists only when the exact assessed claim explicitly represents a semantic dependency on the other property."
-    - id: K16
-      statement: "Archetype labels are fixture packaging only and have no production applicability semantics."
+revision_finding:
+  id: F-001
+  severity: material
+  status: REPRODUCED
+  evidence:
+    - "candidate/assessment_kernel/model.py@40b962ab6313665bba0db4d57e58289726a67e83 rejects every trajectory lacking ChangeBasis.SUBJECT via subject_change_basis_missing."
+    - "TASK-0009 revision 1 K11 requires sufficient comparability plus evidence that the exact assessed property changed; it does not require a SUBJECT basis token."
+    - "TASK-0009 revision 1 K12 explicitly permits subject, observation, assessment-correction, standards, scope, process, market, or other represented change bases to coexist and does not designate SUBJECT as mandatory."
+    - "candidate README currently states trajectory requires a subject-change basis, making the implementation-specific narrowing part of candidate-facing semantics."
+  consequence: "A valid exact-property trajectory can be falsely rejected when the represented change basis is PROCESS, MARKET, or another material basis and the assessed property itself is demonstrably changed under sufficient comparability. This conflates proof of property change with a particular explanatory change-basis label."
+  required_correction: "Remove the mandatory SUBJECT-basis condition from trajectory establishment and candidate documentation. Keep exact_property_changed plus sufficient comparability as the substantive gate, while preserving change_bases as explicit possibly multi-causal explanatory evidence."
 
 scope:
   required_changes:
-    - "Resolve exact TASK-0009 revision 1 and pinned agent-skills authority, refresh remote truth, and require live dev HEAD to equal the exact handoff base before mutation."
-    - "Create exactly candidate/assessment_kernel/README.md, candidate/assessment_kernel/model.py, and candidate/assessment_kernel/test_model.py as the non-released candidate implementation surface."
-    - "README.md must prominently identify the artifact as NON_RELEASED_CANDIDATE, authority NONE, generation NOT_ASSIGNED, state that frozen Generation 1 remains authoritative, and explain only the minimum semantics necessary to interpret the candidate model and tests."
-    - "Implement a small dependency-free Python model/evaluator using explicit structured fields/enums/data rather than NLP, keyword heuristics, prose parsing, AI inference, fuzzy scoring, or open-ended semantic classification."
-    - "Represent applicability, applicable-judgment, optional exception/disposition, immutable normative identity, typed/material subject context, attributable evidence references, explicit supported inference, explicit cross-claim dependency when needed, assessment/change basis, and trajectory facts only to the minimum extent required to make the authorized invariants deterministically testable."
-    - "Do not create a universal domain schema. The candidate may accept claim-relative material context as explicit structured data and must preserve uncertainty when required material context/comparability is not established."
-    - "Do not implement a generic claim-strength, evidence-strength, confidence, evidence-quality, family score, dimension score, overall score, weighted score, percentage, or maturity aggregation mechanism."
-    - "Do not infer causal, regulatory, product, business, user, security, or other domain semantics from natural-language text. Tests must state those semantics explicitly as structured fixture facts."
-    - "Use bounded test-driven implementation: establish failing focused regressions for the authorized attacks before or alongside the minimal implementation, then make only the smallest code necessary to pass them. Preserve causal ordering evidence in the Executor report where the execution surface permits it."
-    - "Encode deterministic regressions for inference inflation, N/A gaming, synthetic aggregation absence/non-compensation, source-SHA-centric identity failure, knowledge-versus-maturity separation, false trajectory, cross-family non-substitution with explicit dependency behavior, multi-causal delta, exception laundering, historical correction/supersession, and archetype-label non-authority."
-    - "Include at least one positive substantive-trajectory case where source revision is unchanged but an explicitly assessed property changes under sufficiently comparable context, and at least two negative cases where assessment output changes without proving subject improvement."
-    - "Include a cross-family pair demonstrating that an independent transparency/expectation judgment can coexist with a separate Engineering security GAP, plus a second claim whose explicitly represented semantic dependency on security prevents an unsupported PASS."
-    - "Keep the four prior archetype names, if used in test names or fixture grouping, out of model.py production applicability/control logic. No runtime branch may map an archetype name to applicability, family state, or maturity."
-    - "Run the frozen Generation 1 validator/tests before and after candidate implementation and require them to remain passing without modification."
-    - "After final implementation verification, commit and push the implementation on dev; then create, commit, and push only .agent/tasks/TASK-0009/report.yaml as the Executor-owned review evidence and stop NEEDS_REVIEW."
+    - "Resolve exact TASK-0009 revision 2 and pinned agent-skills authority, refresh remote truth, and require live dev HEAD to equal the revision-2 handoff base before mutation."
+    - "Re-read the exact revision-1 implementation and report evidence before editing; do not reopen unrelated candidate design."
+    - "Use causal TDD for F-001: add at least one focused regression that currently fails because a substantive comparable trajectory with exact_property_changed=true and change_bases containing PROCESS and/or MARKET but not SUBJECT is rejected."
+    - "Correct establish_trajectory so no particular ChangeBasis token is universally mandatory once exact comparability and exact-property change are established."
+    - "Preserve change_bases in the trajectory result and allow multiple bases to coexist. A basis set containing only observation, assessment correction, standards change, or scope change must not by itself manufacture trajectory when exact_property_changed is false or comparability is insufficient."
+    - "Update candidate README only as needed to remove the incorrect mandatory subject-change-basis statement and describe the corrected minimal trajectory gate."
+    - "Preserve all other revision-1 candidate semantics: explicit structured inference support, fact-based applicability, PASS-only satisfaction, EXCEPTION disposition semantics, exact normative identity, attributable evidence, typed material subject context, cross-family non-substitution with explicit dependencies, no scalar/aggregation, no archetype production logic, and non-authoritative candidate identity."
+    - "Run the focused candidate suite and frozen Generation 1 validator/tests on the exact final implementation state."
+    - "Commit and push only the authorized implementation correction on dev, then update the existing .agent/tasks/TASK-0009/report.yaml to report_revision 2 with exact revision-2 evidence, commit/push it, and stop NEEDS_REVIEW."
   allowed_existing_files_or_components:
+    - candidate/assessment_kernel/README.md
+    - candidate/assessment_kernel/model.py
+    - candidate/assessment_kernel/test_model.py
+    - .agent/tasks/TASK-0009/task.yaml
+    - .agent/tasks/TASK-0009/report.yaml
     - README.md
     - STANDARD_MODEL.md
     - standards/manifest.yaml
@@ -131,41 +106,27 @@ scope:
     - tools/validate.py
     - tests/test_validate.py
     - requirements-validator.txt
-    - .agent/tasks/TASK-0008/*
-    - .agent/tasks/TASK-0009/task.yaml
   expected_files_are_restrictive: true
 
 invariants:
-  - "Frozen Generation 1 semantic and enforcement artifacts are byte-for-byte unchanged by TASK-0009."
-  - "standards/manifest.yaml remains generation 1 with exactly the existing 14 engineering dimensions."
-  - "tools/validate.py remains the frozen V1 validator and is not retrofitted to understand candidate semantics."
-  - "The candidate is not called Generation 2 and has no release, normative, product, family, or target-assessment authority."
-  - "Candidate semantics are explicit structured facts; no NLP or heuristic semantic inference is introduced."
-  - "Generation 1 flat PASS/PARTIAL/GAP/UNKNOWN/N/A/EXCEPTION semantics are not modified or reinterpreted by candidate representation choices."
-  - "N/A remains factual non-applicability semantics; unknown applicability cannot be laundered into N/A."
-  - "EXCEPTION remains non-PASS disposition semantics for an unmet applicable obligation in the candidate and never contributes maturity."
-  - "Only PASS may satisfy an applicable maturity obligation."
-  - "No maturity scalar or compensating aggregation is introduced."
-  - "Exact normative identity, material subject identity/context, and attributable evidence identity remain distinguishable."
-  - "Assessment knowledge increase is not subject maturity increase."
-  - "Trajectory is exact-property-specific and evidence/comparability bound."
-  - "Cross-family judgments do not substitute automatically; explicit semantic dependencies may constrain a dependent claim."
-  - "Archetype labels never appear in production candidate applicability/control logic."
-  - "No new dependency, parser, DSL, package framework, generator, CI, workflow, or release machinery is introduced."
+  - "Frozen Generation 1 semantic and enforcement artifacts remain byte-for-byte unchanged."
+  - "The Assessment Kernel Candidate remains NON_RELEASED_CANDIDATE / authority NONE / generation NOT_ASSIGNED."
+  - "Trajectory establishment requires sufficient comparability and explicit proof that the exact assessed property changed."
+  - "No individual ChangeBasis value, including SUBJECT, is universally required for trajectory establishment."
+  - "Change bases are explicit explanatory context, may be multi-causal, and do not substitute for exact_property_changed or comparability."
+  - "Assessment knowledge increase, evidence recovery, assessment correction, standards change, or score/status delta alone does not establish subject-property improvement."
+  - "Source revision change remains unnecessary for substantive trajectory."
+  - "All non-trajectory candidate semantics from revision 1 remain unchanged unless a concrete regression forces the minimum correction."
+  - "No NLP, heuristic prose inference, new dependency, DSL, schema subsystem, scalar, aggregation, family definition, Generation 2 declaration, or archetype-driven production logic is introduced."
 
 forbidden_changes:
-  - "Any mutation to README.md, STANDARD_MODEL.md, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, LICENSE, or other frozen Generation 1 authority/enforcement content."
+  - "Any mutation to frozen Generation 1 authority/enforcement content including README.md, STANDARD_MODEL.md, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, or LICENSE."
   - "Any modification to TASK-0009/task.yaml by Executor."
-  - "Any Generation 2 declaration, manifest, family registry, family standard, User/Product dimension, Business dimension, Service Operations dimension, lifecycle standard, maturity snapshot schema, released evidence taxonomy, or target assessment artifact."
-  - "Any retrofit of the Generation 1 validator/tests to support the candidate."
-  - "Any YAML/JSON/other DSL parser or schema subsystem for candidate semantics."
-  - "Any NLP, LLM, keyword, regex-prose, or heuristic inference that guesses material claim semantics from natural-language text."
-  - "Any generic confidence, evidence-strength, claim-strength, evidence-quality, weighted, percentage, point, family, dimension, or overall score."
-  - "Any automatic cross-family substitution or archetype-to-applicability mapping."
-  - "Any source-revision-change requirement for substantive trajectory."
-  - "Any dependency change, CI/GitHub Actions change, branch creation, main mutation, promotion, tag, release, repository metadata mutation, or external publication."
-  - "Any new file except candidate/assessment_kernel/README.md, candidate/assessment_kernel/model.py, candidate/assessment_kernel/test_model.py, and .agent/tasks/TASK-0009/report.yaml."
-  - "Any TASK-0010 or later task, review.yaml, continuation artifact, or additional planning artifact created by Executor."
+  - "Any new file or directory."
+  - "Any redesign of applicability, judgment, disposition, evidence, identity, dependency, aggregation, or family semantics unrelated to F-001."
+  - "Any Generation 2 declaration, family/dimension design, lifecycle model, maturity snapshot, evidence taxonomy, target assessment artifact, validator retrofit, dependency, parser, framework, CI, or release machinery."
+  - "Any branch creation, main mutation, promotion, tag, release, repository metadata mutation, or external publication."
+  - "Any TASK-0010 or later task, review.yaml, or continuation artifact created by Executor."
 
 gap_policy:
   local_auto_fix: true
@@ -177,17 +138,13 @@ gap_policy:
   blocking_gap_behavior: BLOCKED
 
 structure_policy:
-  expected_new_files:
-    - candidate/assessment_kernel/README.md
-    - candidate/assessment_kernel/model.py
-    - candidate/assessment_kernel/test_model.py
-    - .agent/tasks/TASK-0009/report.yaml
+  expected_new_files: []
   unlisted_new_files:
     allowed: false
     max: 0
     within: []
     purpose: ""
-  allow_new_top_level_directories: true
+  allow_new_top_level_directories: false
   allow_new_shared_modules: false
 
 continuation_policy:
@@ -210,64 +167,43 @@ capability_requirements:
 
 acceptance_criteria:
   - id: AC-1
-    requirement: "The candidate is unmistakably non-authoritative and isolated from frozen Generation 1 authority."
-    evidence_required: "Candidate identity is deterministically observable as NON_RELEASED_CANDIDATE / NONE / NOT_ASSIGNED; exact diff proves no V1 authority/enforcement file changed."
+    requirement: "F-001 is causally reproduced before correction."
+    evidence_required: "A focused regression demonstrates that the revision-1 implementation rejects an otherwise valid comparable exact-property trajectory solely because ChangeBasis.SUBJECT is absent."
   - id: AC-2
-    requirement: "Material semantics are explicit structured inputs, not inferred from prose."
-    evidence_required: "Focused tests demonstrate causal-vs-observational inference, applicability truth, material context, and dependency behavior using explicit structured facts; inspection shows no NLP/keyword/prose heuristic path."
+    requirement: "Trajectory no longer requires a synthetic mandatory SUBJECT change basis."
+    evidence_required: "Focused positive tests pass for at least one trajectory whose exact property changed under sufficient comparability with PROCESS and/or MARKET basis and no SUBJECT token."
   - id: AC-3
-    requirement: "Applicability, conformance/knowledge, and optional exception disposition preserve the required distinctions without forcing the V1 flat token set as a universal future-family contract."
-    evidence_required: "Tests prove unknown applicability cannot become N/A; PASS is the only satisfying applicable judgment; PARTIAL/GAP/UNKNOWN do not satisfy; accepted EXCEPTION cannot become PASS or maturity satisfaction."
+    requirement: "Removing the SUBJECT token gate does not reintroduce false trajectory."
+    evidence_required: "Existing and/or added negative tests prove knowledge-only/correction and insufficient-comparability cases remain non-established when exact_property_changed is false or comparability is insufficient."
   - id: AC-4
-    requirement: "Every material judgment preserves exact normative authority identity, claim-relative material subject identity/context, and attributable evidence identity."
-    evidence_required: "Positive and negative tests show missing required authority/evidence/material context blocks or preserves uncertainty as appropriate, while unrelated universal context is not required."
+    requirement: "All unrelated candidate semantics and frozen Generation 1 remain unchanged and verified."
+    evidence_required: "Exact diff is limited to the three existing candidate files as needed; V1 validator and 54-test suite pass unchanged; full candidate suite passes."
   - id: AC-5
-    requirement: "Trajectory cannot be inferred from assessment delta alone and does not require source revision change."
-    evidence_required: "One positive same-source substantive-property trajectory case plus at least two negative knowledge/correction/comparability cases pass deterministically."
-  - id: AC-6
-    requirement: "Cross-family judgments do not automatically substitute for each other, while explicit semantic dependencies can constrain a dependent claim."
-    evidence_required: "A transparency/expectation claim remains independently assessable beside a security GAP; a separate explicitly security-dependent claim cannot PASS when its represented dependency is unmet."
-  - id: AC-7
-    requirement: "The candidate provides no synthetic aggregation or scalar maturity mechanism and does not hide failures through compensation."
-    evidence_required: "Tests and source inspection show obligation satisfaction is local/claim-bound and no family/dimension/overall scoring or aggregation API exists."
-  - id: AC-8
-    requirement: "Archetypes remain test-fixture packaging only."
-    evidence_required: "Tests may group cases by archetype names, but source inspection proves model.py contains no archetype-name branch, mapping, profile, or applicability shortcut."
-  - id: AC-9
-    requirement: "Historical correction, multi-causal change basis, and assessment-history attribution remain distinguishable from substantive subject evolution."
-    evidence_required: "Deterministic regressions cover multiple simultaneous change bases and correction/supersession without falsely emitting subject improvement."
-  - id: AC-10
-    requirement: "Frozen Generation 1 verification remains green and byte-identical in semantics/enforcement while candidate focused verification passes."
-    evidence_required: "Required V1 validator/test commands and candidate unittest command pass on exact final implementation state; compare shows only authorized candidate files before report."
-  - id: AC-11
-    requirement: "Executor publishes bounded evidence and stops for Architect review without promotion or canonicalization."
-    evidence_required: "Exact report commit lineage and diff show only TASK-0009/report.yaml after the final implementation commit; dev contains the candidate/report, main remains unchanged, branches remain exactly {dev, main}, terminal result NEEDS_REVIEW."
+    requirement: "Revision-2 evidence is published without promotion or canonicalization."
+    evidence_required: "Updated TASK-0009 report_revision 2 identifies exact task/base/implementation/report lineage, records F-001 reproduction and closure, dev-only state, unchanged main, and terminal NEEDS_REVIEW."
 
 verification:
   executor_checks:
     - id: CHECK-1
-      command_or_check: "At start refresh remote truth and require dev equals exact handoff base, main equals 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}, TASK-0009 revision 1 resolves at base, and pinned agent-skills 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1 is accessible."
+      command_or_check: "At revision-2 execution start refresh remote truth and require dev equals the exact handoff base, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}, TASK-0009 revision 2 resolves at base, and pinned agent-skills is accessible."
       required: true
     - id: CHECK-2
-      command_or_check: "Before mutation run python tools/validate.py and python -m unittest discover -s tests -v against the exact handoff-base Generation 1 state; both must pass."
+      command_or_check: "Establish the focused failing F-001 regression against the revision-1 implementation semantics before applying the correction."
       required: true
     - id: CHECK-3
-      command_or_check: "Establish focused failing candidate regressions for the authorized behavior where the execution surface can preserve causal TDD evidence, then implement the minimum dependency-free candidate model."
+      command_or_check: "Run python -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v and require all candidate regressions pass after correction."
       required: true
     - id: CHECK-4
-      command_or_check: "Run python -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v and require all candidate regressions pass."
+      command_or_check: "On exact final implementation state run python tools/validate.py and python -m unittest discover -s tests -v; require Generation 1 validator and all existing tests pass unchanged."
       required: true
     - id: CHECK-5
-      command_or_check: "On exact final implementation state rerun python tools/validate.py and python -m unittest discover -s tests -v; both must pass unchanged, then rerun candidate focused tests."
+      command_or_check: "Before implementation commit verify no path outside candidate/assessment_kernel/README.md, model.py, and test_model.py changed relative to the revision-2 handoff base except the already-present Architect-owned task revision; no new path exists."
       required: true
     - id: CHECK-6
-      command_or_check: "Before implementation commit verify changed paths are exactly candidate/assessment_kernel/README.md, model.py, and test_model.py; verify frozen V1 content blobs and main ref remain unchanged."
+      command_or_check: "After implementation commit/push verify dev equals the exact implementation commit and the execution delta from handoff base contains only authorized candidate corrections."
       required: true
     - id: CHECK-7
-      command_or_check: "After implementation commit/push verify dev equals the exact implementation commit and compare from handoff base contains only the three authorized candidate files. Then create only TASK-0009/report.yaml."
-      required: true
-    - id: CHECK-8
-      command_or_check: "After report commit/push verify dev equals the enclosing report commit, its sole parent is the final implementation commit, the report commit changes only .agent/tasks/TASK-0009/report.yaml, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches remain exactly {dev, main}, and no promotion/release/tag occurred."
+      command_or_check: "After report update commit/push verify dev equals the enclosing report commit, its sole parent is the final implementation commit, that report commit changes only .agent/tasks/TASK-0009/report.yaml, main remains unchanged, branches exactly {dev, main}, and no promotion/release/tag occurred."
       required: true
   authoritative_verification:
     required: false
@@ -286,10 +222,10 @@ release_authority:
   publish_release: false
 
 blocking_decisions:
-  - "If dev/main/branch topology or TASK-0009/pinned-skill identity drifts before mutation, stop STALE_STATE."
-  - "If deterministic Python test execution is unavailable for the current EXECUTION phase, stop CURRENT_PHASE_CAPABILITY_UNAVAILABLE before mutation rather than implementing unverified code."
-  - "If the smallest correct implementation requires changing frozen V1 semantics/enforcement, adding a dependency/parser/schema/framework, or defining future family/dimension semantics, stop AUTHORITY_REQUIRED for Architect revision."
-  - "If a deterministic counterexample shows an authorized candidate invariant is wrong or ambiguous, do not silently redesign it; record the blocker and stop BLOCKED or AUTHORITY_REQUIRED as appropriate."
-  - "No main mutation, promotion, tag, release, or Generation 2 canonicalization is authorized by TASK-0009."
+  - "If current refs, revision-2 task identity, or pinned skill identity drift before mutation, stop STALE_STATE."
+  - "If deterministic Python test execution is unavailable, stop CURRENT_PHASE_CAPABILITY_UNAVAILABLE before mutation."
+  - "If closing F-001 requires changing frozen V1, adding structure/dependencies, or reopening unrelated candidate semantics, stop AUTHORITY_REQUIRED."
+  - "If the new regression exposes a broader contradiction in K11/K12 rather than the reproduced SUBJECT-token overconstraint, stop BLOCKED or AUTHORITY_REQUIRED instead of redesigning silently."
+  - "No main mutation, promotion, tag, release, or Generation 2 canonicalization is authorized."
 
 execution_ready: true
