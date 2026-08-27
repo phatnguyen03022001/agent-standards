@@ -1,0 +1,202 @@
+protocol_version: 3
+
+task_id: TASK-0012
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: architect_review
+  task_id: TASK-0011
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - design-review
+  - verification
+  - simplicity
+
+execution_skills:
+  required:
+    - executor
+    - verification
+    - simplicity
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: ".agent/tasks/TASK-0011/report.yaml@820d8d01f2bfc3e79fbeecdbcd63e8be634d4091"
+    role: "Independent HIGH-assurance adversarial evidence reviewed by the Governing Architect"
+    precedence: 1
+  - source: "Governing Architect adjudication of TASK-0011"
+    role: "F-001, F-002 identity/attribution subset, and F-005 are PROVEN_DEFECT; F-003 and F-004 are trusted-input DESIGN_OPTION boundaries and must not be converted into extra kernel machinery"
+    precedence: 2
+  - source: "candidate/assessment_kernel/*@1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+    role: "Exact non-released candidate implementation being corrected"
+    precedence: 3
+  - source: "STANDARD_MODEL.md@3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+    role: "Frozen released Generation 1 authority; must remain unchanged"
+    precedence: 4
+  - source: "phatnguyen03022001/agent-skills@0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+    role: "Pinned protocol v3 governance"
+    precedence: 5
+
+structure_authority:
+  status: RESOLVED
+  source: "Existing candidate/assessment_kernel three-file sandbox"
+  rationale: "Correction stays inside the existing candidate README/model/test surface plus canonical TASK-0012 report evidence; no new module, schema, dependency, validator layer, generation, family, or framework is justified."
+
+objective: "Make accepted Assessment Kernel Candidate judgments and trajectory endpoints structurally attributable and non-ambiguous by rejecting blank/whitespace semantic identities, anonymous evidence, and duplicate/conflicting material-context keys, while explicitly preserving dependency satisfaction and trajectory facts as trusted structured inputs rather than inventing cross-assessment resolution machinery."
+
+scope:
+  required_changes:
+    - "Use causal TDD against exact current candidate behavior before implementation. Add minimal regressions proving anonymous EvidenceRef identifiers, blank/whitespace assessment/claim/family/authority/subject/inference/dependency identity tokens, and duplicate material-context keys cannot participate in accepted/satisfied judgments or established trajectory identities."
+    - "Implement one small reusable semantic-token predicate/helper only if it reduces duplicated validation without introducing a validation framework. Identity-bearing string values must contain at least one non-whitespace character; do not normalize case, rewrite identifiers, or invent global naming syntax."
+    - "Require EvidenceRef.identifier to be identifying before its supported inference can contribute to accepted evaluation. Preserve exact supported-inference membership; do not add fuzzy matching, confidence, strength, NLP, or provenance scoring."
+    - "Require Assessment.assessment_id, Assessment.claim_id, Assessment.family, NormativeAuthority.identifier, NormativeAuthority.immutable_revision, SubjectIdentity.kind, SubjectIdentity.identifier, Assessment.asserted_inference, and Dependency.claim_id to be identifying values wherever those values participate in evaluation or trajectory establishment."
+    - "Reject ambiguous SubjectIdentity material_context when a context key or value is blank/whitespace or when the same key appears more than once. Required context keys must themselves be identifying and unique. Do not silently pick first/last values or normalize conflicting context."
+    - "Ensure establish_trajectory rejects endpoints whose identity-bearing assessment/claim/family/authority/subject/context fields are structurally invalid or ambiguous. Do not require before/after evaluate() to be accepted merely because their local obligation evidence/judgment is incomplete; trajectory facts remain a separate trusted input boundary."
+    - "Preserve Dependency.satisfied as an explicit trusted upstream fact. Do not require the kernel to resolve, fetch, or embed another Assessment, authority, evidence set, family registry, dependency graph, or global ontology. Only dependency identity hygiene and existing satisfied/unsatisfied behavior are in scope."
+    - "Update candidate README only as needed to state the two trust boundaries unambiguously: Dependency.satisfied is caller-supplied structured fact, and TrajectoryFacts are caller-supplied structured facts independent of local obligation evaluation; neither permits blank/ambiguous endpoint/dependency identity."
+    - "Keep candidate identity NON_RELEASED_CANDIDATE / authority NONE / generation NOT_ASSIGNED. Run focused candidate verification under explicit -B plus current repository-owned Generation 1 verification. Produce canonical TASK-0012 report evidence and stop at Architect review."
+  allowed_existing_files_or_components:
+    - candidate/assessment_kernel/README.md
+    - candidate/assessment_kernel/model.py
+    - candidate/assessment_kernel/test_model.py
+    - .agent/tasks/TASK-0012/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "Frozen Generation 1 main authority remains byte-for-byte unchanged."
+  - "The candidate remains non-released and non-authoritative; this task assigns no generation."
+  - "Only exact non-whitespace identity hygiene is added; no universal identifier syntax or ontology is introduced."
+  - "Evidence inference support remains exact membership, with no strength/confidence/fuzzy semantics."
+  - "UNKNOWN is not N/A; EXCEPTION is never PASS; no aggregation/scoring API is introduced."
+  - "Dependency.satisfied remains trusted structured input; F-003 does not authorize cross-assessment dependency resolution machinery."
+  - "Trajectory comparability, exact_property_changed, direction, change_bases, and history_relation remain trusted structured facts; F-004 does not authorize evaluate(before/after) as a universal trajectory gate."
+  - "TASK-0009 F-001 stays closed: no ChangeBasis.SUBJECT universal requirement."
+
+forbidden_changes:
+  - "Any modification to README.md, STANDARD_MODEL.md, standards/*, tools/*, tests/*, requirements-validator.txt, LICENSE, main, tags, releases, repository metadata, CI, dependencies, agent-runtime, or agent-skills."
+  - "Any new candidate module, manifest, registry, schema language, dependency graph, external assessment resolver, evidence-strength/confidence system, aggregation, family design, generation declaration, or global ontology."
+  - "Any requirement that dependency satisfaction must embed/resolve another Assessment."
+  - "Any requirement that establish_trajectory may run only when evaluate(before) and evaluate(after) are accepted."
+  - "Any universal requirement for ChangeBasis.SUBJECT."
+  - "Any cleanup unrelated to the three proven defect clusters."
+
+gap_policy:
+  local_auto_fix: true
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0012/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "F-001 is closed: anonymous/blank EvidenceRef identity cannot support an accepted satisfied judgment."
+    evidence_required: "Causal regression fails on the pre-fix candidate and passes on final implementation."
+  - id: AC-2
+    requirement: "F-002 accepted subset is closed: blank/whitespace semantic identity tokens cannot produce accepted/satisfied judgments or valid trajectory identity."
+    evidence_required: "Focused regressions cover assessment, claim, family, authority/revision, subject kind/id, asserted inference, dependency claim identity, and evidence identity without inventing naming syntax."
+  - id: AC-3
+    requirement: "F-005 is closed: duplicate or blank material-context identity keys/values cannot satisfy required context or establish a valid subject identity."
+    evidence_required: "Focused duplicate/conflicting/blank context regressions fail before correction and pass after correction."
+  - id: AC-4
+    requirement: "F-003/F-004 are not over-fixed. Trusted dependency/trajectory fact boundaries remain executable and documented."
+    evidence_required: "A satisfied dependency with valid claim identity still works without embedding another Assessment; valid attributable trajectory endpoints may establish trajectory from trusted facts even when local obligation evaluation is independently incomplete."
+  - id: AC-5
+    requirement: "Existing candidate semantics remain stable outside the correction."
+    evidence_required: "All pre-existing candidate regressions plus new focused regressions PASS under explicit python -B; no aggregation/N/A/exception/no-SUBJECT regression."
+  - id: AC-6
+    requirement: "Frozen Generation 1 remains valid and unchanged."
+    evidence_required: "Current repository-owned Generation 1 verification PASS on exact final implementation state; main unchanged."
+  - id: AC-7
+    requirement: "Implementation and report publication remain bounded."
+    evidence_required: "Implementation diff changes only authorized candidate README/model/test files as actually needed; report commit changes only TASK-0012/report.yaml; final dev/main/branch topology and commit lineage verified."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "Refresh refs; require dev equals exact handoff base, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}, and resolve TASK-0012 plus pinned skills authority."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Before implementation, reproduce at least one causal failing probe for each accepted defect cluster F-001, F-002 subset, and F-005 on the exact pre-fix candidate."
+      required: true
+    - id: CHECK-3
+      command_or_check: "Run focused candidate suite under explicit bytecode suppression after implementation; require all existing and new regressions PASS and no cache artifacts remain."
+      required: true
+    - id: CHECK-4
+      command_or_check: "Explicitly prove the F-003/F-004 trust-boundary preservation cases required by AC-4."
+      required: true
+    - id: CHECK-5
+      command_or_check: "Run current repository-owned Generation 1 verification and require PASS with no persistent run-generated artifacts."
+      required: true
+    - id: CHECK-6
+      command_or_check: "Verify exact implementation diff is restricted to authorized candidate files and report publication is a separate report-only commit."
+      required: true
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions: []
+execution_ready: true
