@@ -15,7 +15,7 @@ Key boundaries:
 - Evidence must explicitly support the exact asserted inference; no prose, NLP, keyword, confidence, or fuzzy inference exists.
 - Subject context is claim-relative; required context is declared by the fixture rather than imposed by a universal domain schema.
 - Cross-family judgments stay independent unless the exact claim explicitly carries a dependency.
-- Trajectory requires explicit comparability, exact-property change, and subject-change basis. A changed assessment, better observation, correction, or supersession alone is not substantive improvement or regression.
+- Trajectory requires explicit comparability and exact-property change. Change bases are explanatory context and may be multi-causal; no individual basis token is universally required. A changed assessment, better observation, correction, or supersession alone is not substantive improvement or regression.
 - Source revision is only one possible subject-context field and is not required to change for substantive trajectory.
 - No family, dimension, overall, weighted, percentage, or maturity score/aggregation API exists.
 

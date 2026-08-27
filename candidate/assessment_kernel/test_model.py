@@ -220,6 +220,21 @@ class AssessmentKernelCandidateTests(unittest.TestCase):
         self.assertFalse(result.obligation_satisfied)
         self.assertIn("unmet_dependency", result.reasons)
 
+    def test_process_market_basis_can_establish_exact_property_trajectory(self):
+        before = assessment(assessment_id="before", judgment=Judgment.PARTIAL)
+        after = assessment(assessment_id="after", judgment=Judgment.PASS)
+        bases = frozenset({ChangeBasis.PROCESS, ChangeBasis.MARKET})
+        facts = TrajectoryFacts(
+            comparable=True,
+            exact_property_changed=True,
+            direction=TrajectoryDirection.IMPROVEMENT,
+            change_bases=bases,
+            history_relation=HistoryRelation.NEW_ASSESSMENT,
+        )
+        result = establish_trajectory(before, after, facts)
+        self.assertTrue(result.established)
+        self.assertEqual(bases, result.change_bases)
+
     def test_multi_causal_change_basis_is_preserved(self):
         before = assessment(assessment_id="before", judgment=Judgment.PARTIAL)
         after = assessment(assessment_id="after", judgment=Judgment.PASS)

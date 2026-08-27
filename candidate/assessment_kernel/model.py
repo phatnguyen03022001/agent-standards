@@ -185,8 +185,6 @@ def establish_trajectory(
         reasons.append("insufficient_comparability")
     if not facts.exact_property_changed:
         reasons.append("property_change_not_established")
-    if ChangeBasis.SUBJECT not in facts.change_bases:
-        reasons.append("subject_change_basis_missing")
 
     established = not reasons
     return TrajectoryResult(
