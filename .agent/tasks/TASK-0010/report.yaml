@@ -1,0 +1,246 @@
+protocol_version: 3
+
+task_id: TASK-0010
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0010/task.yaml
+  commit: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
+  blob_sha: "c523841fd80b13ab1f9d491321fb7a20c60cc428"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
+  pre_execution_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
+  final_execution_head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+  mode: bounded_td001_verification_hygiene_closure
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - simplicity
+    - verification
+  recommended: []
+  external: []
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+  evidence: "Fresh remote truth before mutation: dev=2df9d481acda9d9fa3821f82cb0ae2302676d9e4, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}. TASK-0010 revision 1 resolved at the exact base as blob c523841fd80b13ab1f9d491321fb7a20c60cc428. Required executor/simplicity/verification skills resolved at pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1. The disposable agent-runtime checkout was synchronized to the exact base and was clean before the fresh reproduction."
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  missing: []
+  passed: true
+  evidence: "Exact GitHub ref/content reads and bounded Git-data writes were available. Deterministic Python execution was proven before repository mutation using Python 3.13 with the repository's PyYAML dependency and the exact-base runtime verification: validator and all 54 Generation 1 tests completed successfully with exit code 0."
+
+td_001_reproduction:
+  debt_id: TD-001
+  result: REPRODUCED_AND_CLOSED_FOR_REVIEW
+  workspace: disposable_agent_runtime_checkout
+  run_id: "9f5282c754a74803be938ec1bc66e17b"
+  base_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
+  precondition_clean: true
+  underlying_exit_code: 0
+  validator: "VALID: standards definition"
+  unittest: "Ran 54 tests in 1.571s; OK"
+  postcondition_clean: false
+  runtime_result: postcondition_failed
+  evidence: "Fresh pre-change verification succeeded at the validator/test layer but changed the disposable checkout from clean to non-clean while HEAD, branch, remote identity, and synchronization remained unchanged. The runtime surface exposes the dirty transition but not individual status paths; the canonical task's reproduced-problem authority identifies the relevant persistent generated state as repository-local Python bytecode/cache artifacts. No trusted target checkout was dirtied for reproduction."
+
+causal_tdd:
+  result: PASS
+  red_command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
+  red_evidence: "Before tools/verify.py existed, the focused regression suite failed with two FileNotFoundError errors for the missing repository-owned verification runner."
+  green_command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
+  green_evidence: "After the minimal runner was added, the focused suite ran 3 tests and all passed. Behavior probes proved both validator and unittest children use the exact current sys.executable with sys.dont_write_bytecode=true; the fixture produced no __pycache__, .pyc, or .pyo paths. A validator fixture exiting 7 caused the runner to return 7 and prevented unittest execution."
+
+repository_owned_verification:
+  result: PASS
+  canonical_command: "python tools/verify.py"
+  implementation_head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+  validator: "VALID: standards definition"
+  root_unittest: "Ran 57 tests in 3.808s; OK"
+  exact_final_clean_copy_test: PASS
+  cache_artifacts_before: []
+  cache_artifacts_after: []
+  git_status_after: clean
+  cleanup_used_as_proof: false
+  evidence: "The exact-final root suite includes test_runner_leaves_exact_tracked_copy_clean_without_cleanup. From the exact implementation checkout it copied only tracked exact-final files into a fresh Git repository, committed that exact snapshot, required zero Python cache artifacts before execution, ran the copied exact tools/verify.py, required validator success, then immediately required zero __pycache__/pyc/pyo artifacts and empty git status before leaving the test context. The later disposable-checkout synchronization occurred only after this evidence was captured and is not part of the TD-001 closure proof."
+
+candidate_verification:
+  result: PASS
+  status: NON_RELEASED_CANDIDATE
+  command: "python -B -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v"
+  tests_run: 12
+  model_blob: "9fd60367418de951cd9488088f402a817dc0914c"
+  test_blob: "4a9dc6a91277390299d2873b39d9faaf827754f3"
+  readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
+  cache_artifacts_after: []
+  evidence: "Exact candidate model/test materialization matched the remote Git blob identities, all 12 existing candidate tests passed under explicit -B bytecode suppression, and no candidate file was changed. The base-to-implementation compare proves the candidate subtree is untouched."
+
+implementation_diff:
+  result: PASS
+  base: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
+  head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+  ahead_by: 1
+  changed_paths:
+    - README.md
+    - tests/test_verify_hygiene.py
+    - tools/verify.py
+  frozen_generation_1_changed: false
+  candidate_changed: false
+  evidence: "GitHub compare reports exactly one implementation commit and exactly the three authorized paths. The implementation tree was built on the exact base tree, so STANDARD_MODEL.md, standards/manifest.yaml, all standards/*.yaml, tools/validate.py, requirements-validator.txt, existing test_validate.py, and candidate/assessment_kernel/* retain their exact base blobs."
+
+external_runtime_profile:
+  reachable: true
+  verify_argv_observable: false
+  repository_owned_entrypoint_aligned: false
+  local_profile_mutated: false
+  follow_up_required: true
+  evidence: "The reachable agent-runtime project can execute verification, but its available read surface does not expose verify_argv. Behavior proves the configured verifier is not the new repository-owned entrypoint: it successfully launched at the pre-change base where tools/verify.py did not exist, and after the implementation it still returned postcondition_failed with underlying exit code 0 while the exact-final clean-copy test of tools/verify.py stayed physically and Git-clean. No agent-runtime code, profile, schema, sync policy, or local configuration was modified."
+  suggested_next_step: "Operator configuration should be aligned to the repository-owned python tools/verify.py entrypoint in a separately authorized operator/configuration action."
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: ""
+  evidence: ""
+
+local_hygiene:
+  result: PASS
+  run_root: "/tmp/task0010-r1"
+  cleanup_performed: true
+  retained: []
+  evidence: "The run-owned /tmp/task0010-r1 root was realpath/ownership checked and removed only after all local evidence was captured. The disposable runtime checkout was synchronized back to the exact implementation commit and clean only after the no-cleanup closure evidence had already passed. Neither cleanup operation is used as acceptance evidence for TD-001."
+
+changed_files:
+  - path: README.md
+    summary: "Makes tools/verify.py the canonical repository-owned verification command while preserving dependency-installation guidance."
+    new_file: false
+    in_scope: true
+    structure_authorized: true
+  - path: tools/verify.py
+    summary: "Minimal standard-library orchestration runner using the current interpreter with -B for the existing validator and root unittest suite and propagating nonzero child results."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+  - path: tests/test_verify_hygiene.py
+    summary: "Focused deterministic regressions for current-interpreter no-bytecode execution, failure propagation, and exact-final clean-copy no-cache/no-cleanup behavior."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created:
+  - sha: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+    message: "fix: prevent verification bytecode mutation"
+
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Fresh disposable exact-base runtime verification had underlying exit 0, validator VALID, 54/54 tests OK, but changed the checkout clean postcondition to false without HEAD/ref drift."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "tools/verify.py delegates only to existing tools/validate.py and root unittest discovery through sys.executable -B, uses only the standard library, and returns the first nonzero child result."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "README Validation now keeps dependency installation guidance and documents python tools/verify.py as the single canonical verification command."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "Focused suite passes 3/3 and behaviorally proves exact current interpreter identity, dont_write_bytecode=true for both child paths, no cache generation, and propagation of validator exit code 7 without false success."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "Exact-final tracked-copy regression ran tools/verify.py from a fresh committed exact snapshot, then immediately observed no __pycache__/pyc/pyo paths and empty git status before any cleanup."
+  - criterion_id: AC-6
+    status: PROVEN
+    evidence: "Exact-final validator and complete root suite pass (57 tests); candidate focused suite passes 12/12 with -B; exact implementation compare contains no frozen Generation 1 or candidate path changes."
+  - criterion_id: AC-7
+    status: PROVEN
+    evidence: "Implementation contains no .gitignore, cleanup policy, dependency, CI, agent-runtime, schema, or runtime-profile mutation. The reachable external runtime profile alignment gap is recorded as non-blocking FOLLOW_UP."
+  - criterion_id: AC-8
+    status: PROVEN
+    evidence: "Implementation commit contains exactly README.md, tools/verify.py, and tests/test_verify_hygiene.py. This report is being enclosed in a report-only commit; final parent/path/ref topology is verified after the enclosing commit is pushed."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Exact base/dev/main/branch topology, TASK-0010 r1 blob, and pinned required skills were confirmed before mutation."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Fresh pre-change disposable runtime run completed validator + 54 tests successfully but failed only the clean postcondition."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Focused RED existed before runner implementation; minimal runner then made the behavior tests GREEN."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "Focused verification-hygiene suite: 3 tests, OK."
+  - check_id: CHECK-5
+    result: PASS
+    evidence: "Exact-final repository-owned runner behavior was exercised in a fresh committed exact tracked copy; validator PASS, full root suite PASS, no new bytecode/cache artifacts, and immediate git status clean before cleanup."
+  - check_id: CHECK-6
+    result: PASS
+    evidence: "Candidate focused suite under explicit -B: 12 tests, OK; candidate blobs unchanged."
+  - check_id: CHECK-7
+    result: PASS
+    evidence: "Pre-implementation-commit diff was exactly README.md, tools/verify.py, tests/test_verify_hygiene.py; frozen/candidate blobs and main remained unchanged."
+  - check_id: CHECK-8
+    result: PASS
+    evidence: "dev moved non-force to implementation commit 6f83e805596ac536c96d3fbcea26be5665f3ff0b; base compare is ahead by exactly one commit and contains only the three authorized implementation paths."
+  - check_id: CHECK-9
+    result: PENDING_ENCLOSING_REPORT_COMMIT_VERIFICATION
+    evidence: "Must be verified after this report is committed and pushed; report content cannot contain the identity of its own enclosing commit."
+
+discovered_gaps:
+  - gap_id: TD-001-EXTERNAL-PROFILE
+    classification: FOLLOW_UP
+    type: operator_configuration
+    severity: low
+    description: "The reachable agent-runtime agent-standards verifier behavior remains aligned to the legacy direct Python verification path rather than the new repository-owned tools/verify.py entrypoint."
+    evidence: "The profile verifier ran at the pre-change base where tools/verify.py did not exist and still produces postcondition_failed after the repo fix, while the exact-final clean-copy tools/verify.py behavior leaves no cache and an empty Git status. The connector does not expose verify_argv directly."
+    impact: "Repository-owned TD-001 is closed, but this external runtime profile can continue to dirty its disposable checkout until operator configuration is aligned."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "Execution-owned local run root was cleaned only after evidence capture; disposable runtime checkout is clean at the exact implementation HEAD. Remote dev points to the exact implementation HEAD immediately before the report commit."
+
+result: NEEDS_REVIEW
