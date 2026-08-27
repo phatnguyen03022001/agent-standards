@@ -1,0 +1,272 @@
+protocol_version: 3
+
+task_id: TASK-0008
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: user_request
+  task_id: ""
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - design-review
+  - adversarial-audit
+  - verification
+
+execution_skills:
+  required:
+    - executor
+    - adversarial-audit
+    - design-review
+    - verification
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: "User authorization to begin the next agent-standards architecture-validation task on dev, 2026-08-27"
+    role: "Authority to create and execute one bounded adversarial validation task"
+    precedence: 1
+  - source: "STANDARD_MODEL.md@3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+    role: "Frozen Generation 1 semantic baseline whose existing guarantees must not be rewritten by this task"
+    precedence: 2
+  - source: "phatnguyen03022001/agent-skills@0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+    role: "Pinned protocol v3, Architect/Executor governance, design-review, adversarial-audit, and verification authority"
+    precedence: 3
+
+structure_authority:
+  status: RESOLVED
+  source: "Existing .agent/tasks task layout plus pinned Task Protocol v3"
+  rationale: "This is a report-only adversarial architecture-validation task. Executor may create only .agent/tasks/TASK-0008/report.yaml; no standards, validator, test, documentation, dependency, topology, or release structure change is authorized."
+
+objective: "Adversarially attempt to falsify a minimal set of ten non-authoritative assessment-kernel hypotheses against four heterogeneous target archetypes and material cross-cutting counterexamples, preserving only invariants that survive the attacks and reporting the smallest necessary corrections without canonicalizing Generation 2 or changing frozen V1 semantics."
+
+kernel_hypotheses:
+  - id: H1
+    statement: "Assessment is claim-bound: evidence must support the exact semantics, scope, and inference asserted by the assessed claim."
+  - id: H2
+    statement: "Applicability is fact-based: unsupported applicability is UNKNOWN, not N/A; archetype labels never determine applicability."
+  - id: H3
+    statement: "PASS requires satisfaction of the exact normative obligation. PARTIAL, GAP, UNKNOWN, and EXCEPTION do not satisfy that obligation and must not contribute to any derived maturity claim. N/A excludes a demonstrably inapplicable obligation and does not count as satisfaction."
+  - id: H4
+    statement: "Maturity scalar is not presumed: no family scalar by default, and a dimension scalar exists only where a defensible cumulative ordinal ladder is proven; otherwise retain requirement- or claim-level state."
+  - id: H5
+    statement: "Assessment identity is material and typed: include every subject/context attribute whose difference could materially change interpretation of the exact assessed claim, without requiring a universal mega-schema."
+  - id: H6
+    statement: "Assessment change is not subject change: assessment knowledge increasing, score/status correction, or evidence improvement alone does not establish subject maturity improvement or regression."
+  - id: H7
+    statement: "Trajectory is claim- or maturity-bearing-unit-specific and requires both sufficient comparability for the exact comparison claim and evidence that the assessed property itself changed; score delta alone is insufficient."
+  - id: H8
+    statement: "Change basis may be multi-causal; subject, observation, assessment-correction, standards, scope, or other material bases must not be forced into one exclusive reason when several apply."
+  - id: H9
+    statement: "Assessment history is history of attributable judgments, not objective immutable maturity history; corrections and reinterpretations must remain distinguishable from substantive subject evolution."
+  - id: H10
+    statement: "No averaging, weighted aggregation, synthetic overall score, or other compensating compression may hide material failures across families, dimensions, requirements, claims, populations, surfaces, or scopes."
+
+adversarial_archetypes:
+  - id: A
+    name: consumer_learning_saas
+    fixture_role: "Adversarial fixture only; never an applicability profile"
+    facts:
+      - "Consumer learning product with recurring use, subscription economics, onboarding/support operations, longitudinal outcome claims, and possible causal-attribution claims."
+  - id: B
+    name: internal_engineering_tool
+    fixture_role: "Adversarial fixture only; never an applicability profile"
+    facts:
+      - "Internal tool with zero external revenue but potentially material build cost, operating cost, labor savings, vendor dependency, and opportunity cost."
+  - id: C
+    name: one_shot_migration_utility
+    fixture_role: "Adversarial fixture only; never an applicability profile"
+    facts:
+      - "Utility intended to complete a migration correctly once; successful users may never return, so retention can be near zero by design."
+  - id: D
+    name: regulated_high_consequence_service
+    fixture_role: "Adversarial fixture only; never an applicability profile"
+    facts:
+      - "Production service with external constraints, severe-consequence failure modes, user-facing trust concerns, technical security/privacy obligations, and organizational service operations."
+
+scope:
+  required_changes:
+    - "Resolve the exact TASK-0008 revision 1 authority and pinned agent-skills revision, refresh remote truth, and require the live dev HEAD to equal the handoff base before any mutation."
+    - "Treat H1-H10 strictly as KERNEL HYPOTHESES: intentionally minimal, non-authoritative, and subject to falsification. Do not treat any hypothesis as a draft standard merely because it appears in canonical task authority."
+    - "Attack every H1-H10 hypothesis against every A-D adversarial archetype. The report must contain an explicit 10 x 4 coverage matrix or an equivalently complete structure showing SURVIVES, FAILS, or AMBIGUOUS for each hypothesis/archetype pair with concise attributable reasoning."
+    - "Use the archetypes only as falsification fixtures. Determine applicability from factual properties of the assessed claim/target; never infer applicability or N/A from an archetype name or category."
+    - "For every FAILS or AMBIGUOUS result, identify the concrete counterexample or ambiguity, the exact broken assumption, the consequence if canonicalized unchanged, and the smallest correction that preserves useful semantics without adding unnecessary machinery."
+    - "Actively search for cross-cutting counterexamples beyond the four fixtures when a hypothesis survives the fixture matrix too easily; prefer minimal realistic counterexamples over theatrical edge cases."
+    - "Mandatory trajectory attack: same deployed source code while user outcome changes over time because curriculum, support process, population behavior, market conditions, or another non-source property changed. Determine whether and how substantive trajectory can be established without equating source revision with subject state."
+    - "Mandatory knowledge-vs-maturity attack: same underlying subject with improved instrumentation, newly available old evidence, or correction of a prior scoring mistake. Require the model not to call that subject improvement merely because the later assessment is higher."
+    - "Mandatory Business applicability attack: internal tool has zero external revenue but verified material labor savings/costs/vendor dependence. Require the model not to equate Business applicability with monetization or external revenue."
+    - "Mandatory User/Product applicability attack: one-shot migration utility has successful intended outcomes and near-zero retention by design. Require the model not to make retention a universal maturity requirement."
+    - "Mandatory family-boundary attack: regulated service can have user-reported trust PASS-like evidence while Engineering SEC independently has a known GAP. Require the model to preserve both facts without family bleed-through or compensating aggregation."
+    - "Mandatory scalar attack: identify at least one plausible non-engineering dimension candidate whose requirements do not form a defensible cumulative ordinal ladder, and verify the kernel permits requirement/claim-level assessment without manufacturing a dimension scalar."
+    - "Mandatory identity attack: test both under-specified subject identity and over-specified universal mega-schema failure modes; derive only the material typed context needed for the exact claim."
+    - "Mandatory inference attack: compare observational outcome evidence with a stronger causal product-contribution claim and verify that the evidence obligations must support the stronger causal inference without introducing a generic claim-strength or evidence-strength score."
+    - "Produce only .agent/tasks/TASK-0008/report.yaml as Executor-owned durable evidence. The report may propose corrected kernel hypotheses and surviving invariants for Architect review, but it must not declare them canonical, approved, Generation 2, or released."
+    - "Commit and push the report on dev, verify that the report is the sole Executor content change from the handoff base, then stop at the Architect review boundary with NEEDS_REVIEW."
+  allowed_existing_files_or_components:
+    - README.md
+    - STANDARD_MODEL.md
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tests/test_validate.py
+    - requirements-validator.txt
+    - .agent/tasks/TASK-0008/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "Frozen Generation 1 semantics remain unchanged; this task neither edits nor reinterprets V1 normative requirements as Generation 2 authority."
+  - "H1-H10 are hypotheses under test, not normative standards."
+  - "Archetypes A-D are adversarial fixtures only and never applicability profiles."
+  - "Applicability follows target/claim facts; missing evidence yields UNKNOWN rather than opportunistic N/A."
+  - "Requirement-status semantics remain meaningful even when no maturity scalar exists."
+  - "No family-level maturity scalar is presumed."
+  - "No dimension-level maturity scalar is presumed unless a cumulative ordinal ladder is independently defensible for that dimension."
+  - "Assessment subject identity is not equivalent to repository commit identity."
+  - "Assessment knowledge increase is not subject maturity increase."
+  - "Assessment evidence must support the exact semantics, scope, and inference asserted."
+  - "No generic claim-strength, confidence, evidence-strength, evidence-quality, percentage, point, weighted, or overall scoring scale is introduced by this task."
+  - "Trajectory conclusions attach to the exact comparable assessed claim/unit and require evidence of substantive property change, not merely changed assessment output."
+  - "Change basis may be multi-causal."
+  - "Assessment history records attributable judgments and does not manufacture objective immutable maturity history."
+  - "User/Product outcome realization and causal product contribution remain distinguishable; causal attribution is not promoted to a universal dimension without evidence that such ownership is necessary."
+  - "Engineering OPS remains software operability/delivery; any future Service Operations concept must not silently absorb or redefine existing Engineering OPS."
+  - "No averaging or compensating aggregation may hide a material blocker."
+
+forbidden_changes:
+  - "Any mutation to README.md, STANDARD_MODEL.md, standards/manifest.yaml, standards/*.yaml, tools/validate.py, tests/test_validate.py, requirements-validator.txt, LICENSE, or any frozen V1 semantic artifact."
+  - "Any modification to .agent/tasks/TASK-0008/task.yaml by Executor."
+  - "Any creation of Generation 2 standards, family manifests, dimension files, lifecycle model, maturity snapshot schema, evidence taxonomy, validator rule, test framework, migration machinery, or other normative/implementation artifact."
+  - "Any canonical family or dimension list beyond observations necessary to test the hypotheses."
+  - "Any universal archetype-to-applicability mapping."
+  - "Any family-level, overall, weighted, averaged, percentage, point, generic confidence, generic claim-strength, or generic evidence-strength score."
+  - "Any requirement that source revision must change before substantive subject trajectory can exist."
+  - "Any inference that changed assessment output alone proves subject improvement/regression."
+  - "Any branch creation, main mutation, promotion, tag, release, repository metadata mutation, dependency change, CI/Actions change, or external publication."
+  - "Any new file except .agent/tasks/TASK-0008/report.yaml."
+  - "Any TASK-0009 or later task, review.yaml, continuation artifact, or additional planning artifact created by Executor."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0008/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "Every H1-H10 hypothesis is adversarially evaluated against every A-D fixture with no skipped cell and no archetype used as an applicability shortcut."
+    evidence_required: "A complete 10 x 4 matrix or equivalently explicit per-pair structure with SURVIVES/FAILS/AMBIGUOUS outcome and concise reasoning."
+  - id: AC-2
+    requirement: "All mandatory counterexample classes in task scope are explicitly tested: non-source subject change, knowledge-only assessment change, internal-tool economics without revenue, one-shot utility without retention, cross-family trust/security divergence, non-ladder dimension, typed/material identity, and causal-inference burden."
+    evidence_required: "Named report sections or structured findings showing each attack, result, and any minimum correction."
+  - id: AC-3
+    requirement: "The report preserves the distinctions among PASS, PARTIAL, GAP, UNKNOWN, N/A, and EXCEPTION without assuming a maturity scalar and does not introduce compensating or soft scoring."
+    evidence_required: "Explicit analysis of status algebra under at least one no-scalar case plus anti-gaming conclusions."
+  - id: AC-4
+    requirement: "Trajectory conclusions require both comparability sufficient for the exact comparison claim and evidence that the assessed property changed; assessment correction/evidence improvement alone is not labeled subject improvement."
+    evidence_required: "At least one positive substantive-trajectory case and at least two false-positive delta cases rejected for distinct reasons."
+  - id: AC-5
+    requirement: "Any proposed kernel correction is the smallest change needed to close a reproduced counterexample and remains non-authoritative pending Architect review."
+    evidence_required: "For each FAILS/AMBIGUOUS item, counterexample -> consequence -> minimum correction traceability; surviving items are not gratuitously rewritten."
+  - id: AC-6
+    requirement: "The Executor leaves frozen V1 and all non-report repository content untouched and publishes only the canonical TASK-0008 report on dev."
+    evidence_required: "Exact post-push compare from handoff base showing only .agent/tasks/TASK-0008/report.yaml changed and main remained unchanged."
+  - id: AC-7
+    requirement: "The report gives the Architect a bounded next-decision summary without self-accepting the design."
+    evidence_required: "A final advisory conclusion identifying hypotheses that survived unchanged, require correction, remain ambiguous, and any structural blocker discovered; terminal result remains NEEDS_REVIEW."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "At execution start, refresh remote refs and require dev equals the exact handoff base, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches remain exactly {dev, main}, TASK-0008 revision 1 resolves at the base, and pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1 is accessible."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Verify TASK-0008 planning changed only .agent/tasks/TASK-0008/task.yaml relative to 3f4950f280a3a35fee81471d4b83715fa72cf9ee and no frozen V1 semantic artifact changed before analysis begins."
+      required: true
+    - id: CHECK-3
+      command_or_check: "Verify report coverage contains all 40 HxA cells plus every mandatory attack required by AC-2, and that no surviving hypothesis is claimed canonical or approved."
+      required: true
+    - id: CHECK-4
+      command_or_check: "Before report commit, verify the only intended content change is .agent/tasks/TASK-0008/report.yaml and refresh dev/main for staleness."
+      required: true
+    - id: CHECK-5
+      command_or_check: "After report commit/push, require dev equals the exact report commit; its sole parent is the handoff base; only .agent/tasks/TASK-0008/report.yaml changed; main still equals 3f4950f280a3a35fee81471d4b83715fa72cf9ee; branches remain exactly {dev, main}; then stop NEEDS_REVIEW."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: ""
+    expected_signal: ""
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions:
+  - "If live dev differs from the exact handoff base before mutation, stop STALE_STATE; do not adopt a newer SHA, rebase, merge, reset, or rewrite task authority."
+  - "If TASK-0008 revision 1, frozen V1 baseline, or pinned agent-skills authority cannot be resolved exactly, stop BLOCKED or AUTHORITY_REQUIRED rather than reconstructing semantics from memory."
+  - "If a hypothesis is genuinely underdetermined by the fixtures, record AMBIGUOUS with the missing decision/evidence and minimum needed clarification; do not manufacture a PASS/SURVIVES result."
+  - "A reproduced conceptual counterexample does not authorize editing standards or task authority. Record it in report evidence and return it to Architect review."
+  - "If required repository content write/push capability is unavailable, stop CURRENT_PHASE_CAPABILITY_UNAVAILABLE before any mutation."
+
+execution_ready: true
