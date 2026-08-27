@@ -9,6 +9,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 VERIFY = ROOT / "tools" / "verify.py"
+NESTED_EXACT_COPY = "AGENT_STANDARDS_NESTED_EXACT_COPY"
 
 
 class VerifyHygieneTests(unittest.TestCase):
@@ -75,7 +76,7 @@ class Probe(unittest.TestCase):
             td.cleanup()
 
     def test_runner_leaves_exact_tracked_copy_clean_without_cleanup(self):
-        if sys.dont_write_bytecode:
+        if os.environ.get(NESTED_EXACT_COPY) == "1":
             return
 
         listed = subprocess.run(
@@ -104,9 +105,11 @@ class Probe(unittest.TestCase):
             )
             self.assertEqual([], self._cache_artifacts(root))
 
+            env = dict(os.environ, **{NESTED_EXACT_COPY: "1"})
             completed = subprocess.run(
                 [sys.executable, str(root / "tools" / "verify.py")],
                 cwd=root,
+                env=env,
                 text=True,
                 capture_output=True,
                 check=False,
