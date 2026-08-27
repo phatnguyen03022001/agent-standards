@@ -1,24 +1,24 @@
 protocol_version: 3
 
 task_id: TASK-0010
-task_revision: 1
-report_revision: 1
+task_revision: 2
+report_revision: 2
 state: REPORTED
 
 task_source:
   path: .agent/tasks/TASK-0010/task.yaml
-  commit: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
-  blob_sha: "c523841fd80b13ab1f9d491321fb7a20c60cc428"
+  commit: "e47f5168b895a2fcb3fd759f8541366bbb8a296a"
+  blob_sha: "6a4e4f4679e58eddc887ec4dabef49d4e5b88601"
 
 execution:
   repository: phatnguyen03022001/agent-standards
   branch:
     name: dev
     role: integration
-  authorized_base_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
-  pre_execution_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
-  final_execution_head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
-  mode: bounded_td001_verification_hygiene_closure
+  authorized_base_head: "e47f5168b895a2fcb3fd759f8541366bbb8a296a"
+  pre_execution_head: "e47f5168b895a2fcb3fd759f8541366bbb8a296a"
+  final_execution_head: "a695dc5525a816780c6004bad73f04ccf025d68a"
+  mode: bounded_vf001_verification_false_green_closure
 
 skill_library:
   repository: phatnguyen03022001/agent-skills
@@ -35,7 +35,6 @@ execution_skills_used:
 
 pre_execution_checks:
   protocol_version_supported: true
-  handoff_type_confirmed: true
   task_at_base_confirmed: true
   task_identity_confirmed: true
   architect_binding_confirmed: true
@@ -45,8 +44,7 @@ pre_execution_checks:
   skill_revision_confirmed: true
   required_execution_skills_available: true
   structure_authority_confirmed: true
-  working_tree_clean: true
-  evidence: "Fresh remote truth before mutation: dev=2df9d481acda9d9fa3821f82cb0ae2302676d9e4, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}. TASK-0010 revision 1 resolved at the exact base as blob c523841fd80b13ab1f9d491321fb7a20c60cc428. Required executor/simplicity/verification skills resolved at pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1. The disposable agent-runtime checkout was synchronized to the exact base and was clean before the fresh reproduction."
+  evidence: "Revision-2 authority was resolved at exact base e47f5168b895a2fcb3fd759f8541366bbb8a296a as task blob 6a4e4f4679e58eddc887ec4dabef49d4e5b88601. Fresh remote truth before the first revision-2 mutation and again at publication continuation showed dev=e47f5168b895a2fcb3fd759f8541366bbb8a296a, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}. Required executor/simplicity/verification skills were re-resolved at the pinned agent-skills revision."
 
 capability_preflight:
   phase: EXECUTION
@@ -62,74 +60,103 @@ capability_preflight:
     - deterministic_python_test_execution
   missing: []
   passed: true
-  evidence: "Exact GitHub ref/content reads and bounded Git-data writes were available. Deterministic Python execution was proven before repository mutation using Python 3.13 with the repository's PyYAML dependency and the exact-base runtime verification: validator and all 54 Generation 1 tests completed successfully with exit code 0."
+  evidence: "Exact GitHub ref/content reads and bounded Git-data writes were available. Deterministic Python execution was proven in the uninterrupted revision-2 execution segment before any dev ref mutation using Python 3.13 with the repository's PyYAML dependency; focused, canonical, and candidate verification completed on the prepared exact-final fixture. The publication continuation preserved that evidence only after the prepared blob/tree identity was revalidated against the same exact base and authority."
 
-td_001_reproduction:
-  debt_id: TD-001
-  result: REPRODUCED_AND_CLOSED_FOR_REVIEW
-  workspace: disposable_agent_runtime_checkout
-  run_id: "9f5282c754a74803be938ec1bc66e17b"
-  base_head: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
-  precondition_clean: true
-  underlying_exit_code: 0
-  validator: "VALID: standards definition"
-  unittest: "Ran 54 tests in 1.571s; OK"
-  postcondition_clean: false
-  runtime_result: postcondition_failed
-  evidence: "Fresh pre-change verification succeeded at the validator/test layer but changed the disposable checkout from clean to non-clean while HEAD, branch, remote identity, and synchronization remained unchanged. The runtime surface exposes the dirty transition but not individual status paths; the canonical task's reproduced-problem authority identifies the relevant persistent generated state as repository-local Python bytecode/cache artifacts. No trusted target checkout was dirtied for reproduction."
+continuation_history:
+  - segment: revision_2_initial_execution
+    terminal: INCOMPLETE_EXECUTION
+    remote_dev_mutated: false
+    evidence: "VF-001 was behaviorally reproduced, the authorized one-file correction was produced and fully verified, corrected blob 59e26d5a6f071812d45d7b5234fe3217f6434126 and prepared tree bbdc59d0341c1a1c03f3641b4e9a7d5b8d618ae1 were created, but execution stopped before any dev ref mutation or report update."
+  - segment: revision_2_execution_continuation
+    start_dev: "e47f5168b895a2fcb3fd759f8541366bbb8a296a"
+    evidence: "Remote truth and pinned authority were refreshed. A commit object was created from the already prepared tree with the exact base as its sole parent, then base-to-candidate comparison proved ahead_by=1 and exactly one changed path tests/test_verify_hygiene.py before dev was non-force updated. Existing causal and deterministic verification evidence remained attributable because the prepared corrected blob and tree identities were unchanged."
 
-causal_tdd:
+vf_001_reproduction:
+  finding_id: VF-001
+  classification: verification_false_green
+  result: REPRODUCED
+  revision_1_test_blob: "19b52c775791b4faae3fc2e01802a6cc8393775f"
+  command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
+  sys_dont_write_bytecode: true
+  proof_body_subprocess_calls: 0
+  proof_body_executed: false
+  evidence: "Under the canonical -B root environment, revision-1 test_runner_leaves_exact_tracked_copy_clean_without_cleanup returned immediately because sys.dont_write_bytecode was true. Behavioral instrumentation recorded zero subprocess calls from the method, proving it never reached git ls-files, exact-copy creation, copied verifier execution, cache inspection, or Git-status inspection despite the test passing."
+
+vf_001_correction:
   result: PASS
-  red_command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
-  red_evidence: "Before tools/verify.py existed, the focused regression suite failed with two FileNotFoundError errors for the missing repository-owned verification runner."
-  green_command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
-  green_evidence: "After the minimal runner was added, the focused suite ran 3 tests and all passed. Behavior probes proved both validator and unittest children use the exact current sys.executable with sys.dont_write_bytecode=true; the fixture produced no __pycache__, .pyc, or .pyo paths. A validator fixture exiting 7 caused the runner to return 7 and prevented unittest execution."
+  changed_path: tests/test_verify_hygiene.py
+  corrected_blob: "59e26d5a6f071812d45d7b5234fe3217f6434126"
+  prepared_tree: "bbdc59d0341c1a1c03f3641b4e9a7d5b8d618ae1"
+  recursion_sentinel: AGENT_STANDARDS_NESTED_EXACT_COPY
+  sentinel_scope: "Only the recursively nested instance of test_runner_leaves_exact_tracked_copy_clean_without_cleanup returns when the sentinel equals 1. The outer proof does not use sys.dont_write_bytecode as a suppression condition."
+  evidence: "The correction replaced the dont_write_bytecode early return with an explicit test-owned nested-verification sentinel and passes that sentinel only to the copied exact tools/verify.py process. Validator execution, ordinary root tests, bytecode-behavior verification, and validator-failure propagation remain unsuppressed. No tools/verify.py change was required."
+
+focused_verification:
+  result: PASS
+  command: "python -B -m unittest discover -s tests -p 'test_verify_hygiene.py' -v"
+  tests_run: 3
+  proof_body_executed: true
+  behavioral_marker: "A separate behavior probe under sys.dont_write_bytecode=true reached the git ls-files subprocess boundary, which revision 1 never reached."
+  cache_artifacts_after: []
+  evidence: "All 3 focused hygiene regressions passed under explicit -B. The outer exact-copy proof executed despite sys.dont_write_bytecode=true; only the copied verifier's recursively nested self-test saw AGENT_STANDARDS_NESTED_EXACT_COPY=1 and returned."
 
 repository_owned_verification:
   result: PASS
   canonical_command: "python tools/verify.py"
-  implementation_head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+  implementation_head: "a695dc5525a816780c6004bad73f04ccf025d68a"
   validator: "VALID: standards definition"
-  root_unittest: "Ran 57 tests in 3.808s; OK"
-  exact_final_clean_copy_test: PASS
+  root_unittest: "Ran 57 tests; OK"
+  exact_final_clean_copy_test_executed: true
   cache_artifacts_before: []
   cache_artifacts_after: []
+  git_status_before: clean
   git_status_after: clean
   cleanup_used_as_proof: false
-  evidence: "The exact-final root suite includes test_runner_leaves_exact_tracked_copy_clean_without_cleanup. From the exact implementation checkout it copied only tracked exact-final files into a fresh Git repository, committed that exact snapshot, required zero Python cache artifacts before execution, ran the copied exact tools/verify.py, required validator success, then immediately required zero __pycache__/pyc/pyo artifacts and empty git status before leaving the test context. The later disposable-checkout synchronization occurred only after this evidence was captured and is not part of the TD-001 closure proof."
+  evidence: "An exact-final disposable fixture was materialized from the pinned Git blobs, including corrected hygiene blob 59e26d5a6f071812d45d7b5234fe3217f6434126. Before verification the fixture was Git-clean with zero Python cache artifacts. python tools/verify.py passed validator plus the complete 57-test root suite. The outer exact-copy test executed during that canonical run; immediately after the copied verification it observed zero __pycache__/pyc/pyo artifacts and empty git status before any temporary-directory cleanup."
 
 candidate_verification:
   result: PASS
   status: NON_RELEASED_CANDIDATE
   command: "python -B -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v"
   tests_run: 12
+  readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
   model_blob: "9fd60367418de951cd9488088f402a817dc0914c"
   test_blob: "4a9dc6a91277390299d2873b39d9faaf827754f3"
-  readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
   cache_artifacts_after: []
-  evidence: "Exact candidate model/test materialization matched the remote Git blob identities, all 12 existing candidate tests passed under explicit -B bytecode suppression, and no candidate file was changed. The base-to-implementation compare proves the candidate subtree is untouched."
+  evidence: "All existing 12 Assessment Kernel Candidate regressions passed under explicit -B from exact pinned blobs. No candidate file changed."
+
+preserved_invariants:
+  readme_blob: "09c61dd62a4beb763b0d302fe710ec13c9a9359c"
+  verify_blob: "b5570a6e86887275fa804eaf771fa54dc1002382"
+  validate_blob: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+  test_validate_blob: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+  standard_model_blob: "6720cfba97e04279930cf26dccf6558fbc881355"
+  standards_tree: "67355474a553be3d0b59105157640b1ddfdb4fde"
+  candidate_tree: "556e793d0ef298b0dc57accf811011eb97b79aff"
+  frozen_generation_1_changed: false
+  assessment_kernel_candidate_changed: false
+  tools_verify_changed: false
+  readme_changed: false
+  evidence: "The implementation tree was derived from the exact base tree and changed only tests/test_verify_hygiene.py. Git object identities for README.md, tools/verify.py, tools/validate.py, tests/test_validate.py, STANDARD_MODEL.md, the frozen standards tree, and the Assessment Kernel Candidate tree remain exact."
 
 implementation_diff:
   result: PASS
-  base: "2df9d481acda9d9fa3821f82cb0ae2302676d9e4"
-  head: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
+  base: "e47f5168b895a2fcb3fd759f8541366bbb8a296a"
+  head: "a695dc5525a816780c6004bad73f04ccf025d68a"
   ahead_by: 1
   changed_paths:
-    - README.md
     - tests/test_verify_hygiene.py
-    - tools/verify.py
-  frozen_generation_1_changed: false
-  candidate_changed: false
-  evidence: "GitHub compare reports exactly one implementation commit and exactly the three authorized paths. The implementation tree was built on the exact base tree, so STANDARD_MODEL.md, standards/manifest.yaml, all standards/*.yaml, tools/validate.py, requirements-validator.txt, existing test_validate.py, and candidate/assessment_kernel/* retain their exact base blobs."
+  additions: 4
+  deletions: 1
+  evidence: "GitHub compare performed before dev mutation and repeated after the non-force push reports exactly one implementation commit and exactly one changed path tests/test_verify_hygiene.py."
 
 external_runtime_profile:
-  reachable: true
-  verify_argv_observable: false
-  repository_owned_entrypoint_aligned: false
+  status: FOLLOW_UP
+  inherited_from_report_revision: 1
   local_profile_mutated: false
-  follow_up_required: true
-  evidence: "The reachable agent-runtime project can execute verification, but its available read surface does not expose verify_argv. Behavior proves the configured verifier is not the new repository-owned entrypoint: it successfully launched at the pre-change base where tools/verify.py did not exist, and after the implementation it still returned postcondition_failed with underlying exit code 0 while the exact-final clean-copy test of tools/verify.py stayed physically and Git-clean. No agent-runtime code, profile, schema, sync policy, or local configuration was modified."
-  suggested_next_step: "Operator configuration should be aligned to the repository-owned python tools/verify.py entrypoint in a separately authorized operator/configuration action."
+  agent_runtime_mutated: false
+  blocks_current_task: false
+  evidence: "Revision 2 explicitly preserves the revision-1 external runtime-profile observation as FOLLOW_UP only. No profile, agent-runtime code, schema, configuration, sync policy, or verifier argv was mutated or re-scoped during this execution."
 
 authoritative_verification:
   required: false
@@ -139,31 +166,20 @@ authoritative_verification:
 
 local_hygiene:
   result: PASS
-  run_root: "/tmp/task0010-r1"
-  cleanup_performed: true
+  cleanup_used_as_acceptance_evidence: false
   retained: []
-  evidence: "The run-owned /tmp/task0010-r1 root was realpath/ownership checked and removed only after all local evidence was captured. The disposable runtime checkout was synchronized back to the exact implementation commit and clean only after the no-cleanup closure evidence had already passed. Neither cleanup operation is used as acceptance evidence for TD-001."
+  evidence: "Verification used execution-owned temporary fixtures. The required no-cache/no-cleanup assertion was captured before temporary fixture cleanup; cleanup is not part of VF-001 or TD-001 acceptance evidence."
 
 changed_files:
-  - path: README.md
-    summary: "Makes tools/verify.py the canonical repository-owned verification command while preserving dependency-installation guidance."
-    new_file: false
-    in_scope: true
-    structure_authorized: true
-  - path: tools/verify.py
-    summary: "Minimal standard-library orchestration runner using the current interpreter with -B for the existing validator and root unittest suite and propagating nonzero child results."
-    new_file: true
-    in_scope: true
-    structure_authorized: true
   - path: tests/test_verify_hygiene.py
-    summary: "Focused deterministic regressions for current-interpreter no-bytecode execution, failure propagation, and exact-final clean-copy no-cache/no-cleanup behavior."
-    new_file: true
+    summary: "Replaces dont_write_bytecode-based outer-proof suppression with the narrow AGENT_STANDARDS_NESTED_EXACT_COPY nested-verification sentinel so the outer exact-copy proof executes under canonical -B."
+    new_file: false
     in_scope: true
     structure_authorized: true
 
 commits_created:
-  - sha: "6f83e805596ac536c96d3fbcea26be5665f3ff0b"
-    message: "fix: prevent verification bytecode mutation"
+  - sha: "a695dc5525a816780c6004bad73f04ccf025d68a"
+    message: "test: execute exact verification proof under -B"
 
 pushed: true
 promoted_to_main: false
@@ -171,66 +187,54 @@ promoted_to_main: false
 acceptance_evidence:
   - criterion_id: AC-1
     status: PROVEN
-    evidence: "Fresh disposable exact-base runtime verification had underlying exit 0, validator VALID, 54/54 tests OK, but changed the checkout clean postcondition to false without HEAD/ref drift."
+    evidence: "Behavioral RED under -B observed sys.dont_write_bytecode=true and zero subprocess calls from the revision-1 exact-copy test, proving its passing result was false-green."
   - criterion_id: AC-2
     status: PROVEN
-    evidence: "tools/verify.py delegates only to existing tools/validate.py and root unittest discovery through sys.executable -B, uses only the standard library, and returns the first nonzero child result."
+    evidence: "Focused GREEN passes 3/3 under -B; behavior instrumentation proves the corrected outer proof reaches git ls-files. The explicit AGENT_STANDARDS_NESTED_EXACT_COPY sentinel suppresses only the recursively nested self-test."
   - criterion_id: AC-3
     status: PROVEN
-    evidence: "README Validation now keeps dependency installation guidance and documents python tools/verify.py as the single canonical verification command."
+    evidence: "python tools/verify.py passes validator and all 57 root tests on exact-final state. The exact-copy proof executes during that run and observes zero cache artifacts plus empty git status immediately after copied verification before cleanup."
   - criterion_id: AC-4
     status: PROVEN
-    evidence: "Focused suite passes 3/3 and behaviorally proves exact current interpreter identity, dont_write_bytecode=true for both child paths, no cache generation, and propagation of validator exit code 7 without false success."
+    evidence: "README.md, tools/verify.py, frozen Generation 1, and Assessment Kernel Candidate Git identities are unchanged. Candidate 12/12 passes under explicit -B."
   - criterion_id: AC-5
-    status: PROVEN
-    evidence: "Exact-final tracked-copy regression ran tools/verify.py from a fresh committed exact snapshot, then immediately observed no __pycache__/pyc/pyo paths and empty git status before any cleanup."
-  - criterion_id: AC-6
-    status: PROVEN
-    evidence: "Exact-final validator and complete root suite pass (57 tests); candidate focused suite passes 12/12 with -B; exact implementation compare contains no frozen Generation 1 or candidate path changes."
-  - criterion_id: AC-7
-    status: PROVEN
-    evidence: "Implementation contains no .gitignore, cleanup policy, dependency, CI, agent-runtime, schema, or runtime-profile mutation. The reachable external runtime profile alignment gap is recorded as non-blocking FOLLOW_UP."
-  - criterion_id: AC-8
-    status: PROVEN
-    evidence: "Implementation commit contains exactly README.md, tools/verify.py, and tests/test_verify_hygiene.py. This report is being enclosed in a report-only commit; final parent/path/ref topology is verified after the enclosing commit is pushed."
+    status: PROVEN_PENDING_ENCLOSING_REPORT_COMMIT_CHECK
+    evidence: "Implementation diff is exactly tests/test_verify_hygiene.py; no runtime/profile mutation occurred; main and topology remain unchanged through implementation publication. The report-only enclosing commit is verified after this file is committed because the report cannot self-record its own enclosing commit identity."
 
 executor_checks:
   - check_id: CHECK-1
     result: PASS
-    evidence: "Exact base/dev/main/branch topology, TASK-0010 r1 blob, and pinned required skills were confirmed before mutation."
+    evidence: "At both revision-2 start and publication continuation, dev equaled e47f5168b895a2fcb3fd759f8541366bbb8a296a before mutation, main equaled 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches were exactly {dev, main}, TASK-0010 revision 2 resolved at task blob 6a4e4f4679e58eddc887ec4dabef49d4e5b88601, and pinned required skills were accessible."
   - check_id: CHECK-2
     result: PASS
-    evidence: "Fresh pre-change disposable runtime run completed validator + 54 tests successfully but failed only the clean postcondition."
+    evidence: "VF-001 was behaviorally reproduced under -B: revision-1 exact-copy test passed while making zero subprocess calls."
   - check_id: CHECK-3
     result: PASS
-    evidence: "Focused RED existed before runner implementation; minimal runner then made the behavior tests GREEN."
+    evidence: "Focused corrected hygiene suite under -B passed 3/3 and a behavior probe proved the outer proof body executed by reaching git ls-files."
   - check_id: CHECK-4
     result: PASS
-    evidence: "Focused verification-hygiene suite: 3 tests, OK."
+    evidence: "Canonical python tools/verify.py passed validator plus complete 57-test root suite on exact-final fixture; exact-copy proof executed and immediate pre-cleanup cache/status assertions passed."
   - check_id: CHECK-5
     result: PASS
-    evidence: "Exact-final repository-owned runner behavior was exercised in a fresh committed exact tracked copy; validator PASS, full root suite PASS, no new bytecode/cache artifacts, and immediate git status clean before cleanup."
+    evidence: "Candidate focused suite under explicit -B passed 12/12 with exact unchanged candidate blobs."
   - check_id: CHECK-6
     result: PASS
-    evidence: "Candidate focused suite under explicit -B: 12 tests, OK; candidate blobs unchanged."
+    evidence: "Prepared implementation identity and final implementation compare change only tests/test_verify_hygiene.py. README.md, tools/verify.py, frozen V1, and candidate identities remain exact."
   - check_id: CHECK-7
     result: PASS
-    evidence: "Pre-implementation-commit diff was exactly README.md, tools/verify.py, tests/test_verify_hygiene.py; frozen/candidate blobs and main remained unchanged."
+    evidence: "dev was non-force updated to a695dc5525a816780c6004bad73f04ccf025d68a; post-push base compare is ahead_by=1 and changes only tests/test_verify_hygiene.py."
   - check_id: CHECK-8
-    result: PASS
-    evidence: "dev moved non-force to implementation commit 6f83e805596ac536c96d3fbcea26be5665f3ff0b; base compare is ahead by exactly one commit and contains only the three authorized implementation paths."
-  - check_id: CHECK-9
     result: PENDING_ENCLOSING_REPORT_COMMIT_VERIFICATION
-    evidence: "Must be verified after this report is committed and pushed; report content cannot contain the identity of its own enclosing commit."
+    evidence: "Must be verified after this report is committed and pushed: dev must equal the enclosing report commit, whose sole parent is a695dc5525a816780c6004bad73f04ccf025d68a and whose diff changes only .agent/tasks/TASK-0010/report.yaml; main/topology must remain unchanged."
 
 discovered_gaps:
   - gap_id: TD-001-EXTERNAL-PROFILE
     classification: FOLLOW_UP
     type: operator_configuration
     severity: low
-    description: "The reachable agent-runtime agent-standards verifier behavior remains aligned to the legacy direct Python verification path rather than the new repository-owned tools/verify.py entrypoint."
-    evidence: "The profile verifier ran at the pre-change base where tools/verify.py did not exist and still produces postcondition_failed after the repo fix, while the exact-final clean-copy tools/verify.py behavior leaves no cache and an empty Git status. The connector does not expose verify_argv directly."
-    impact: "Repository-owned TD-001 is closed, but this external runtime profile can continue to dirty its disposable checkout until operator configuration is aligned."
+    description: "The revision-1 external runtime-profile alignment observation remains outside TASK-0010 revision-2 mutation scope."
+    evidence: "Revision 2 explicitly preserved this observation as FOLLOW_UP only and prohibited agent-runtime/profile mutation."
+    impact: "No impact on the repository-owned VF-001 closure evidence; external operator configuration remains separately actionable."
     blocks_current_task: false
     action_taken: none
     suggested_next_step: architect_review
@@ -241,6 +245,6 @@ blockers: []
 
 working_tree_after:
   clean: true
-  summary: "Execution-owned local run root was cleaned only after evidence capture; disposable runtime checkout is clean at the exact implementation HEAD. Remote dev points to the exact implementation HEAD immediately before the report commit."
+  summary: "Exact-final verification fixture was clean before cleanup and no persistent run-owned evidence remains. Publication continuation used Git object/ref operations only."
 
 result: NEEDS_REVIEW
