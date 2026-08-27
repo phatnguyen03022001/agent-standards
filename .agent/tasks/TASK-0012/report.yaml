@@ -1,0 +1,258 @@
+protocol_version: 3
+
+task_id: TASK-0012
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0012/task.yaml
+  commit: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+  blob_sha: "3298c4c603d7ae64a20e4c43c5925109c650d74f"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+  pre_execution_head: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+  final_execution_head: "c6a5830f0fab7358868b1ea9cb0d930e733f250f"
+  mode: bounded_assessment_kernel_identity_hygiene_correction
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - verification
+    - simplicity
+  recommended: []
+  external: []
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+  evidence: "Initial execution and publication continuation both refreshed GitHub truth before mutation. At each mutation gate dev equaled the exact authorized state for that segment, main remained 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches were exactly {dev, main}, TASK-0012 revision 1 resolved at task blob 3298c4c603d7ae64a20e4c43c5925109c650d74f, and required executor/verification/simplicity skills resolved at pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1."
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  missing: []
+  passed: true
+  evidence: "GitHub exact ref/content reads and bounded Git object/ref writes were available. Deterministic Python execution was available as Python 3.13.5 and was used in the uninterrupted implementation segment for causal TDD, focused candidate verification, trust-boundary preservation checks, and repository-owned Generation 1 verification before any branch mutation."
+
+continuation_history:
+  - segment: initial_execution
+    terminal: INCOMPLETE_EXECUTION
+    remote_dev_mutated: false
+    authorized_base: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+    evidence: "Causal RED, minimal correction, focused 17/17 candidate verification, F-003/F-004 preservation, and current repository-owned Generation 1 57/57 verification were completed on exact final candidate blobs. Final candidate blobs were uploaded and hash-gated; transfer-corrupted detached blob attempts were rejected before tree/commit/ref use. Exact detached implementation tree 4fc929ea5cf4f0ac0dc98fab9663233d2a8e1cd6 was prepared, but execution stopped before any implementation commit or dev ref mutation."
+  - segment: publication_continuation
+    start_dev: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+    evidence: "Fresh repository truth, TASK-0012 authority, pinned required skills, and report absence were revalidated. Immutable detached tree 4fc929ea5cf4f0ac0dc98fab9663233d2a8e1cd6 was re-read and contained the exact previously verified final blobs. Because those immutable Git object identities exactly matched the completed verification subject, causal RED and 17/17/57/57 verification were not repeated as ceremony. Implementation commit c6a5830f0fab7358868b1ea9cb0d930e733f250f was created with the exact base as sole parent and the verified detached tree, compared before publication, then dev was advanced non-force."
+
+prepared_implementation:
+  result: PASS
+  detached_tree: "4fc929ea5cf4f0ac0dc98fab9663233d2a8e1cd6"
+  base_tree: "bb1396cce73c0a0c846ff35cce6ef319f42a9e8b"
+  candidate_tree: "77527a5da93ce8275e7591e7fd16811aed040009"
+  readme_blob: "b6bb9a63e9a6d152f0a21edc4dec2016632a0d91"
+  model_blob: "fb7ae9250bcd623ae96b937c4110f34f5d38156a"
+  test_blob: "90b1ea5a0b5f04192ab361f31a604e9dcee727c0"
+  revalidated_on_continuation: true
+  evidence: "Recursive Git tree read on continuation proved the detached tree exists unchanged and binds candidate/assessment_kernel/README.md, model.py, and test_model.py to exactly the previously verified blobs above. The same tree preserves STANDARD_MODEL.md blob 6720cfba97e04279930cf26dccf6558fbc881355, standards tree 67355474a553be3d0b59105157640b1ddfdb4fde, tools/validate.py a6eed727a3c34a6a7642588bbe38ef1dded0132a, tools/verify.py b5570a6e86887275fa804eaf771fa54dc1002382, tests/test_validate.py 72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0, and tests/test_verify_hygiene.py 59e26d5a6f071812d45d7b5234fe3217f6434126."
+
+causal_tdd:
+  result: PASS
+  pre_fix_candidate:
+    readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
+    model_blob: "9fd60367418de951cd9488088f402a817dc0914c"
+    test_blob: "4a9dc6a91277390299d2873b39d9faaf827754f3"
+  red:
+    result: REPRODUCED
+    evidence:
+      - "F-001 cluster: a new regression for anonymous/blank EvidenceRef identity failed against the exact pre-fix model because blank evidence identity could participate in accepted satisfied PASS."
+      - "F-002 accepted subset: new regressions for blank/whitespace assessment, claim, family, authority identifier/revision, subject kind/id, asserted inference, and dependency claim identity failed against the exact pre-fix model where those identity-bearing values were not uniformly rejected."
+      - "F-005 cluster: new regressions for blank material-context key/value, duplicate material-context key, duplicate required-context key, and blank required-context key failed against the exact pre-fix model because ambiguous context could satisfy identity requirements."
+  green:
+    result: PASS
+    evidence: "The minimal implementation introduced one non-whitespace identity predicate plus local evaluation, subject-context, and trajectory-endpoint identity gates. No identifier normalization, naming syntax, registry, schema, dependency resolver, scoring, aggregation, family design, generation semantics, or new module was introduced."
+
+candidate_verification:
+  result: PASS
+  command: "python -B -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v"
+  tests_run: 17
+  failures: 0
+  errors: 0
+  readme_blob: "b6bb9a63e9a6d152f0a21edc4dec2016632a0d91"
+  model_blob: "fb7ae9250bcd623ae96b937c4110f34f5d38156a"
+  test_blob: "90b1ea5a0b5f04192ab361f31a604e9dcee727c0"
+  cache_artifacts_after: []
+  evidence: "Fresh final focused execution in the initial segment passed all 17 candidate regressions under explicit bytecode suppression on exactly the three blobs later bound into detached tree 4fc929ea5cf4f0ac0dc98fab9663233d2a8e1cd6 and implementation commit c6a5830f0fab7358868b1ea9cb0d930e733f250f."
+
+trust_boundary_preservation:
+  result: PASS
+  dependency_satisfied_remains_trusted: true
+  trajectory_facts_remain_trusted: true
+  evaluate_endpoint_gate_added: false
+  universal_subject_change_basis_added: false
+  evidence: "Focused preservation regression proves Dependency('engineering.security', satisfied=True) with valid claim identity still permits the local dependent PASS without embedding or resolving another Assessment. The same regression proves two trajectory endpoints with valid attributable endpoint identity can establish trajectory from trusted TrajectoryFacts even when their local obligation evaluation is independently incomplete because judgment/evidence/inference are absent. Existing PROCESS/MARKET and multi-causal trajectory regressions remain green, so ChangeBasis.SUBJECT is not a universal requirement."
+
+repository_owned_verification:
+  result: PASS
+  canonical_command: "python tools/verify.py"
+  validator: "VALID: standards definition"
+  root_unittest: "Ran 57 tests; OK"
+  tests_run: 57
+  failures: 0
+  errors: 0
+  verification_surface:
+    standard_model_blob: "6720cfba97e04279930cf26dccf6558fbc881355"
+    standards_tree: "67355474a553be3d0b59105157640b1ddfdb4fde"
+    validate_blob: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+    verify_blob: "b5570a6e86887275fa804eaf771fa54dc1002382"
+    test_validate_blob: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+    test_verify_hygiene_blob: "59e26d5a6f071812d45d7b5234fe3217f6434126"
+  git_status_before: clean
+  git_status_after: clean
+  cache_artifacts_before: []
+  cache_artifacts_after: []
+  evidence: "Current repository-owned Generation 1 verification passed on an exact final disposable fixture in the initial segment. The implementation detached tree revalidated on continuation carries exactly the same frozen Generation 1 standards, verifier, and root-test object identities, so the completed verification remains deterministically attributable to the published implementation state."
+
+preserved_invariants:
+  candidate_status: NON_RELEASED_CANDIDATE
+  candidate_authority: NONE
+  candidate_generation: NOT_ASSIGNED
+  frozen_generation_1_changed: false
+  main_changed_by_executor: false
+  dependency_resolution_machinery_added: false
+  trajectory_evaluation_gate_added: false
+  universal_change_basis_subject_added: false
+  aggregation_or_scoring_added: false
+  new_candidate_module_added: false
+  evidence: "README preserves NON_RELEASED_CANDIDATE / authority NONE / generation NOT_ASSIGNED. The implementation tree changes only the authorized existing candidate three-file sandbox; frozen Generation 1 and main remain unchanged."
+
+implementation_diff:
+  result: PASS
+  base: "7a79c9ebbdf7f19d2a85b2d0825775e0ea38ccc6"
+  head: "c6a5830f0fab7358868b1ea9cb0d930e733f250f"
+  ahead_by: 1
+  changed_paths:
+    - candidate/assessment_kernel/README.md
+    - candidate/assessment_kernel/model.py
+    - candidate/assessment_kernel/test_model.py
+  evidence: "GitHub compare was performed before dev mutation and repeated after the non-force update. Both establish a single implementation commit and exactly the three authorized candidate paths."
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: ""
+  evidence: "TASK-0012 requires focused candidate verification plus current repository-owned Generation 1 verification; it does not designate a separate authoritative verifier."
+
+local_hygiene:
+  result: PASS
+  run_root: "execution-owned disposable candidate and Generation 1 verification fixtures"
+  cleanup_performed: true
+  retained: []
+  evidence: "Initial-segment verification used run-owned disposable fixtures and recorded clean Git state plus zero Python cache artifacts before cleanup. Publication continuation created no repository-local temporary state; detached Git objects are intentional repository objects, not working-tree artifacts."
+
+changed_files:
+  - path: candidate/assessment_kernel/README.md
+    summary: "Documents Dependency.satisfied and TrajectoryFacts as caller-supplied trusted structured facts while requiring valid dependency/trajectory endpoint identity."
+    new_file: false
+    in_scope: true
+    structure_authorized: true
+  - path: candidate/assessment_kernel/model.py
+    summary: "Adds bounded non-whitespace identity hygiene, unambiguous subject-context validation, evidence/dependency identity checks, and trajectory endpoint identity validation without expanding trusted-input semantics."
+    new_file: false
+    in_scope: true
+    structure_authorized: true
+  - path: candidate/assessment_kernel/test_model.py
+    summary: "Adds causal regressions for the three adjudicated defect clusters and explicit preservation coverage for trusted Dependency.satisfied and TrajectoryFacts boundaries while retaining the pre-existing candidate regression surface."
+    new_file: false
+    in_scope: true
+    structure_authorized: true
+
+commits_created:
+  - sha: "c6a5830f0fab7358868b1ea9cb0d930e733f250f"
+    message: "candidate: harden assessment identity hygiene"
+
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Causal anonymous/blank EvidenceRef regression failed against the exact pre-fix model and passes in the final 17/17 focused suite; final evaluation rejects blank evidence identity before it can support an asserted inference."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "Focused regressions cover assessment_id, claim_id, family, normative authority identifier/revision, subject kind/id, asserted inference, dependency claim_id, and evidence identity using only non-whitespace hygiene; all pass on the final exact candidate blobs."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "Focused regressions reject blank context keys/values, duplicate material-context keys, duplicate required-context keys, and blank required-context keys; trajectory endpoint validation reuses the same unambiguous subject identity predicate."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "A valid satisfied dependency still works as a trusted upstream fact without another Assessment, and valid attributable trajectory endpoints can establish trajectory from trusted facts even when local obligation evaluation is incomplete. No universal evaluate-before/after gate or ChangeBasis.SUBJECT requirement was added."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "Final explicit -B candidate suite passes 17/17, including all retained pre-existing regressions plus new bounded regressions; UNKNOWN/N/A, EXCEPTION, no aggregation, process/market basis, and multi-causal trajectory semantics remain covered."
+  - criterion_id: AC-6
+    status: PROVEN
+    evidence: "Current repository-owned Generation 1 verification passed validator plus 57/57 root tests on the exact final implementation verification surface; implementation tree preserves all frozen Generation 1 object identities and main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee."
+  - criterion_id: AC-7
+    status: PROVEN_PENDING_ENCLOSING_REPORT_COMMIT_CHECK
+    evidence: "Implementation commit has exact base as sole parent and changes exactly the authorized three candidate files; dev was advanced non-force to that implementation. This enclosing report commit must be verified after publication to change only .agent/tasks/TASK-0012/report.yaml and preserve final refs/topology."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Fresh start and continuation ref checks bound exact dev/base, unchanged main, exact {dev, main} topology, TASK-0012 revision 1, and pinned required skills."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Initial segment reproduced causal failing regressions for F-001, the accepted F-002 identity subset, and F-005 before implementation."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Final focused candidate suite passed 17/17 under explicit -B on exact final blobs with no Python cache artifacts."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "Executable preservation test proves trusted satisfied dependency and independently incomplete-but-valid trajectory endpoint cases remain supported exactly as adjudicated."
+  - check_id: CHECK-5
+    result: PASS
+    evidence: "Current repository-owned Generation 1 verification passed VALID plus 57/57 with clean status and no persistent run-generated artifacts; immutable verification object identities match the published implementation tree."
+  - check_id: CHECK-6
+    result: PENDING_ENCLOSING_REPORT_COMMIT_VERIFICATION
+    evidence: "Implementation compare is exact and dev equals c6a5830f0fab7358868b1ea9cb0d930e733f250f. After this report is committed, Executor must verify the report commit has the implementation as sole parent, changes only .agent/tasks/TASK-0012/report.yaml, dev equals that report commit, main is unchanged, and branches remain exactly {dev, main}."
+
+discovered_gaps: []
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "No target repository working tree was used for publication continuation. All prior run-owned verification fixtures were cleaned after evidence capture. Durable changes are limited to the authorized implementation commit plus this canonical report publication."
+
+result: NEEDS_REVIEW
