@@ -1,0 +1,270 @@
+protocol_version: 3
+
+task_id: TASK-0011
+task_revision: 1
+state: APPROVED
+
+origin:
+  type: architect_assurance
+  task_id: "TASK-0009"
+  gap_id: ""
+
+architect_binding:
+  target_repository: phatnguyen03022001/agent-standards
+
+target:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+
+execution_base:
+  mode: handoff_snapshot
+  capture: after_final_planning_commit
+  require_exact_match: true
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+architect_analysis_skills:
+  - architect
+  - adversarial-audit
+  - design-review
+  - verification
+  - simplicity
+
+execution_skills:
+  required:
+    - executor
+    - adversarial-audit
+    - design-review
+    - verification
+    - simplicity
+  recommended: []
+
+external_skills:
+  architect_analysis: []
+  execution_required: []
+  execution_recommended: []
+
+authority_sources:
+  - source: "Governing Architect decision after TASK-0010 acceptance, 2026-08-27"
+    role: "Authority to perform the next independent HIGH-assurance Assessment Kernel Candidate red-team"
+    precedence: 1
+  - source: ".agent/tasks/TASK-0009/report.yaml@f0abfdc42063476ef4ad7b06031ddbaa72f03de0"
+    role: "Accepted Executor evidence for Assessment Kernel Candidate revision 2 and exact implementation identity"
+    precedence: 2
+  - source: "candidate/assessment_kernel/*@1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+    role: "Exact non-released Assessment Kernel Candidate artifact under adversarial review"
+    precedence: 3
+  - source: "STANDARD_MODEL.md@3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+    role: "Frozen Generation 1 authority that must remain unchanged and must not be conflated with the candidate"
+    precedence: 4
+  - source: ".agent/tasks/TASK-0010/report.yaml@57b63997467772d7debb3d36069b9a352d5f955c"
+    role: "Accepted repository-owned verification-hygiene evidence; TD-001 and VF-001 are closed and must not be reopened without new evidence"
+    precedence: 5
+  - source: "phatnguyen03022001/agent-skills@0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+    role: "Pinned protocol v3 and adversarial assurance governance"
+    precedence: 6
+
+structure_authority:
+  status: RESOLVED
+  source: "Existing .agent/tasks layout plus report-only assurance pattern"
+  rationale: "This task is an independent adversarial review of an already implemented non-authoritative candidate. Executor may create only .agent/tasks/TASK-0011/report.yaml; no candidate, V1, validator, test, documentation, dependency, topology, profile, runtime, or release mutation is authorized."
+
+objective: "Independently attempt to falsify the exact implemented Assessment Kernel Candidate through executable adversarial probes and source-level reasoning, identify only reproducible material defects or bounded design limitations, distinguish trusted-input boundaries from missing invariants, and report evidence without implementing fixes, canonicalizing a new generation, designing standards families, or changing frozen Generation 1."
+
+review_subject:
+  status: NON_RELEASED_CANDIDATE
+  authority: NONE
+  generation: NOT_ASSIGNED
+  implementation_commit: "1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+  readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
+  model_blob: "9fd60367418de951cd9488088f402a817dc0914c"
+  test_blob: "4a9dc6a91277390299d2873b39d9faaf827754f3"
+  generation_1_authority: "3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+
+finding_classification:
+  required:
+    - MATERIAL
+    - NON_MATERIAL
+    - DESIGN_OPTION
+    - NOT_REPRODUCED
+  rule: "Do not label a preference, hypothetical future extension, or trusted-input design choice as MATERIAL unless a concrete accepted/established state violates a stated candidate invariant or permits a materially stronger inference than the evidence supports."
+
+scope:
+  required_changes:
+    - "Resolve exact TASK-0011 revision 1 and pinned agent-skills authority, refresh remote truth, and require live dev HEAD to equal the exact handoff base before any repository mutation."
+    - "Resolve the exact candidate subject by Git object identity. Require candidate README/model/test blobs at current dev to equal the review_subject blobs above. If candidate identity differs, stop STALE_STATE rather than auditing a different artifact."
+    - "Treat this as an independent red-team. Do not assume TASK-0009 Architect acceptance proves semantic correctness. Attempt to make the candidate accept invalid states, overstate inference, erase material distinctions, or establish trajectory/dependency/evidence claims without sufficient attributable structure."
+    - "Use executable probes in an isolated disposable workspace whenever behavior can be tested deterministically. Do not modify candidate files in the repository. Temporary adversarial scripts/fixtures may exist only outside the target repository and must not become durable repo artifacts."
+    - "For every candidate finding, provide: exact invariant/property attacked, minimal reproducible input, actual behavior, expected safe behavior, consequence, classification, and whether the issue is implementation-specific, model-level, or merely an explicit trust-boundary/design option."
+    - "Actively test whether attributable evidence can be accepted with missing or empty identity information, including EvidenceRef.identifier or equivalent fields. Determine whether empty identity materially violates attribution semantics or is intentionally delegated to a trusted caller."
+    - "Actively test whether assessment/claim/family identifiers can be empty or otherwise structurally non-identifying while an assessment is accepted. Distinguish cosmetic labels from identities needed to bind judgments and dependencies."
+    - "Actively attack cross-claim dependency semantics. Determine whether a caller can mark a dependency satisfied without binding the referenced dependency to an actual assessment identity, normative authority, evidence, or compatible subject context, thereby laundering one claim through another."
+    - "Actively attack trajectory establishment with structurally invalid before/after assessments. Determine whether establish_trajectory or equivalent can establish trajectory merely from matching identifiers plus caller booleans even when either assessment would fail the candidate's own evaluation/validation rules."
+    - "Actively attack material subject identity context for duplicate/conflicting keys or equivalent ambiguity. Determine whether contradictory values for the same material context dimension can pass required-context checks and make exact claim identity ambiguous."
+    - "Probe the trust boundary around comparability, exact_property_changed, direction, and change_bases. These may be legitimate trusted structured inputs. Classify as MATERIAL only if candidate documentation/invariants claim the kernel itself establishes those facts or if the API can produce a stronger conclusion than its declared trust boundary permits. Otherwise classify as DESIGN_OPTION or NON_MATERIAL with rationale."
+    - "Probe whether evidence support is bound tightly enough to exact semantics/scope/inference to uphold the candidate's inference invariant. Do not demand a universal evidence-strength/confidence score."
+    - "Probe applicability states, including UNKNOWN and NOT_APPLICABLE, for accidental PASS-equivalence, maturity contribution, evidence contradictions, or N/A gaming. Preserve the distinction between factual non-applicability and incomplete knowledge."
+    - "Probe exception semantics for laundering: EXCEPTION must remain a non-PASS disposition and must not satisfy a maturity-bearing obligation."
+    - "Probe no-aggregation behavior. Do not criticize the absence of an overall score; instead attempt to find any existing code path that implicitly compensates, averages, or compresses material failures."
+    - "Re-run and specifically preserve the closed TASK-0009 F-001 trajectory behavior: comparability + exact-property change may establish trajectory without requiring ChangeBasis.SUBJECT; knowledge/correction-only and insufficient-comparability negatives remain rejected. Do not reintroduce SUBJECT as a universal gate."
+    - "Run the exact candidate focused suite with bytecode suppression and require its existing 12 regressions remain PASS. Run repository-owned Generation 1 verification as current repo authority requires and require it remains PASS; this assurance task must not mutate either artifact family."
+    - "Search for additional minimal counterexamples beyond the mandatory probes. Prefer one decisive counterexample over a long list of speculative concerns. Stop expanding an attack once the semantic issue is already proven."
+    - "Do not design User/Product, Business, or Service Operations families. You may note only whether a kernel behavior would constrain future independent families incorrectly."
+    - "Produce only .agent/tasks/TASK-0011/report.yaml as durable Executor evidence. Commit and push that report on dev, verify it is the sole Executor content change from the handoff base, and stop at the Architect review boundary with NEEDS_REVIEW."
+  allowed_existing_files_or_components:
+    - candidate/assessment_kernel/README.md
+    - candidate/assessment_kernel/model.py
+    - candidate/assessment_kernel/test_model.py
+    - README.md
+    - STANDARD_MODEL.md
+    - standards/manifest.yaml
+    - standards/*.yaml
+    - tools/validate.py
+    - tools/verify.py
+    - tests/*
+    - .agent/tasks/TASK-0008/*
+    - .agent/tasks/TASK-0009/*
+    - .agent/tasks/TASK-0010/*
+    - .agent/tasks/TASK-0011/task.yaml
+  expected_files_are_restrictive: true
+
+invariants:
+  - "The Assessment Kernel Candidate remains NON_RELEASED_CANDIDATE with authority NONE and generation NOT_ASSIGNED throughout this task."
+  - "Frozen Generation 1 remains the only released/normative standards authority and is byte-for-byte unchanged."
+  - "Candidate README/model/tests remain byte-for-byte unchanged."
+  - "A red-team finding is advisory evidence, not Architect judgment, task authority, canonical standard, or permission to implement a fix."
+  - "Evidence must support the exact semantics, scope, and inference asserted; the kernel must not accept a materially stronger inference than the supplied/established evidence warrants."
+  - "Applicability is factual; unknown applicability is not N/A."
+  - "PASS-only satisfaction remains distinct from PARTIAL, GAP, UNKNOWN, NOT_APPLICABLE/N/A, and EXCEPTION semantics."
+  - "EXCEPTION is never PASS and never contributes satisfaction/maturity."
+  - "No family scalar or synthetic overall score is introduced or demanded."
+  - "Dimension scalar is not presumed where no defensible cumulative ordinal ladder exists."
+  - "Assessment history is attributable judgment history, not objective subject history."
+  - "Assessment delta does not itself prove subject trajectory."
+  - "Trajectory requires sufficient comparability and evidence of exact-property change; change basis may be multi-causal and no individual basis token is universally required."
+  - "Cross-family or cross-claim evidence does not substitute for another obligation unless an explicit semantic dependency is validly established."
+  - "Subject identity is material, typed, and claim-relative; unknown material context preserves uncertainty rather than manufacturing exact identity."
+  - "No universal mega-schema, global ontology, generic evidence-strength score, confidence score, aggregation score, or family design is introduced by this task."
+
+forbidden_changes:
+  - "Any modification to candidate/assessment_kernel/*, README.md, STANDARD_MODEL.md, standards/*, tools/*, tests/*, requirements-validator.txt, LICENSE, or any existing task/report."
+  - "Any implementation of a discovered fix."
+  - "Any new test, probe, fixture, script, or code file inside the repository."
+  - "Any TASK-0012 or later task, review.yaml, continuation artifact, lifecycle framework, family schema, generation declaration, or canonical kernel artifact."
+  - "Any .gitignore, dependency, CI/GitHub Actions, branch, main, promotion, tag, release, repository metadata, agent-runtime, runtime profile, or external publication mutation."
+  - "Any family-level, overall, weighted, averaged, percentage, point, confidence, claim-strength, or generic evidence-strength scoring system."
+  - "Any assumption that identical source revision proves subject identity or lack of substantive change."
+  - "Any universal requirement that ChangeBasis.SUBJECT must be present for trajectory."
+
+gap_policy:
+  local_auto_fix: false
+  scope_expansion: forbidden
+  architecture_change: forbidden
+  spec_change: forbidden
+  dependency_change: revised_contract_required
+  public_contract_change: revised_contract_required
+  blocking_gap_behavior: BLOCKED
+
+structure_policy:
+  expected_new_files:
+    - .agent/tasks/TASK-0011/report.yaml
+  unlisted_new_files:
+    allowed: false
+    max: 0
+    within: []
+    purpose: ""
+  allow_new_top_level_directories: false
+  allow_new_shared_modules: false
+
+continuation_policy:
+  mode: MANUAL
+  stop_conditions:
+    - BLOCKED
+    - STALE_STATE
+    - AUTHORITY_REQUIRED
+    - CURRENT_PHASE_CAPABILITY_UNAVAILABLE
+    - REVIEW_REQUIRED
+    - REVERIFY_REQUIRED
+    - USER_STOP
+
+capability_requirements:
+  EXECUTION:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+
+acceptance_criteria:
+  - id: AC-1
+    requirement: "The exact implemented candidate is independently attacked, not merely re-reviewed from TASK-0009 prose."
+    evidence_required: "Exact candidate blob identity plus executable/source-level adversarial probes tied to concrete behavior."
+  - id: AC-2
+    requirement: "Mandatory attack classes are explicitly resolved: evidence identity, assessment/claim identity, dependency laundering, invalid-assessment trajectory, conflicting subject context, trusted trajectory inputs, applicability/N/A, exception laundering, inference binding, and aggregation absence."
+    evidence_required: "Per-attack result with minimal reproduction and one of MATERIAL/NON_MATERIAL/DESIGN_OPTION/NOT_REPRODUCED."
+  - id: AC-3
+    requirement: "Findings distinguish implementation defects from legitimate trusted-input boundaries and do not demand speculative framework machinery."
+    evidence_required: "Each MATERIAL finding identifies a violated stated invariant or materially unsafe accepted state; rejected concerns include rationale."
+  - id: AC-4
+    requirement: "TASK-0009 F-001 remains closed and trajectory semantics are not regressed during red-team reasoning."
+    evidence_required: "Positive no-SUBJECT trajectory case still establishes when comparability and exact-property change are true; distinct negative trajectory cases remain rejected."
+  - id: AC-5
+    requirement: "Existing candidate and frozen Generation 1 verification remain passing without repository content mutation."
+    evidence_required: "Candidate focused suite 12/12 PASS under explicit -B and current repository-owned Generation 1 verification PASS on exact subject state."
+  - id: AC-6
+    requirement: "The report is useful for Architect adjudication without self-authorizing remediation."
+    evidence_required: "Final prioritized finding table, minimal reproduction/evidence, consequence, classification, and explicit NEEDS_REVIEW result; no fix implementation or canonicalization."
+  - id: AC-7
+    requirement: "Execution remains report-only and repository-local."
+    evidence_required: "Exact post-push compare from handoff base changes only .agent/tasks/TASK-0011/report.yaml; main and branch topology remain unchanged."
+
+verification:
+  executor_checks:
+    - id: CHECK-1
+      command_or_check: "At start refresh remote refs and require dev equals exact handoff base, main remains 3f4950f280a3a35fee81471d4b83715fa72cf9ee, branches exactly {dev, main}, TASK-0011 revision 1 resolves at the base, and pinned agent-skills revision is accessible."
+      required: true
+    - id: CHECK-2
+      command_or_check: "Require current candidate README/model/test blobs equal 249dda376432473c153ed4311df36c8a629935b7 / 9fd60367418de951cd9488088f402a817dc0914c / 4a9dc6a91277390299d2873b39d9faaf827754f3 before analysis."
+      required: true
+    - id: CHECK-3
+      command_or_check: "Run isolated executable probes for every behaviorally testable mandatory attack; record minimal inputs and actual outputs without modifying repository content."
+      required: true
+    - id: CHECK-4
+      command_or_check: "Run python -B -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v and require 12/12 PASS."
+      required: true
+    - id: CHECK-5
+      command_or_check: "Run the current repository-owned Generation 1 verification entrypoint and require PASS while preserving a clean/no-cache exact subject state as required by current repo authority."
+      required: true
+    - id: CHECK-6
+      command_or_check: "Before report commit, require the only repository change is .agent/tasks/TASK-0011/report.yaml and refresh refs for staleness."
+      required: true
+    - id: CHECK-7
+      command_or_check: "After report push require dev equals the enclosing report commit, its sole parent is the handoff base, report commit changes only .agent/tasks/TASK-0011/report.yaml, main remains frozen Generation 1, and branches remain exactly {dev, main}."
+      required: true
+  authoritative_verification:
+    required: false
+    mechanism: ""
+    expected_signal: ""
+
+git_authority:
+  create_branch: false
+  commit: true
+  push: true
+  promote_to_main: false
+
+release_authority:
+  create_version_tag: false
+  mutate_repository_metadata: false
+  publish_release: false
+
+blocking_decisions:
+  - "If dev/main/branch topology, task identity, pinned skills, or candidate blobs drift before mutation, stop STALE_STATE."
+  - "If deterministic Python execution is unavailable, stop CURRENT_PHASE_CAPABILITY_UNAVAILABLE before report mutation."
+  - "If a discovered issue requires changing candidate or V1 content to determine whether it is valid, report the uncertainty and stop at review; do not implement exploratory fixes in-repo."
+  - "If a mandatory attack cannot be executed because the required evidence surface is unavailable, distinguish NOT_REPRODUCED from CURRENT_PHASE_CAPABILITY_UNAVAILABLE according to whether the capability is required by task acceptance."
+  - "No discovered finding authorizes remediation, candidate canonicalization, family design, main mutation, promotion, tag, or release."
+
+execution_ready: true
