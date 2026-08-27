@@ -1,0 +1,360 @@
+protocol_version: 3
+
+task_id: TASK-0011
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0011/task.yaml
+  commit: "1993c769576e59faf22e5544f4ff38fe06055dee"
+  blob_sha: "b358a7c26f10a2d1eee6efb36c067d134a72fcb7"
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "1993c769576e59faf22e5544f4ff38fe06055dee"
+  pre_execution_head: "1993c769576e59faf22e5544f4ff38fe06055dee"
+  final_execution_head: "1993c769576e59faf22e5544f4ff38fe06055dee"
+  mode: independent_high_assurance_adversarial_report_only
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+  observed_revision: "0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1"
+
+execution_skills_used:
+  required:
+    - executor
+    - adversarial-audit
+    - design-review
+    - verification
+    - simplicity
+  recommended: []
+  external: []
+
+pre_execution_checks:
+  protocol_version_supported: true
+  handoff_type_confirmed: true
+  task_at_base_confirmed: true
+  task_identity_confirmed: true
+  architect_binding_confirmed: true
+  repository_confirmed: true
+  branch_confirmed: true
+  base_head_confirmed: true
+  skill_revision_confirmed: true
+  required_execution_skills_available: true
+  structure_authority_confirmed: true
+  working_tree_clean: true
+  evidence: "Fresh GitHub truth before analysis showed dev=1993c769576e59faf22e5544f4ff38fe06055dee, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, and branches exactly {dev, main}. TASK-0011 revision 1 resolved at the exact base as blob b358a7c26f10a2d1eee6efb36c067d134a72fcb7. All five required execution skills resolved at pinned agent-skills revision 0a57fbfd39b96494f22fea1f7847aab1d5c8bbf1. No target repository mutation occurred before report publication."
+
+capability_preflight:
+  phase: HIGH_ASSURANCE_INDEPENDENT_ADVERSARIAL_REVIEW
+  required:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  available:
+    - exact_remote_ref_read
+    - repository_content_read
+    - repository_content_write
+    - deterministic_python_test_execution
+  missing: []
+  passed: true
+  evidence: "Exact GitHub ref/content reads, authorized GitHub report-file write/commit/push, and local deterministic Python 3.13 execution with PyYAML were available before any authorized write."
+
+review_subject:
+  status: NON_RELEASED_CANDIDATE
+  authority: NONE
+  generation: NOT_ASSIGNED
+  implementation_commit: "1ff2d9bbf5ab68f65be65b4ddd6ff5205094fe83"
+  readme_blob: "249dda376432473c153ed4311df36c8a629935b7"
+  model_blob: "9fd60367418de951cd9488088f402a817dc0914c"
+  test_blob: "4a9dc6a91277390299d2873b39d9faaf827754f3"
+  generation_1_authority: "3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+  identity_confirmed: true
+  mutated: false
+  evidence: "The three candidate blobs at the exact authorized base matched TASK-0011 byte-for-byte before analysis. Candidate README continues to declare NON_RELEASED_CANDIDATE / authority NONE / generation NOT_ASSIGNED."
+
+adversarial_method:
+  repository_mutation_for_probes: false
+  isolated_disposable_workspace: true
+  source_identity_method: "Candidate and Generation 1 verification surfaces were materialized from exact GitHub blobs and checked by Git blob identity before execution."
+  probe_execution: "Python -B against exact candidate model in a run-owned disposable workspace."
+  classification_rule: "MATERIAL only when concrete accepted/established behavior violates a stated candidate invariant or permits a materially stronger inference than supplied evidence supports; trusted-input choices and alternatives remain NON_MATERIAL or DESIGN_OPTION."
+
+findings:
+  - id: F-001
+    classification: MATERIAL
+    title: "Evidence references can support a satisfied PASS without evidence identity"
+    invariant_attacked: "Attributable evidence references must support the exact asserted inference; assessment evidence must remain attributable rather than anonymous."
+    minimal_reproduction: "Evaluate an otherwise valid applicable PASS whose sole EvidenceRef has identifier='' and supported_inferences={'observed_outcome'}."
+    actual_behavior: "accepted=true, obligation_satisfied=true, reasons=[]"
+    expected_safe_behavior: "An anonymous evidence reference cannot establish attributable support for a satisfied obligation; the assessment must remain unresolved or rejected."
+    consequence: "A caller can obtain an accepted satisfied PASS while the purported supporting evidence cannot be identified or traced, violating the candidate's attributable-evidence boundary."
+    issue_scope: model_level
+    counterevidence: "Inference membership itself is checked exactly; replacing the supported inference with an undeclared stronger inference is rejected. The defect is evidence attribution identity, not the exact-string inference check."
+
+  - id: F-002
+    classification: MATERIAL
+    title: "Assessment, claim, family, and other semantic identity tokens are not validated as identifying values"
+    invariant_attacked: "Assessment history is attributable judgment history; cross-family judgments remain independent; normative/subject identity must be material and identifying."
+    minimal_reproduction: "Independently set assessment_id='', claim_id='', or family='' on an otherwise valid applicable PASS. A separate probe used whitespace-only authority/subject identity and a whitespace asserted inference with matching evidence support."
+    actual_behavior: "Each empty assessment_id/claim_id/family probe returned accepted=true and obligation_satisfied=true. Whitespace-only authority/subject/inference tokens also produced accepted=true and obligation_satisfied=true."
+    expected_safe_behavior: "Identity-bearing fields needed to attribute an assessment, claim, family, normative authority, subject, or asserted inference must be structurally identifying rather than empty or whitespace-only."
+    consequence: "Accepted judgments can lose the identities needed to bind history, claim ownership, family separation, normative authority, subject attribution, and semantic inference. This permits ambiguous or collapsed identities while still yielding PASS satisfaction."
+    issue_scope: model_level
+    counterevidence: "NormativeAuthority with literal empty strings and SubjectIdentity with literal empty kind/identifier are rejected; the gap is incomplete identity validation and absence of validation for assessment_id/claim_id/family."
+
+  - id: F-003
+    classification: MATERIAL
+    title: "Caller-asserted dependency satisfaction can launder an unbound cross-claim dependency"
+    invariant_attacked: "Cross-family or cross-claim evidence must not substitute for another obligation unless an explicit semantic dependency is validly established."
+    minimal_reproduction: "Evaluate an otherwise valid applicable PASS with dependencies=(Dependency('engineering.security', satisfied=True),) without supplying any referenced dependency assessment, authority, subject context, evidence, or compatible claim identity. A second probe used Dependency('', satisfied=True)."
+    actual_behavior: "Both probes returned accepted=true and obligation_satisfied=true with no reasons."
+    expected_safe_behavior: "A dependency that contributes to acceptance must be bound to enough actual dependency identity/state to establish that the referenced obligation exists and is satisfied in a compatible context, or must remain unresolved."
+    consequence: "A caller can convert an arbitrary boolean into dependency satisfaction and obtain a PASS for a dependent claim even when the referenced claim is absent, unidentified, failed, differently scoped, or differently authoritative."
+    issue_scope: model_level
+    counterevidence: "Dependency(..., satisfied=False) is correctly rejected as unmet_dependency. The material gap is that satisfied=True is trusted without any binding structure despite the candidate invariant requiring a validly established semantic dependency."
+
+  - id: F-004
+    classification: MATERIAL
+    title: "Trajectory can be established from assessments that the candidate itself rejects"
+    invariant_attacked: "Evidence must support the exact semantics/scope/inference asserted; assessment delta alone does not prove subject trajectory; trajectory is an evidence-bearing conclusion over attributable assessments."
+    minimal_reproduction: "Construct before and after assessments with evidence=() and asserted_inference='' so evaluate(before) and evaluate(after) each reject with missing_evidence and missing_asserted_inference; then call establish_trajectory with matching claim/family/authority/subject plus comparable=true and exact_property_changed=true."
+    actual_behavior: "Both assessments evaluated accepted=false, but establish_trajectory returned established=true, direction=IMPROVEMENT, reasons=[]."
+    expected_safe_behavior: "A trajectory conclusion must not be established from structurally invalid/unaccepted assessment records unless the API explicitly represents a separate validated trajectory evidence source that does not depend on those records."
+    consequence: "The kernel can emit a stronger historical conclusion from records that fail its own attribution/evidence acceptance rules, allowing invalid assessment snapshots to anchor an established improvement/regression."
+    issue_scope: model_level
+    counterevidence: "When comparable=false or exact_property_changed=false, trajectory is correctly rejected. The defect is independent of those trusted facts: invalid assessment records are never gated."
+
+  - id: F-005
+    classification: MATERIAL
+    title: "Contradictory duplicate material-context keys satisfy subject identity requirements"
+    invariant_attacked: "Subject identity is material, typed, and claim-relative; unknown or ambiguous material context must preserve uncertainty rather than manufacture exact identity."
+    minimal_reproduction: "Use SubjectIdentity(kind='service', identifier='svc-1', material_context=(('environment','prod'),('environment','staging'),('population','cohort-a')), required_context=('environment','population'))."
+    actual_behavior: "has_required_context=true; an otherwise valid applicable PASS evaluates accepted=true and obligation_satisfied=true."
+    expected_safe_behavior: "Conflicting values for one material identity dimension must be rejected or preserved as ambiguous/unknown; mere presence of the key must not satisfy exact context."
+    consequence: "Contradictory material context can be treated as complete exact-enough subject identity, enabling judgments to bind to an ambiguous subject while reporting PASS satisfaction."
+    issue_scope: model_level
+    counterevidence: "A genuinely missing required context key is correctly rejected as missing_material_context. The gap is duplicate/conflicting-key ambiguity."
+
+mandatory_attack_resolution:
+  - attack: evidence_identity
+    classification: MATERIAL
+    finding: F-001
+    evidence: "Empty EvidenceRef.identifier accepted and satisfied."
+  - attack: assessment_claim_family_identity
+    classification: MATERIAL
+    finding: F-002
+    evidence: "Empty assessment_id, claim_id, and family independently accepted and satisfied; whitespace-only identity/inference tokens also accepted when truthy."
+  - attack: cross_claim_dependency_laundering
+    classification: MATERIAL
+    finding: F-003
+    evidence: "satisfied=True accepted without a referenced dependency assessment or compatible binding."
+  - attack: invalid_assessment_trajectory
+    classification: MATERIAL
+    finding: F-004
+    evidence: "Two evaluate()-rejected snapshots still established IMPROVEMENT when trusted trajectory facts were true."
+  - attack: conflicting_subject_context
+    classification: MATERIAL
+    finding: F-005
+    evidence: "Conflicting duplicate environment values satisfy required context and permit PASS."
+  - attack: trusted_trajectory_inputs
+    classification: DESIGN_OPTION
+    finding: ""
+    evidence: "A changed material_context can still establish trajectory when caller explicitly supplies comparable=true and exact_property_changed=true. TASK-0011 explicitly permits comparability, exact_property_changed, direction, and change_bases as trusted structured inputs. No stronger kernel claim was reproduced beyond those supplied facts."
+  - attack: inference_binding
+    classification: NON_MATERIAL
+    finding: ""
+    evidence: "Exact asserted-inference membership is enforced. An inference not listed by any evidence reference is rejected as unsupported_inference. The semantic truth of supported_inferences is an explicit trusted-input boundary rather than a kernel-derived confidence claim. F-001 separately covers missing evidence identity."
+  - attack: applicability_na_laundering
+    classification: NOT_REPRODUCED
+    finding: ""
+    evidence: "UNKNOWN and NOT_APPLICABLE remain distinct applicability values; each can be accepted as a factual record with judgment=None but neither satisfies an obligation."
+  - attack: exception_laundering
+    classification: NOT_REPRODUCED
+    finding: ""
+    evidence: "EXCEPTION on GAP/PARTIAL/UNKNOWN remains non-satisfying; EXCEPTION wrapping PASS is rejected with exception_cannot_wrap_pass."
+  - attack: synthetic_aggregation
+    classification: NOT_REPRODUCED
+    finding: ""
+    evidence: "No aggregate/score/overall_score/family_score/dimension_score/maturity_score/percentage public API was found, and the existing no-aggregation regression passes."
+  - attack: task_0009_f001_trajectory_regression
+    classification: NOT_REPRODUCED
+    finding: ""
+    evidence: "A PROCESS-only change basis with comparable=true and exact_property_changed=true still establishes trajectory without ChangeBasis.SUBJECT; exact_property_changed=false and comparable=false negatives remain rejected."
+
+candidate_verification:
+  result: PASS
+  command: "python -B -m unittest discover -s candidate/assessment_kernel -p 'test_*.py' -v"
+  tests_run: 12
+  failures: 0
+  errors: 0
+  cache_artifacts_after: []
+  evidence: "Fresh exact-blob focused execution passed all 12 existing candidate regressions under explicit -B. This does not negate F-001..F-005 because those counterexamples exercise currently uncovered states."
+
+repository_owned_verification:
+  result: PASS
+  canonical_command: "python tools/verify.py"
+  verification_surface:
+    validate_blob: "a6eed727a3c34a6a7642588bbe38ef1dded0132a"
+    verify_blob: "b5570a6e86887275fa804eaf771fa54dc1002382"
+    test_validate_blob: "72f5bc4d339fbf77d4450ee4d34ef11167b9d2b0"
+    test_verify_hygiene_blob: "59e26d5a6f071812d45d7b5234fe3217f6434126"
+    manifest_blob: "d3e33d10e16b9857654dc1830b9bef56d1753d71"
+  validator: "VALID: standards definition"
+  root_unittest: "Ran 57 tests; OK"
+  tests_run: 57
+  failures: 0
+  errors: 0
+  git_status_before: clean
+  git_status_after: clean
+  cache_artifacts_before: []
+  cache_artifacts_after: []
+  evidence: "Fresh execution used the exact current repository-owned verifier, validator, both root test blobs, manifest, and all 14 exact standards YAML blobs materialized from the authorized SHA into a disposable Git fixture. The first harness-limited attempt was not counted as evidence; a complete fresh rerun passed validator plus all 57 tests in 28.708s and left the fixture clean with no Python cache artifacts."
+
+preserved_invariants:
+  frozen_generation_1_changed: false
+  assessment_kernel_candidate_changed: false
+  main_changed_by_executor: false
+  family_design_created: false
+  task_0012_created: false
+  review_artifact_created: false
+  implementation_fix_created: false
+  evidence: "All adversarial probes and deterministic verification ran outside the repository. The only authorized durable mutation is this report artifact."
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: ""
+  evidence: "TASK-0011 designates the candidate focused suite and current repository-owned Generation 1 verifier as Executor checks, not a separate authoritative verifier."
+
+local_hygiene:
+  result: PASS
+  run_root: "/tmp/agent-standards-task0011 and /tmp/agent-standards-task0011-gen1"
+  cleanup_performed: true
+  retained: []
+  evidence: "Run-owned disposable candidate/probe and Generation 1 verification fixtures were used only for this execution and removed after their outputs and exact blob identities were recorded. No repository-local temporary artifact was created."
+
+changed_files:
+  - path: .agent/tasks/TASK-0011/report.yaml
+    summary: "Canonical Executor evidence for the independent TASK-0011 adversarial review; records five MATERIAL findings plus bounded NON_MATERIAL, DESIGN_OPTION, and NOT_REPRODUCED attack resolutions."
+    new_file: true
+    in_scope: true
+    structure_authorized: true
+
+commits_created: []
+pushed: true
+promoted_to_main: false
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PROVEN
+    evidence: "Exact candidate Git blob identities were bound before analysis and fresh executable probes were run against the exact model rather than reusing TASK-0009 prose."
+  - criterion_id: AC-2
+    status: PROVEN
+    evidence: "Every mandatory attack class is explicitly resolved above with executable results and one of MATERIAL/NON_MATERIAL/DESIGN_OPTION/NOT_REPRODUCED."
+  - criterion_id: AC-3
+    status: PROVEN
+    evidence: "F-001..F-005 each identify concrete accepted/established behavior violating a stated invariant. Trusted comparability/change facts and explicit supported-inference declarations were not misclassified as defects."
+  - criterion_id: AC-4
+    status: PROVEN
+    evidence: "The positive no-SUBJECT trajectory case remains established; knowledge/correction-style property_change=false and insufficient-comparability negatives remain rejected."
+  - criterion_id: AC-5
+    status: PROVEN
+    evidence: "Candidate exact focused suite passed 12/12 under -B; fresh current repository-owned Generation 1 verification passed validator plus 57/57 tests with exact verification blobs and no cache/status residue. No candidate or frozen Generation 1 content changed."
+  - criterion_id: AC-6
+    status: PROVEN
+    evidence: "This report provides prioritized reproducible findings and bounded rejected/design-option concerns, leaves all remediation to Governing Architect review, and records result NEEDS_REVIEW."
+  - criterion_id: AC-7
+    status: PROVEN_PENDING_ENCLOSING_REPORT_COMMIT_CHECK
+    evidence: "Immediately before report publication, fresh remote truth still had dev at the exact base, main at frozen Generation 1, branches exactly {dev, main}, base-to-dev compare identical, and report.yaml absent. The enclosing report commit parent/path/topology check is necessarily performed after this file is committed."
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: "Fresh refs matched exact base/main/topology; TASK-0011 revision 1 and pinned agent-skills revision resolved exactly."
+  - check_id: CHECK-2
+    result: PASS
+    evidence: "Candidate README/model/test blobs exactly matched 249dda376432473c153ed4311df36c8a629935b7 / 9fd60367418de951cd9488088f402a817dc0914c / 4a9dc6a91277390299d2873b39d9faaf827754f3."
+  - check_id: CHECK-3
+    result: PASS
+    evidence: "Isolated executable probes resolved every behaviorally testable mandatory attack without repository mutation."
+  - check_id: CHECK-4
+    result: PASS
+    evidence: "Exact candidate suite passed 12/12 under explicit -B."
+  - check_id: CHECK-5
+    result: PASS
+    evidence: "Fresh python tools/verify.py passed VALID: standards definition plus all 57 root tests; disposable verification fixture was clean/cache-free before and after."
+  - check_id: CHECK-6
+    result: PASS
+    evidence: "Fresh pre-publication refs still showed dev=1993c769576e59faf22e5544f4ff38fe06055dee, main=3f4950f280a3a35fee81471d4b83715fa72cf9ee, topology exactly {dev, main}; compare base..dev was identical and .agent/tasks/TASK-0011/report.yaml did not exist."
+  - check_id: CHECK-7
+    result: PENDING_ENCLOSING_REPORT_COMMIT_VERIFICATION
+    evidence: "After publication, Executor must prove dev equals the enclosing report commit, its sole parent is the authorized base, its only changed path is .agent/tasks/TASK-0011/report.yaml, and main/topology remain unchanged."
+
+discovered_gaps:
+  - gap_id: TASK-0011-F-001
+    classification: FOLLOW_UP
+    type: assessment_semantics
+    severity: high
+    description: "Anonymous EvidenceRef identifiers can support accepted satisfied PASS."
+    evidence: "See F-001."
+    impact: "Breaks attributable evidence identity."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+  - gap_id: TASK-0011-F-002
+    classification: FOLLOW_UP
+    type: assessment_identity
+    severity: high
+    description: "Assessment/claim/family and whitespace-only semantic identity tokens can remain non-identifying while PASS is accepted."
+    evidence: "See F-002."
+    impact: "Allows ambiguous attribution and identity collapse."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+  - gap_id: TASK-0011-F-003
+    classification: FOLLOW_UP
+    type: dependency_semantics
+    severity: high
+    description: "Dependency satisfaction is a caller boolean without binding to an actual compatible assessment."
+    evidence: "See F-003."
+    impact: "Permits dependency laundering."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+  - gap_id: TASK-0011-F-004
+    classification: FOLLOW_UP
+    type: trajectory_semantics
+    severity: high
+    description: "Trajectory can be established from candidate-invalid assessment records."
+    evidence: "See F-004."
+    impact: "Permits a stronger historical inference than the assessment records themselves support."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+  - gap_id: TASK-0011-F-005
+    classification: FOLLOW_UP
+    type: subject_identity
+    severity: high
+    description: "Conflicting duplicate material context keys satisfy required subject context."
+    evidence: "See F-005."
+    impact: "Permits ambiguous subject identity to support PASS."
+    blocks_current_task: false
+    action_taken: none
+    suggested_next_step: architect_review
+
+structural_observations: []
+deviations_from_task: []
+blockers: []
+
+working_tree_after:
+  clean: true
+  summary: "Target repository was never checked out or mutated locally. All probe/verification fixtures were run-owned disposable state and were cleaned; only the authorized remote report publication remains as durable Executor content."
+
+result: NEEDS_REVIEW
