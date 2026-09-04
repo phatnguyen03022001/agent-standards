@@ -1,8 +1,8 @@
 protocol_version: 3
 
 task_id: TASK-0013
-task_revision: 1
-report_revision: 1
+task_revision: 2
+report_revision: 2
 state: REPORTED
 
 task_source:
@@ -13,12 +13,12 @@ execution:
   branch:
     name: dev
     role: integration
-  authorized_base_head: "7fa43b48ea7a63b574459878c6e6efdbe4681066"
-  final_execution_head: "0da0d5864fe5e458af564f3c6ba9959cefd99639"
+  authorized_base_head: "938a0f21adf42481b88909aeb23384b713e81090"
+  final_execution_head: "938a0f21adf42481b88909aeb23384b713e81090"
 
 skill_library:
   repository: phatnguyen03022001/agent-skills
-  authorized_revision: "11a5720adf96555bfe4187067d8dd51627ec8676"
+  authorized_revision: "ed8d9fb35bb8b052530ca879e68a227d77e4a8a6"
 
 capability_preflight:
   phase: EXECUTION
@@ -41,110 +41,143 @@ capability_preflight:
   missing: []
   passed: true
   evidence: >-
-    Agent Runtime terminal_exec was live before target mutation and provided the bounded native surface used for
-    repository reads/writes, repository-native verification, Git history, commit, non-force push, and fresh remote-ref reads.
+    Agent Runtime terminal execution resolved local repository identity and exact Git objects, fresh git ls-remote reads
+    succeeded for the target and pinned authority repositories, repository-local content mutation is available, and
+    git push --dry-run against dev completed successfully before the report mutation.
 
 authoritative_verification:
   required: false
   performed: false
   result: NOT_REQUIRED
-  evidence: "TASK-0013 designates no separate authoritative verifier."
+  evidence: "TASK-0013 revision 2 designates no separate authoritative verifier."
 
 pushed: true
 
-operational_timing:
-  started_at_utc: "2026-09-04T18:20:01Z"
-  terminal_decision_at_utc: "2026-09-04T18:23:15Z"
+lineage_resolution:
+  revision_1_candidate: "0da0d5864fe5e458af564f3c6ba9959cefd99639"
+  revision_1_report: "095695f110fc19e0892dd31e3079e34b9eac148a"
+  revision_1_review: "9dcb0ff9716ddf859f29485a207fc172742ec427"
+  revision_1_review_state: REVISION_REQUIRED
+  current_base: "938a0f21adf42481b88909aeb23384b713e81090"
+  current_pre_report_refs:
+    dev: "938a0f21adf42481b88909aeb23384b713e81090"
+    main: "3f4950f280a3a35fee81471d4b83715fa72cf9ee"
+    topology: "{dev, main}"
+  active_authorities:
+    architect_profile_main: "d47114404c97fcfd74b0f37f646586ec46de6987"
+    agent_skills_main: "ed8d9fb35bb8b052530ca879e68a227d77e4a8a6"
+  evidence: >-
+    All named immutable commits resolved locally. Fresh remote reads resolved target dev/main and the active
+    architect-profile/main and agent-skills/main identities exactly as required by the revision-2 task.
 
-execution_shape:
-  measurement_scope: "after exact binding through terminal decision, before report publication"
-  agent_runtime_invocations:
-    terminal_exec: 22
-    terminal_start: 0
-    terminal_poll: 0
-    terminal_control: 0
-    total: 22
-  comparison_baseline:
-    source: "TASK-0036 natural CHATGPT_LOCAL baseline recorded by TASK-0013 authority"
-    terminal_exec: 62
-  genuine_control_returns:
-    - classification: NEW_MATERIAL_INFORMATION
-      reason: >-
-        The unstaged exact-diff probe returned empty because the new .gitignore was still untracked, requiring
-        index-aware evidence before candidate commit.
-    - classification: CONTRADICTION
-      reason: >-
-        Pinned Task Protocol evidence confirmed that the mechanically derivable post-binding suffix had been
-        fragmented across per-command model/runtime handoffs, making AC-4 unprovable as PASS.
-    - classification: TERMINAL
-      reason: "Executor reached the truthful NEEDS_REVIEW terminal decision before report publication."
-  non_semantic_return_assessment: >-
-    Remaining post-binding terminal_exec returns were transport/controller synchronization rather than genuine
-    semantic control-return reasons; this fragmentation is recorded as the AC-4/CHECK-4 protocol defect rather
-    than treated as successful deterministic bundling.
-  pre_binding_transport_note: >-
-    A multi-command bash terminal_exec bundle and one git-show read were safety-gated before exact binding;
-    they are excluded from the post-binding invocation count.
+functional_subject_identity:
+  candidate_gitignore_blob: "c1d666faa331a35058bfaf15511109997ef1089d"
+  current_base_gitignore_blob: "c1d666faa331a35058bfaf15511109997ef1089d"
+  byte_identical: true
+  intervening_changed_paths:
+    - .agent/tasks/TASK-0013/report.yaml
+    - .agent/tasks/TASK-0013/review.yaml
+    - .agent/tasks/TASK-0013/task.yaml
+  relevant_implementation_or_dependency_invalidation: false
+  current_tracked_ignored_result: EMPTY
+  evidence: >-
+    git rev-parse proved the exact candidate and revision-2-base .gitignore blobs are identical. The complete bounded
+    candidate-to-base diff changes only canonical TASK-0013 evidence/authority artifacts; no standard, validator, test,
+    dependency, workflow, runtime, or .gitignore subject changed. Fresh git ls-files -ci --exclude-standard returned empty.
+
+evidence_reuse:
+  reused_from_revision_1:
+    - criterion: AC-1
+      source: ".agent/tasks/TASK-0013/report.yaml@095695f110fc19e0892dd31e3079e34b9eac148a"
+      predicate: "Exact authorized .gitignore line-set/scope for candidate 0da0d5864fe5e458af564f3c6ba9959cefd99639."
+    - criterion: AC-2
+      source: ".agent/tasks/TASK-0013/report.yaml@095695f110fc19e0892dd31e3079e34b9eac148a"
+      predicate: "Required positive/negative ignore behavior for the exact immutable .gitignore subject."
+    - criterion: AC-3
+      source: ".agent/tasks/TASK-0013/report.yaml@095695f110fc19e0892dd31e3079e34b9eac148a"
+      predicate: "Repository validator, 57-test suite, diff/scope verification, and candidate-only .gitignore implementation evidence."
+  applicability_basis: >-
+    Reuse is limited to the exact immutable functional subject and predicates covered by revision-1 evidence. Exact
+    .gitignore blob identity was re-established, and the complete intervening changed-path set proves no relevant
+    implementation, dependency, validator, test, workflow, runtime, or subject change invalidates those predicates.
+  freshly_checked_mutable_predicates:
+    - "Current target dev/main refs and exact {dev, main} topology."
+    - "Current active architect-profile/main and agent-skills/main identities."
+    - "Current local HEAD/branch/clean state before mutation."
+    - "Current git ls-files -ci --exclude-standard result is empty."
+    - "Current candidate-to-base changed-path set contains only TASK-0013 evidence/authority artifacts."
+  acceptance_equivalent_reruns_performed: false
+  evidence: >-
+    No repository validator/test acceptance producer and no historical latency pilot was rerun because no named
+    invalidation reason exists for the immutable functional evidence.
+
+historical_performance_failure:
+  source_report: "095695f110fc19e0892dd31e3079e34b9eac148a"
+  source_review: "9dcb0ff9716ddf859f29485a207fc172742ec427"
+  report_observation:
+    operator_e2e_seconds: 581
+    post_binding_terminal_exec: 22
+  preserved_disposition: FAIL
+  preserved_failed_predicates:
+    - AC-4
+    - CHECK-2
+    - CHECK-4
+  revision_2_performance_claim: NONE
+  evidence: >-
+    Revision-1 review remains REVISION_REQUIRED because deterministic bundling failed despite functional .gitignore
+    correctness. Revision 2 closes only functional hygiene and neither reruns nor reinterprets the latency/bundling pilot.
 
 acceptance_evidence:
   - criterion_id: AC-1
     status: PASS
     evidence: >-
-      Exact base-to-candidate evidence adds only repository-root .gitignore. Parsed line-set proof matched exactly
-      14 authorized patterns, and the staged exact diff contained no unrelated ignore entry.
+      Exact candidate 0da0d5864fe5e458af564f3c6ba9959cefd99639, report 095695f110fc19e0892dd31e3079e34b9eac148a,
+      review 9dcb0ff9716ddf859f29485a207fc172742ec427, preserved REVISION_REQUIRED judgment, current target refs, and active
+      architect-profile/main and agent-skills/main identities were freshly resolved.
   - criterion_id: AC-2
     status: PASS
     evidence: >-
-      git ls-files -ci --exclude-standard returned no tracked paths. Synthetic git check-ignore evidence matched
-      .DS_Store, Python cache/bytecode/venv/cache artifacts, coverage artifacts, .env, and .env.local while
-      .env.example, .env.test.example, standards/security.yaml, candidate/assessment_kernel/model.py, and the
-      canonical TASK-0013 task path remained unignored.
+      Candidate and current-base .gitignore both resolve blob c1d666faa331a35058bfaf15511109997ef1089d. Candidate-to-base
+      changed paths are exactly TASK-0013 report/review/task artifacts, and fresh git ls-files -ci --exclude-standard is empty.
   - criterion_id: AC-3
     status: PASS
     evidence: >-
-      python3 -B tools/verify.py passed the repository validator and 57/57 unittest checks; staged git diff --check
-      passed; the candidate commit contains only .gitignore.
+      Revision-1 functional AC-1/AC-2/AC-3 evidence is reused only after exact subject identity and applicability were
+      re-established. No acceptance-equivalent producer was rerun and revision 2 makes no .gitignore implementation mutation.
   - criterion_id: AC-4
-    status: FAIL
+    status: PASS
     evidence: >-
-      Post-binding execution used 22 terminal_exec invocations through terminal decision versus the cited 62-call
-      TASK-0036 baseline, but mechanically derivable work was still split across per-command model/runtime returns.
-      Fewer calls do not satisfy the mandatory deterministic-bundling semantics, so this criterion is not self-attested PASS.
+      The revision-1 deterministic-bundling failure remains historical FAIL evidence under the exact report/review lineage;
+      revision 2 makes no latency, controller, model, transport, deterministic-bundling, or performance-success claim.
   - criterion_id: AC-5
     status: NOT_PROVEN
     evidence: >-
-      Before report authorship, fresh remote proof showed dev at exact candidate
-      0da0d5864fe5e458af564f3c6ba9959cefd99639, main unchanged at
-      3f4950f280a3a35fee81471d4b83715fa72cf9ee, and topology exactly {dev, main}. This report-only child publication
-      and final local tracked/index hygiene proof occur after report content is committed and are intentionally not self-attested.
+      Before report authorship, dev is exact base 938a0f21adf42481b88909aeb23384b713e81090, main is unchanged at
+      3f4950f280a3a35fee81471d4b83715fa72cf9ee, topology is exactly {dev, main}, and the only working-tree mutation is
+      this report artifact. The enclosing report commit identity, remote publication, and post-publication local closure
+      are intentionally resolved externally because a report cannot truthfully self-attest its own enclosing commit/push.
 
 executor_checks:
   - check_id: CHECK-1
     result: PASS
     evidence: >-
-      Fresh resolution proved exact TASK-0013 revision/base, target repository/branch, architect-profile/main authority,
-      pinned agent-skills authority and required skills, live {dev, main} topology, root .gitignore absence at base,
-      tracked inventory, clean pre-mutation local state, and required EXECUTION capabilities without reading untracked contents.
+      Exact task/base and revision-1 lineage resolved; active authority refs and target refs/topology were freshly read;
+      required EXECUTION capabilities passed preflight.
   - check_id: CHECK-2
-    result: FAIL
+    result: PASS
     evidence: >-
-      The authorized .gitignore and every required deterministic guard passed, but the required smallest bounded
-      deterministic execution shape did not: mechanically derivable checks and Git steps were split across terminal_exec calls.
+      Exact .gitignore blob equality passed, bounded candidate-to-base changed paths contain only TASK-0013 authority/evidence
+      artifacts, no relevant invalidation exists, and fresh git ls-files -ci --exclude-standard returned empty.
   - check_id: CHECK-3
+    result: PASS
+    evidence: >-
+      Reused immutable functional predicates, freshly checked mutable predicates, and the preserved revision-1 performance
+      failure are explicitly recorded; no old latency pilot or acceptance-equivalent producer was rerun.
+  - check_id: CHECK-4
     result: NOT_PROVEN
     evidence: >-
-      Exact candidate publication is proven. Report-only child publication plus final fresh dev/main/topology and local
-      tracked/index hygiene proof are post-report facts and will be resolved after this report commit.
-  - check_id: CHECK-4
-    result: FAIL
-    evidence: >-
-      Actual post-binding counts through terminal decision are terminal_exec=22 and terminal_start/poll/control=0.
-      Genuine semantic returns are classified above; the remaining per-command returns are unexplained by the allowed
-      semantic return set and therefore constitute the deterministic-bundling protocol defect.
-
-deviations_from_task:
-  - >-
-    Deterministic execution bundling was not satisfied after exact binding. Functional scope and verification remained
-    correct and fail-closed, but AC-4/CHECK-2/CHECK-4 are reported FAIL rather than weakened to meet a latency target.
+      Pre-publication guards prove this report is the only intended revision-2 repository mutation and main/topology are
+      unchanged. Exact report commit/diff, remote dev publication, final main/topology, and local tracked/index hygiene
+      must be freshly resolved after the enclosing report commit is pushed.
 
 result: NEEDS_REVIEW
