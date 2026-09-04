@@ -1,13 +1,13 @@
 protocol_version: 3
 
 task_id: TASK-0013
-task_revision: 1
+task_revision: 2
 state: APPROVED
 
 origin:
-  type: user_request
-  task_id: ""
-  gap_id: "DETERMINISTIC_BUNDLING_NATURAL_PILOT_AGENT_STANDARDS_GITIGNORE"
+  type: accepted_review
+  source: ".agent/tasks/TASK-0013/review.yaml@9dcb0ff9716ddf859f29485a207fc172742ec427"
+  gap_id: "FUNCTIONAL_HYGIENE_CLOSURE_AFTER_FAILED_LATENCY_PILOT"
 
 architect_binding:
   target_repository: phatnguyen03022001/agent-standards
@@ -25,102 +25,80 @@ execution_base:
 
 skill_library:
   repository: phatnguyen03022001/agent-skills
-  revision: "11a5720adf96555bfe4187067d8dd51627ec8676"
-
-architect_analysis_skills: []
+  revision: "ed8d9fb35bb8b052530ca879e68a227d77e4a8a6"
 
 execution_skills:
   required:
     - executor
     - verification
-    - simplicity
     - github-workflow
-  recommended: []
-
-external_skills:
-  architect_analysis: []
-  execution_required: []
-  execution_recommended: []
 
 authority_sources:
-  - source: "architect-profile/main@b7753ba37abe193c8801ac26302ecff7bbb35604"
-    role: "active ecosystem authority set with deterministic execution bundling enabled"
+  - source: "architect-profile/main@d47114404c97fcfd74b0f37f646586ec46de6987"
+    role: "current ecosystem-active authority set"
     precedence: 1
-  - source: "agent-standards/dev@456f95f58a93b7d8be7765c7aa3751905571ac26"
-    role: "exact repository working-state base before hygiene pilot materialization"
+  - source: ".agent/tasks/TASK-0013/review.yaml@9dcb0ff9716ddf859f29485a207fc172742ec427"
+    role: "revision-1 REVISION_REQUIRED judgment that accepts the .gitignore subject as functionally correct while preserving the failed latency/bundling predicate"
     precedence: 2
-  - source: "fresh GitHub observation: repository-root .gitignore is absent and repository contains Python validator/test tooling"
-    role: "concrete hygiene defect and stack evidence"
+  - source: ".agent/tasks/TASK-0013/report.yaml@095695f110fc19e0892dd31e3079e34b9eac148a"
+    role: "revision-1 exact functional and failed-pilot evidence"
     precedence: 3
-  - source: "TASK-0036 natural CHATGPT_LOCAL baseline as adjudicated by Architect: operator E2E 9m52s; correlated Agent Runtime sample contained 62 terminal_exec invocations, about 37.6s child-process time, and dominant inter-call residual"
-    role: "non-authoritative performance comparison baseline for this natural pilot"
+  - source: "agent-standards@0da0d5864fe5e458af564f3c6ba9959cefd99639"
+    role: "exact immutable functional .gitignore subject"
     precedence: 4
+  - source: "agent-skills/main@ed8d9fb35bb8b052530ca879e68a227d77e4a8a6"
+    role: "current protocol-v3 evidence-reuse and execution semantics"
+    precedence: 5
 
 structure_authority:
   status: RESOLVED
-  source: "repository root ignore policy plus existing canonical task/report layout"
+  source: "existing repository-root .gitignore plus canonical TASK-0013 report/review lineage"
   rationale: >-
-    This task adds exactly one repository-root .gitignore plus the canonical TASK-0013 report. No standard,
-    candidate model, validator, test semantics, package, workflow, runtime, protocol, or repository structure is otherwise changed.
+    Revision 2 is closure-only. It does not implement or modify the functional subject. Executor work is limited to
+    fresh identity/applicability proof and publication of the existing TASK-0013 report artifact at report revision 2.
 
 objective: >-
-  Add the smallest stack-appropriate repository-root .gitignore for agent-standards while naturally dogfooding the
-  ecosystem-active deterministic-bundling semantics on CHATGPT_LOCAL: preserve every correctness/fail-closed predicate,
-  collapse mechanically derivable work into bounded execution bundles, and record enough operational evidence to compare
-  execution shape with the prior TASK-0036 62-call baseline without turning latency into a correctness shortcut.
+  Close only the functional hygiene lineage of TASK-0013 around the already-published exact .gitignore subject
+  0da0d5864fe5e458af564f3c6ba9959cefd99639. Freshly re-resolve revision-1 lineage and current repository truth,
+  reuse still-applicable immutable functional evidence, refresh only current mutable predicates needed for closure,
+  and publish revision-2 evidence without reimplementing .gitignore or retroactively converting the revision-1
+  latency/deterministic-bundling failure into PASS.
 
 scope:
   required_changes:
     - >-
-      Create repository-root .gitignore containing only the supported baseline for this Python-backed support repository:
-      .DS_Store; __pycache__/; *.py[cod]; .venv/; venv/; .pytest_cache/; .mypy_cache/; .ruff_cache/; .coverage;
-      coverage/; .env; .env.* with !.env.example and !.env.*.example exceptions.
+      Freshly re-resolve exact revision-1 candidate 0da0d5864fe5e458af564f3c6ba9959cefd99639, report
+      095695f110fc19e0892dd31e3079e34b9eac148a, review 9dcb0ff9716ddf859f29485a207fc172742ec427,
+      current dev/main refs/topology, active architect-profile/main, and active agent-skills/main.
     - >-
-      Do not add unrelated broad patterns such as .cache/, node_modules/, .next/, build/, dist/, candidate/, standards/,
-      or an ignore for .agent unless fresh repository evidence proves exact need and the task is revised.
+      Prove current dev still contains the exact revision-1 .gitignore subject unchanged and that intervening commits
+      since the candidate changed only canonical TASK-0013 evidence/authority artifacts, not standards, validators,
+      tests, dependencies, workflows, runtime, or the .gitignore subject.
     - >-
-      Preserve any pre-existing operator-owned untracked files exactly; do not delete, clean, stash, move, rewrite,
-      or inspect their contents merely because a new ignore policy is being added.
+      Reuse revision-1 AC-1/AC-2/AC-3 functional evidence only after exact identity and predicate applicability are
+      re-established. Do not rerun acceptance-equivalent producers solely because this is revision 2. Refresh current
+      mutable hygiene with git ls-files -ci --exclude-standard and the minimal exact diff/status/ref checks required
+      to prove the present branch remains functionally clean.
     - >-
-      Under the active agent-skills deterministic-bundling rule, once semantic choices/current authority/current-phase
-      capabilities are resolved, execute the maximal contiguous mechanically derivable suffix as bounded bundle(s).
-      Consequence-boundary refresh remains mandatory evidence work but is not by itself a model/runtime handoff.
-    - >-
-      Record in report evidence the actual Agent Runtime invocation count used after exact binding, including the number
-      of terminal_exec calls and any terminal_start/poll/control calls if they occur; identify each genuine semantic
-      control-return reason. Include the existing operational_timing block only if both canonical timing boundaries are
-      truthfully captured. Do not add telemetry schema, runtime instrumentation, or persistent measurement machinery.
-    - >-
-      Publish the exact .gitignore candidate and compact report-only child on dev. Do not promote main in this task.
+      Publish only .agent/tasks/TASK-0013/report.yaml at report revision 2 on dev, then freshly prove final dev/main
+      refs/topology and local managed-mirror closure. No implementation commit is created for .gitignore.
   allowed_existing_files_or_components:
     - ".gitignore"
     - ".agent/tasks/TASK-0013/report.yaml"
 
 invariants:
-  - "No tracked repository file becomes ignored by the new rules."
-  - "Any tracked .env.example or .env.*.example remains trackable and is not hidden by the ignore rules."
-  - "No existing local untracked operator-owned file is deleted or modified by this task."
-  - "No standards, candidate assessment-kernel bytes, validators, tests, dependencies, workflows, protocol, runtime, Case Router, model policy, or sibling repository are modified."
-  - "Deterministic bundling removes synchronization boundaries, not assurance predicates or authority boundaries."
-  - "Bundle failure or ambiguous postcondition stops the remaining suffix, preserves truthful partial state, and returns attributable evidence without self-retry or self-chosen recovery."
+  - "The exact functional subject remains agent-standards@0da0d5864fe5e458af564f3c6ba9959cefd99639; .gitignore bytes must not change."
+  - "Revision-1 report/review history remains immutable in Git history and revision-1 AC-4/CHECK-2/CHECK-4 failure is never restated as PASS."
+  - "Revision 2 makes no latency, controller, model, transport, or deterministic-bundling performance claim; the next latency pilot is a separate task under the active authority generation."
+  - "No standard model, validator, test, dependency, workflow, runtime, Case Router, protocol, or sibling repository is modified."
   - "Topology remains exactly {dev, main}; main remains unchanged."
 
 forbidden_changes:
-  - "Do not delete or clean local untracked files just to obtain a clean status."
-  - "Do not add generic framework/build ignores without repository evidence."
-  - "Do not modify any tracked file other than .gitignore and .agent/tasks/TASK-0013/report.yaml."
-  - "Do not modify Agent Runtime, add a bundle API, scheduler, queue, cache, registry, daemon, worktree transaction framework, or telemetry framework."
-  - "Do not reduce verification, mutable-evidence refresh, publication proof, or fail-closed behavior to hit a latency/call-count target."
-  - "Do not create/delete/rename branches, tags, releases, repository settings, or promote main."
-
-gap_policy:
-  local_auto_fix: true
-  scope_expansion: forbidden
-  architecture_change: forbidden
-  spec_change: forbidden
-  dependency_change: revised_contract_required
-  public_contract_change: revised_contract_required
-  blocking_gap_behavior: BLOCKED
+  - "Do not modify, regenerate, normalize, or recommit .gitignore."
+  - "Do not rewrite, amend, delete, or replace historical revision-1 commits or claim revision 1 was ACCEPTED."
+  - "Do not rerun the revision-1 latency pilot or reinterpret its 581s / 22-terminal_exec observation as success."
+  - "Do not add telemetry, benchmark machinery, schedulers, queues, daemons, caches, registries, databases, orchestration, or new Agent Runtime APIs."
+  - "Do not modify main, create/delete/rename branches, force-push, tag, release, or mutate repository settings."
 
 capability_requirements:
   EXECUTION:
@@ -135,54 +113,53 @@ capability_requirements:
 acceptance_criteria:
   - id: AC-1
     requirement: >-
-      Exact base-to-candidate diff adds only root .gitignore with the authorized minimal patterns and no unrelated ignore entries.
-    evidence_required: "Exact diff and parsed line-set proof."
+      Exact revision-1 candidate/report/review lineage and current active authority identities are freshly resolved,
+      including the preserved REVISION_REQUIRED judgment and its functional-vs-performance distinction.
+    evidence_required: "Exact immutable commit/content identities plus fresh current refs."
   - id: AC-2
     requirement: >-
-      git ls-files -ci --exclude-standard is empty on the exact candidate, and synthetic git check-ignore proves required
-      positive cases are ignored while .env.example, a representative .env.test.example, and representative repository-owned paths remain unignored.
-    evidence_required: "Exact deterministic ignore-policy evidence without modifying operator-owned files."
+      Current dev contains the exact unchanged revision-1 .gitignore subject; no intervening implementation/dependency
+      change invalidates the accepted functional evidence; current git ls-files -ci --exclude-standard is empty.
+    evidence_required: "Exact subject equality, bounded intervening-diff proof, evidence-applicability proof, and fresh tracked-ignore result."
   - id: AC-3
     requirement: >-
-      Repository-native verification remains green as applicable, git diff --check passes, and no unrelated tracked bytes change.
-    evidence_required: "Repository-native verification plus exact diff/status evidence."
+      Revision-1 functional AC-1/AC-2/AC-3 evidence is reused only for predicates it actually covers, with no
+      acceptance-equivalent rerun for ceremony and no .gitignore implementation mutation.
+    evidence_required: "Explicit reuse/applicability record and exact execution diff showing no functional-subject mutation."
   - id: AC-4
     requirement: >-
-      Execution obeys the active deterministic-bundling semantics: pre-authorized mechanically derivable work does not
-      create per-command model/runtime handoffs, every bundle returns attributable JOIN evidence, and the report records
-      actual runtime invocation counts plus genuine semantic control-return reasons. A performance miss does not authorize
-      skipped proof; unexplained micro-orchestration is a protocol defect signal rather than a reason to weaken correctness.
-    evidence_required: "Compact execution-shape evidence including terminal tool invocation counts and semantic-return classification."
+      Revision-1 latency/deterministic-bundling failure remains historical failed evidence and is explicitly outside
+      revision-2 functional closure; revision 2 makes no performance-success claim.
+    evidence_required: "Report preserves the exact failed historical disposition without retroactive PASS language."
   - id: AC-5
     requirement: >-
-      Exact candidate and report-only child are published on dev; main is unchanged, topology remains {dev, main}, and
-      final local tracked/index state is clean while pre-existing operator-owned untracked state is preserved.
-    evidence_required: "Candidate/report identities, fresh refs/topology, and local hygiene proof."
+      Report revision 2 is the only Executor repository mutation, is published on dev, main is unchanged, topology
+      remains exactly {dev, main}, and final local tracked/index state is clean.
+    evidence_required: "Exact report commit/diff, fresh remote refs/topology, and local closure evidence."
 
 verification:
   executor_checks:
     - id: CHECK-1
       command_or_check: >-
-        Fresh-resolve exact task/base, active architect-profile/main authority set, pinned agent-skills deterministic-bundling
-        semantics, target refs/topology, root .gitignore absence, tracked-file inventory, local status, and current required
-        capabilities without reading operator-owned untracked-file contents.
+        Fresh-resolve exact task/base, revision-1 candidate/report/review, active architect-profile/main and agent-skills/main,
+        target refs/topology, and required EXECUTION capabilities.
       required: true
     - id: CHECK-2
       command_or_check: >-
-        In the smallest bounded deterministic execution shape permitted by semantics, add only the authorized .gitignore;
-        run ignore-policy guards, git ls-files -ci --exclude-standard, repository-native verification as applicable,
-        git diff --check, exact scope guards, and local hygiene checks with attributable JOIN evidence.
+        Prove .gitignore at current base is byte-identical to the exact revision-1 functional subject; inspect only the
+        bounded candidate-to-base changed-path set needed to prove no relevant implementation/dependency invalidation;
+        run fresh git ls-files -ci --exclude-standard.
       required: true
     - id: CHECK-3
       command_or_check: >-
-        Publish exact candidate and report-only child on dev with required fresh pre/post publication proofs; preserve
-        operator-owned untracked state and do not self-attest report publication before post-push observation.
+        Record exact immutable evidence reused from revision 1, exact predicates freshly checked, and the preserved
+        historical performance failure; do not rerun the old latency pilot or acceptance-equivalent producers without
+        a named invalidation reason.
       required: true
     - id: CHECK-4
       command_or_check: >-
-        Record actual Agent Runtime tool invocation counts and classify every model/controller return after binding as
-        semantic, authority/capability, failure/ambiguity, or terminal. Capture existing operational_timing only when both
-        required timestamps are trustworthy. Do not introduce measurement infrastructure.
+        Publish only report revision 2 on dev, then freshly prove exact report diff, final dev/main refs/topology,
+        main unchanged, and local tracked/index hygiene.
       required: true
   authoritative_verification:
     required: false
