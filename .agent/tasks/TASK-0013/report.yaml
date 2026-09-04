@@ -1,0 +1,150 @@
+protocol_version: 3
+
+task_id: TASK-0013
+task_revision: 1
+report_revision: 1
+state: REPORTED
+
+task_source:
+  path: .agent/tasks/TASK-0013/task.yaml
+
+execution:
+  repository: phatnguyen03022001/agent-standards
+  branch:
+    name: dev
+    role: integration
+  authorized_base_head: "7fa43b48ea7a63b574459878c6e6efdbe4681066"
+  final_execution_head: "0da0d5864fe5e458af564f3c6ba9959cefd99639"
+
+skill_library:
+  repository: phatnguyen03022001/agent-skills
+  authorized_revision: "11a5720adf96555bfe4187067d8dd51627ec8676"
+
+capability_preflight:
+  phase: EXECUTION
+  required:
+    - repository_content_read
+    - repository_content_write
+    - native_repository_execution
+    - git_history_read
+    - git_commit
+    - git_push
+    - remote_ref_read
+  available:
+    - repository_content_read
+    - repository_content_write
+    - native_repository_execution
+    - git_history_read
+    - git_commit
+    - git_push
+    - remote_ref_read
+  missing: []
+  passed: true
+  evidence: >-
+    Agent Runtime terminal_exec was live before target mutation and provided the bounded native surface used for
+    repository reads/writes, repository-native verification, Git history, commit, non-force push, and fresh remote-ref reads.
+
+authoritative_verification:
+  required: false
+  performed: false
+  result: NOT_REQUIRED
+  evidence: "TASK-0013 designates no separate authoritative verifier."
+
+pushed: true
+
+operational_timing:
+  started_at_utc: "2026-09-04T18:20:01Z"
+  terminal_decision_at_utc: "2026-09-04T18:23:15Z"
+
+execution_shape:
+  measurement_scope: "after exact binding through terminal decision, before report publication"
+  agent_runtime_invocations:
+    terminal_exec: 22
+    terminal_start: 0
+    terminal_poll: 0
+    terminal_control: 0
+    total: 22
+  comparison_baseline:
+    source: "TASK-0036 natural CHATGPT_LOCAL baseline recorded by TASK-0013 authority"
+    terminal_exec: 62
+  genuine_control_returns:
+    - classification: NEW_MATERIAL_INFORMATION
+      reason: >-
+        The unstaged exact-diff probe returned empty because the new .gitignore was still untracked, requiring
+        index-aware evidence before candidate commit.
+    - classification: CONTRADICTION
+      reason: >-
+        Pinned Task Protocol evidence confirmed that the mechanically derivable post-binding suffix had been
+        fragmented across per-command model/runtime handoffs, making AC-4 unprovable as PASS.
+    - classification: TERMINAL
+      reason: "Executor reached the truthful NEEDS_REVIEW terminal decision before report publication."
+  non_semantic_return_assessment: >-
+    Remaining post-binding terminal_exec returns were transport/controller synchronization rather than genuine
+    semantic control-return reasons; this fragmentation is recorded as the AC-4/CHECK-4 protocol defect rather
+    than treated as successful deterministic bundling.
+  pre_binding_transport_note: >-
+    A multi-command bash terminal_exec bundle and one git-show read were safety-gated before exact binding;
+    they are excluded from the post-binding invocation count.
+
+acceptance_evidence:
+  - criterion_id: AC-1
+    status: PASS
+    evidence: >-
+      Exact base-to-candidate evidence adds only repository-root .gitignore. Parsed line-set proof matched exactly
+      14 authorized patterns, and the staged exact diff contained no unrelated ignore entry.
+  - criterion_id: AC-2
+    status: PASS
+    evidence: >-
+      git ls-files -ci --exclude-standard returned no tracked paths. Synthetic git check-ignore evidence matched
+      .DS_Store, Python cache/bytecode/venv/cache artifacts, coverage artifacts, .env, and .env.local while
+      .env.example, .env.test.example, standards/security.yaml, candidate/assessment_kernel/model.py, and the
+      canonical TASK-0013 task path remained unignored.
+  - criterion_id: AC-3
+    status: PASS
+    evidence: >-
+      python3 -B tools/verify.py passed the repository validator and 57/57 unittest checks; staged git diff --check
+      passed; the candidate commit contains only .gitignore.
+  - criterion_id: AC-4
+    status: FAIL
+    evidence: >-
+      Post-binding execution used 22 terminal_exec invocations through terminal decision versus the cited 62-call
+      TASK-0036 baseline, but mechanically derivable work was still split across per-command model/runtime returns.
+      Fewer calls do not satisfy the mandatory deterministic-bundling semantics, so this criterion is not self-attested PASS.
+  - criterion_id: AC-5
+    status: NOT_PROVEN
+    evidence: >-
+      Before report authorship, fresh remote proof showed dev at exact candidate
+      0da0d5864fe5e458af564f3c6ba9959cefd99639, main unchanged at
+      3f4950f280a3a35fee81471d4b83715fa72cf9ee, and topology exactly {dev, main}. This report-only child publication
+      and final local tracked/index hygiene proof occur after report content is committed and are intentionally not self-attested.
+
+executor_checks:
+  - check_id: CHECK-1
+    result: PASS
+    evidence: >-
+      Fresh resolution proved exact TASK-0013 revision/base, target repository/branch, architect-profile/main authority,
+      pinned agent-skills authority and required skills, live {dev, main} topology, root .gitignore absence at base,
+      tracked inventory, clean pre-mutation local state, and required EXECUTION capabilities without reading untracked contents.
+  - check_id: CHECK-2
+    result: FAIL
+    evidence: >-
+      The authorized .gitignore and every required deterministic guard passed, but the required smallest bounded
+      deterministic execution shape did not: mechanically derivable checks and Git steps were split across terminal_exec calls.
+  - check_id: CHECK-3
+    result: NOT_PROVEN
+    evidence: >-
+      Exact candidate publication is proven. Report-only child publication plus final fresh dev/main/topology and local
+      tracked/index hygiene proof are post-report facts and will be resolved after this report commit.
+  - check_id: CHECK-4
+    result: FAIL
+    evidence: >-
+      Actual post-binding counts through terminal decision are terminal_exec=22 and terminal_start/poll/control=0.
+      Genuine semantic returns are classified above; the remaining per-command returns are unexplained by the allowed
+      semantic return set and therefore constitute the deterministic-bundling protocol defect.
+
+deviations_from_task:
+  - >-
+    Deterministic execution bundling was not satisfied after exact binding. Functional scope and verification remained
+    correct and fail-closed, but AC-4/CHECK-2/CHECK-4 are reported FAIL rather than weakened to meet a latency target.
+
+result: NEEDS_REVIEW
